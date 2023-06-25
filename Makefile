@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+         #
+#    By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/10 17:27:32 by saboulal          #+#    #+#              #
-#    Updated: 2023/06/10 21:20:37 by saboulal         ###   ########.fr        #
+#    Updated: 2023/06/25 20:57:11 by nkhoudro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,8 @@ SRC = \
 		mini_tool/ft_strlen.c\
 		mini_tool/ft_substr.c\
 		mini_tool/ft_strlcpy.c\
+		mini_tool/ft_isalpha.c\
+		mini_tool/ft_strchr.c\
 
 OBJCTS = $(SRC:.c=.o)
 all : $(NAME)

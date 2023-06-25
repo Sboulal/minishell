@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:25:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/06/16 17:44:08 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/06/25 20:56:09 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,22 @@
 #include <readline/history.h>
 #include <stdio.h>
 #include <stdlib.h>
- typedef enum e_token
- {
-   WORD = -1,
-   WHITE_SPACE = ' ',
-   NEW_LINE = '\n',
-   QOUTE = '\'',
-   DOUBLE_QOUTE = '\"',
-   ESCAPE = '\\',
-   ENV = '$',
-   PIPE_LINE = '|',
-   REDIR_IN = '<',
-   REDIR_OUT = '>',
-   AND = '&',
-   HERE_DOC,
-   DREDIR_OUT,
- }t_token;
- 
+typedef enum e_token
+{
+	WORD = -1,
+	WHITE_SPACE = ' ',
+	NEW_LINE = '\n',
+	QOUTE = '\'',
+	DOUBLE_QOUTE = '\"',
+	ESCAPE = '\\',
+	ENV = '$',
+	PIPE_LINE = '|',
+	REDIR_IN = '<',
+	REDIR_OUT = '>',
+	AND = '&',
+	HERE_DOC,
+	DREDIR_OUT,
+}t_token;
 
 enum e_state
 {
@@ -54,7 +53,7 @@ typedef struct s_lexer
 {
    char *str;
    char **store;
-   t_token token;
+   t_token *token;
    int i;
    struct s_lexer *next ;
    struct s_lexer *prev;
@@ -75,4 +74,7 @@ char	*ft_strdup(const char	*str);
 size_t	ft_strlen(const char *str);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+int	ft_isalpha(int c);
+int ft_strchr(char *str,int c);
+
 #endif
