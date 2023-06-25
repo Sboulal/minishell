@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/06/25 21:17:47 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/06/25 23:46:30 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,17 @@ int check_token(char **cmd)
 			token = REDIR_IN;	
 		else if(ft_strchr(cmd[i],'>'))
 			token = REDIR_OUT;
-		else
-			printf("command not found\n");
+		else if(ft_strchr(cmd[i],'&'))
+			token = AND;
+		else if(ft_strchr(cmd[i],HERE_DOC))
+			token = HERE_DOC;
+		else if(ft_strchr(cmd[i],DREDIR_OUT))
+			token = DREDIR_OUT;
+		else if(ft_strchr(cmd[i],DOUBLE_QOUTE))
+			token = DOUBLE_QOUTE;
 		
 	}
-
+   
 	return (0);
 }
 int main(int ac, char *argv[],char *env[])
@@ -82,11 +88,15 @@ int main(int ac, char *argv[],char *env[])
   
     while(1)
     {
-         cmd = readline("minishell $");
+         cmd = readline("minishell$ ");
        if(cmd && *cmd)
           add_history(cmd);
-        comand = ft_split(cmd, ' ');
-        check_token(comand);
+		while(cmd[i])
+		{
+			comand = ft_split(cmd, ' ');
+        	check_token(comand);
+            i++;			
+		}
         /*part lexer */
     
         
