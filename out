@@ -1,0 +1,16 @@
+-rw-r--r--   1 saboulal  candidate      0 Jun 23 20:06 file1
+-rw-r--r--   1 saboulal  candidate      0 Jun 23 20:07 outfile
+-rw-r--r--   1 saboulal  candidate      0 Jun 23 20:08 out
+-rw-r--r--   1 saboulal  candidate    980 Jun 10 17:33 tokenizer.c
+-rw-r--r--   1 saboulal  candidate   1312 Jun 23 20:02 main.o
+-rw-r--r--   1 saboulal  candidate   1346 Jun 10 21:20 Makefile
+-rw-r--r--   1 saboulal  candidate   1659 Jun 23 20:02 main.c
+-rw-r--r--   1 saboulal  candidate   2026 Jun 16 17:44 minishell.h
+-rw-r--r--   1 saboulal  candidate   2224 Jun 10 21:10 tokenizer.o
+-rwxr-xr-x   1 saboulal  candidate  50008 Jun 23 20:02 minishell
+drwxr-xr-x   3 saboulal  candidate    102 Jun  4 16:55 .vscode
+drwxr-xr-x  12 saboulal  candidate    408 Jun 23 20:02 mini_tool
+drwxr-xr-x  13 saboulal  candidate    442 Jun  4 17:02 .git
+drwxr-xr-x  15 saboulal  candidate    510 Jun 23 20:07 .
+drwxr-xr-x  21 saboulal  candidate    714 Jun 22 16:34 ..
+total 152
