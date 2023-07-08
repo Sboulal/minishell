@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/06/25 23:46:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/07/08 12:59:08 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,70 +33,79 @@ int check_word(char *str)
 	return (0);
 }
 
-int check_token(char **cmd)
-{
-	int i;
+// int check_token(char **cmd)
+// {
+// 	int i;
 	
-	enum e_token token;
+// 	enum e_token *token;
 	
 	
-	i = -1;
-	while (cmd[++i])
-	{
-		if (check_word(cmd[i]) == -1)
-			token = WORD;
-		else if (ft_strchr(cmd[i],'|'))
-			token = PIPE_LINE;	
-		else if (ft_strchr(cmd[i],'\n'))
-			token = NEW_LINE;	
-		else if (ft_strchr(cmd[i],'$'))
-			token = ENV;	
-		else if (ft_strchr(cmd[i],'\''))
-			token = QOUTE;	
-		else if (ft_strchr(cmd[i],'<'))
-			token = REDIR_IN;	
-		else if(ft_strchr(cmd[i],'>'))
-			token = REDIR_OUT;
-		else if(ft_strchr(cmd[i],'&'))
-			token = AND;
-		else if(ft_strchr(cmd[i],HERE_DOC))
-			token = HERE_DOC;
-		else if(ft_strchr(cmd[i],DREDIR_OUT))
-			token = DREDIR_OUT;
-		else if(ft_strchr(cmd[i],DOUBLE_QOUTE))
-			token = DOUBLE_QOUTE;
+// 	i = -1;
+// 	while (cmd[++i])
+// 	{
+// 		if (check_word(cmd[i]) == -1)
+// 			token = WORD;
+// 		else if (ft_strchr(cmd[i],'|'))
+// 			token = PIPE_LINE;	
+// 		else if (ft_strchr(cmd[i],'\n'))
+// 			token = NEW_LINE;	
+// 		else if (ft_strchr(cmd[i],'$'))
+// 			token = ENV;	
+// 		else if (ft_strchr(cmd[i],'\''))
+// 			token = QOUTE;	
+// 		else if (ft_strchr(cmd[i],'<'))
+// 			token = REDIR_IN;	
+// 		else if(ft_strchr(cmd[i],'>'))
+// 			token = REDIR_OUT;
+// 		else if(ft_strchr(cmd[i],'&'))
+// 			token = AND;
+// 		else if(ft_strchr(cmd[i],HERE_DOC))
+// 			token = HERE_DOC;
+// 		else if(ft_strchr(cmd[i],DREDIR_OUT))
+// 			token = DREDIR_OUT;
+// 		else if(ft_strchr(cmd[i],DOUBLE_QOUTE))
+// 			token = DOUBLE_QOUTE;
+// 		else
+// 			printf("command not found\n");
 		
-	}
+// 	}
    
-	return (0);
-}
-int main(int ac, char *argv[],char *env[])
+// 	return (0);
+// }
+int main(int ac, char *argv[], char *env[])
 {
-  (void)argv;
   (void)env;
-  (void)ac;
   char *cmd ;
-  char **comand;
+//   char **comand;
  
   // t_lexer *a = NULL;
   // char **str;
   int i;
   
-  i = 0;
+  i = 1;
    if(ac != 1)
-    exit(0);
-  
+   {
+	while(argv[i])
+	{
+		printf("%s: ", argv[i]);
+		i++;
+	}
+	printf("No such file or directory\n");
+    return (0);
+   }
+	i = 0;
     while(1)
     {
          cmd = readline("minishell$ ");
        if(cmd && *cmd)
           add_history(cmd);
-		while(cmd[i])
-		{
-			comand = ft_split(cmd, ' ');
-        	check_token(comand);
-            i++;			
-		}
+		printf("%s\n", cmd);
+		// while(cmd[i])
+		// {
+		// 	comand = ft_split(cmd, ' ');
+        // 	check_token(comand);
+        //     i++;			
+		// }
         /*part lexer */
     
         

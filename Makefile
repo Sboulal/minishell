@@ -1,19 +1,7 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/10 17:27:32 by saboulal          #+#    #+#              #
-#    Updated: 2023/06/25 20:57:11 by nkhoudro         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
-NAME = minishell
 CC = cc
+LIBFT = libft/libft.a
 CFLAGS = -Wall -Wextra -Werror 
+NAME = minishell
 SRC = \
 		main.c\
 		mini_tool/ft_split.c\
@@ -26,17 +14,22 @@ SRC = \
 
 OBJCTS = $(SRC:.c=.o)
 all : $(NAME)
-$(NAME) : $(OBJCTS) 
-		$(CC) $(CFLAGS) -lreadline $^ -o $@
+$(NAME) : $(OBJCTS) $(LIBFT)
+		$(CC) $(CFLAGS) $(LIBFT) -lreadline $^ -o $@ 
+
 %.o: %.c minishell.h
 	$(CC) $(CFLAGS) -c $< -o $@ 
 	
+$(LIBFT):
+	make -C libft
+
 clean:
 	rm -f $(OBJCTS)
+	make -C libft clean
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(LIBFT)
 
 re: fclean all
 
-.PHONY: fclean clean all re bonus
+.PHONY: fclean clean all re 
