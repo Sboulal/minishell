@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:36 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/07/09 16:03:56 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/07/09 17:40:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,32 @@ void  delete_var_env(char *data)
     if (!ft_strchr(data, '='))
         free(getenv(data));
 }
+void exec_cmd(char *cmd, char **env)
+{
+    t_envp *list_env;
+	char **str;
+
+	creat_env(env, &list_env);
+    if ((ft_strncmp(cmd, "env", 3) == 0) )
+        print_env(list_env);
+    if (ft_strncmp(cmd, "export", 6) == 0)
+    {
+        ft_export(cmd);
+        str = ft_split(cmd, ' ');
+        add_env(&list_env, av[i + 1]);
+        print_env(list_env);
+    }
+
+    if (ft_strncmp(cmd, "unset", 5) == 0)
+    {
+        delete_var_env(av[i + 1]);
+        print_env(list_env);
+    }
+}
 int main(int ac, char **av, char **env)
 {
     int i;
     char *cmd;
-    t_envp *list_env;
 
     i = 1;
     if(ac != 1)
@@ -80,26 +101,7 @@ int main(int ac, char **av, char **env)
          cmd = readline("minishell$ ");
         if(cmd && *cmd)
           add_history(cmd);
-        creat_env(env, &list_env);
-        if (ft_strncmp(cmd, "env", 3) == 0)
-        {
-            print_env(list_env);
-            // exit(1);
-        }
-
-        if (ft_strncmp(cmd, "export", 6) == 0)
-        {
-            add_env(&list_env, av[i + 1]);
-            print_env(list_env);
-            // exit(1);
-        }
-
-        if (ft_strncmp(cmd, "unset", 5) == 0)
-        {
-            delete_var_env(av[i + 1]);
-            print_env(list_env);
-            // exit(1);
-        }
+		  exec_cmd(cmd, env);
 	}
 
     // if (ft_strncmp(cmd, "unset", 5) == 0)
