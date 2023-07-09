@@ -2,6 +2,11 @@
 # define MINISHELL_H
 // this struct you will push to me
  #include "libft/libft.h"
+ #include <unistd.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include <stdio.h>
+#include <stdlib.h>
 typedef struct s_mini
 {
     char *cmd; // command "ls"
@@ -28,4 +33,9 @@ typedef struct s_exec
 	 t_envp *env;
 }t_exec;
 
+t_envp *list_env(char *env);
+t_envp *ft_lst(t_envp *lst);
+void add_back_env(t_envp **lst, t_envp *new);
+void  creat_env(char **env , t_envp **lst);
+void print_env(t_envp *lst);
 #endif

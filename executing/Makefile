@@ -1,7 +1,7 @@
 CC = cc
 LIBFT = libft/libft.a
 CFLAGS = -Wall -Wextra -Werror 
-NAME = exec
+NAME = minishell
 SRC = \
 		builtins/main.c\
 		builtins/cd.c\
@@ -11,6 +11,7 @@ SRC = \
 		builtins/export.c\
 		builtins/pwd.c\
 		builtins/unset.c\
+		builtins/creat_env_struct.c\
 
 OBJCTS = $(SRC:.c=.o)
 all : $(NAME)
