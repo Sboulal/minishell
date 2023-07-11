@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:36 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/07/11 14:17:31 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/07/11 17:34:52 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,44 +47,65 @@
 // {
 //     cmd_new()
 // }
-void  add_env(t_envp **env, char *data)
-{
-    if (ft_strchr(data, '='))
-        add_back_env(env, list_env(data));
-}
-void  delete_var_env(char *data)
-{
-    if (!ft_strchr(data, '='))
-        free(getenv(data));
-}
-void exec_cmd(char *cmd, char **env)
+void exec_cmd(t_mini *cmd, char **env)
 {
     t_envp *list_env;
-	// char **str;
-
-	creat_env(env, &list_env);
-    if ((ft_strncmp(cmd, "env", 3) == 0) )
+    creat_env(env, &list_env);
+    if (ft_strncmp(cmd->cmd, "env", 3) == 0)
         print_env(list_env);
-    // if (ft_strncmp(cmd, "export", 6) == 0)
+    
+    // if (ft_strncmp(cmd->cmd, "export", 6) == 0)
     // {
-    //     ft_export(cmd);
-    //     str = ft_split(cmd, ' ');
     //     add_env(&list_env, av[i + 1]);
     //     print_env(list_env);
+    //     // exit(1);
     // }
 
-//     if (ft_strncmp(cmd, "unset", 5) == 0)
-//     {
-//         delete_var_env(av[i + 1]);
-//         print_env(list_env);
-//     }
+    // if (ft_strncmp(cmd->cmd, "unset", 5) == 0)
+    // {
+    //     delete_var_env(av[i + 1]);
+    //     print_env(list_env);
+    //     // exit(1);
+    // }
+}
+// void  add_env(t_envp **env, char *data)
+// {
+//     if (ft_strchr(data, '='))
+//         add_back_env(env, list_env(data));
+// }
+// void  delete_var_env(char *data)
+// {
+//     if (!ft_strchr(data, '='))
+//         free(getenv(data));
+// }
+t_mini *ft_new_command(int i,char **str)
+{
+   int k;
+
+   k = 1;
+    if (!str)
+        return (NULL);
+    t_mini *new = (t_mini *)malloc(sizeof(t_mini));
+    new->nbr_arg = i;
+    if (!str[0])
+        return (NULL);
+    new->cmd = str[0];
+    new->arg = str + k;
+    new->infile = 0;
+    new->outfile = 0;
+    new->next = NULL;
+    new->prev = NULL;
+    return (new);
 }
 int main(int ac, char **av, char **env)
 {
     int i;
     char *cmd;
+    char **str;
+     t_mini *comd;
 
     i = 1;
+    (void)env;
     if(ac != 1)
    {
 	    while(av[i])
@@ -101,13 +122,16 @@ int main(int ac, char **av, char **env)
          cmd = readline("minishell$ ");
         if(cmd && *cmd)
           add_history(cmd);
-		  exec_cmd(cmd, env);
+        if (!cmd || ft_strncmp(cmd, "exit", 4) == 0)
+        {
+            printf("exit\n");
+            exit(0);
+        }
+        str = ft_split(cmd, ' ');
+        while (str[i])
+            i++;
+        i = i - 1;
+       comd =  ft_new_command(i, str);
+       exec_cmd(comd, env);
 	}
-
-    // if (ft_strncmp(cmd, "unset", 5) == 0)
-    // {
-    //     print_env(list_env);
-    //     exit(1);
-    // }
-    // printf("%s\n", getenv(av[i]));
 }
