@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 16:25:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/06/25 20:56:09 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:08:01 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef LEXER_H
+# define LEXER_H
 
 #include <unistd.h>
 #include <readline/readline.h>
@@ -41,40 +41,35 @@ enum e_state
    IN_QUOTE,
    GENERAL,
 };
-typedef struct s_list
-{
-   char *env;
-   char  *value;
-   struct s_list *next;
-}t_list;
 
 // for lexer 
 typedef struct s_lexer
 {
    char *str;
-   char **store;
-   t_token *token;
-   int i;
+   int lenght;
+   enum e_token type;
+   enum	e_state state;
    struct s_lexer *next ;
    struct s_lexer *prev;
 }t_lexer;
 
-// typedef struct s_elem
-// {
-//    char *content;
-//    int len;
-//    enum e_token type;
-//    //enum
-//    t_elem *next;
-//    t_elem *prev;
-// }t_elem;
+typedef struct s_list
+{
+   
+ int		how;
+ t_lexer  *head;
+ t_lexer  *last;
+}t_list;
+
+
+
 
 char	**ft_split(char const *s, char c);
 char	*ft_strdup(const char	*str);
-size_t	ft_strlen(const char *str);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-int	ft_isalpha(int c);
-int ft_strchr(char *str,int c);
+int	ft_strlen(const char *str);
+void	*ft_calloc(size_t em, size_t emz);
+void	ft_bzero(void *s, size_t n);
+void	*ft_memset(void *p, int c, size_t len);
+
 
 #endif

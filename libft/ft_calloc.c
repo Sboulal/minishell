@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/02 11:31:46 by saboulal         ###   ########.fr       */
+/*   Created: 2023/07/11 20:49:08 by saboulal          #+#    #+#             */
+/*   Updated: 2023/07/11 21:26:36 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "lexer.h"
-
-int main(int ac, char *argv[],char *env[])
+void	*ft_calloc(size_t em, size_t emz)
 {
-  char *bas;
-  int e_l;
-  (void)argv;
-  (void)ac;
-  (void)env;
-  while(1)
-  {
-    bas = readline("bash$ ");
-    if(ft_strlen(bas) > 0)
-      add_history(bas);
-    if(bas == 0)
-      return(0);
-    e_l = lexer;
-    // free(bas);
-  }
-   return (0);  
+	size_t	i;
+	char	*p;
+
+	i = 0;
+	if ((em * emz) / emz != em)
+		return (NULL);
+	p = (char *)malloc(em * emz);
+	if (!p)
+		return (NULL);
+	ft_bzero(p, em * emz);
+	return (p);
 }
