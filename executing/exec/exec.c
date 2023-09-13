@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 18:23:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:28:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char	**execve_join(t_exec *exp, char *path, t_mini *cmd)
 	pt[i] = ft_strdup(path);
 	i++;
 	j = 0;
-	// printf("%s\n", cmd->arg[j]);
 	while (cmd->arg[j])
 	{
 		pt[i] = ft_strdup(cmd->arg[j]);
@@ -40,9 +39,8 @@ char	**execve_join(t_exec *exp, char *path, t_mini *cmd)
 char	**exec_chec_join(char *str, char *path, t_mini *cmd, t_exec *exp)
 {
 	char	**pt;
-
 	if (str)
-		 pt = execve_join(exp, path, cmd);
+		pt = execve_join(exp, path, cmd);
 	else
 		pt = execve_join(exp, cmd->cmd, cmd);
 	return (pt);

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 17:56:50 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:32:35 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,15 +122,30 @@ void	protect_cmd(t_envp *env)
 // 		head = head->next;
 // 	}
 // }
-void	exec_cmd(t_exec *exp, char **env)
+void	exec_cmd(t_exec *exp)
 {
+	t_mini *head;
+	int i;
+
+	i = 0;
+	// (void )env;
 	sig_cmd();
 	if (!(exp)->cmd)
 		return ;
-	if (!(*env) && !((exp->env)))
-		protect_cmd(exp->env);
-	else if (!(exp->env) && (*(g_var.env)))
-		creat_env(&(exp)->env);
+	if (exp->cmd)
+	{
+		head = exp->cmd;
+		while (head)
+		{
+			head = head->next;
+			i++;
+		}
+		exp->nbr_cmd = i;
+	}
+	// if (!(*env) && !((exp->env)))
+	// 	protect_cmd(exp->env);
+	// else if (!(exp->env) && (*(g_var.env)))
+	// 	creat_env(&(exp)->env);
 	if (!(exp)->exp)
 		creat_exp(&(exp)->exp, (exp)->env);
 	// if ((exp)->env)

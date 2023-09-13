@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 21:13:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/13 22:17:54 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void		sort_list(t_export **exp);
 void		creat_exp(t_export **exp, t_envp *env);
 void		add_back_exp(t_export **lst, t_export *new);
 t_mini		*ft_new_command(int i, char **str);
-void		exec_cmd(t_exec *exp, char **env);
+void		exec_cmd(t_exec *exp);
 // void		buil_exec(t_exec *exp, t_mini *cmd, char **env);
 void		exec_pipe(t_exec *exp, t_mini *cmd);
 void		buil_exec_pipe(t_exec *exp, t_mini *cmd);

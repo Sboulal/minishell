@@ -99,7 +99,7 @@ char	*here_doc_name(void);
 void	*tabfree(char **tab);
 void	handle_pipes(t_mini *cmd, t_lexer *tokens);
 int	handle_redirection(t_mini *cmd, t_lexer *tokens);
-void	handle_cmd(t_mini *cmd, t_lexer *tokens);
+t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens);
 /*creatin pars*/
 t_mini *parse(char *str);
 int	position_of_operator(char *s);

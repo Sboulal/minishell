@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 18:19:15 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:26:38 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens)
 	return (1);
 }
 
-void	handle_cmd(t_mini *cmd, t_lexer *tokens)
+t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 {
 	int		wc;
 	int		i;
@@ -52,13 +52,14 @@ void	handle_cmd(t_mini *cmd, t_lexer *tokens)
 
 	wc = 0;
 	head = tokens;
+	cmd = (t_mini *) malloc(sizeof(t_mini));
 	while (tokens && tokens->type != PIPE_LINE)
 	{
 		if (tokens->type == WORD)
 			wc++;
 		tokens = tokens->next;
 	}
-	options = ft_calloc(sizeof(char *) * (wc + 1));
+	options = (char **) malloc(sizeof(char *) * (wc + 1));
 	i = 0;
 	while (head && head->type != PIPE_LINE)
 	{
@@ -67,6 +68,17 @@ void	handle_cmd(t_mini *cmd, t_lexer *tokens)
 		head = head->next;
 	}
 	options[i] = NULL;
-	cmd->arg = options;
+	cmd->nbr_arg = i - 1;
+	cmd->arg = (char **)malloc(sizeof(char *) * i);
 	cmd->cmd = options[0];
+	int j = 0;
+	i = 1;
+	while (options[i])
+	{
+		cmd->arg[j] = ft_strdup(options[i]);
+		i++;
+		j++;
+	}
+	cmd->arg[j] = NULL;
+	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:23:51 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens)
 	}
 	else
 		g_var.status = 0;
-	handle_cmd(new, tokens);
+	new = handle_cmd(new, tokens);
 	add(cmds, new);
 	return (next_pipe(tokens));
 }
