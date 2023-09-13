@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 17:21:59 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/13 21:13:36 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void		creat_exp(t_export **exp, t_envp *env);
 void		add_back_exp(t_export **lst, t_export *new);
 t_mini		*ft_new_command(int i, char **str);
 void		exec_cmd(t_exec *exp, char **env);
-void		buil_exec(t_exec *exp, t_mini *cmd, char **env);
+// void		buil_exec(t_exec *exp, t_mini *cmd, char **env);
 void		exec_pipe(t_exec *exp, t_mini *cmd);
 void		buil_exec_pipe(t_exec *exp, t_mini *cmd);
 void		builtins(t_exec *exp, t_mini *cmd);
@@ -95,7 +95,7 @@ void		check_error_export(char *cmd, int i);
 int			check_export(char *cmd);
 void		use_pipe(t_exec *exp, t_mini *cmd);
 int			sig(void);
-void		parcing_cmd(char *cmd, char **env);
+// void		parcing_cmd(char *cmd, char **env);
 void		change_olde_pwd(t_envp **list, char *old);
 int			sig_cmd(void);
 void		edit_shlvl(t_exec *exp);
@@ -107,4 +107,5 @@ void		wait_pid(pid_t *pid, t_exec *exp);
 char		*get_env(t_envp *list_env);
 void		print_error_nor(char *str);
 void		print_error_norr(char *str, int i);
+void	protect_cmd(t_envp *env);
 #endif
