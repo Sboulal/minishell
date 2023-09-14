@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:20:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 23:24:33 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/13 23:43:04 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,5 @@ t_mini	*convert_to_cmds(t_lexer *tokens)
 	open_pipes(head);
 	while (tokens)
 		tokens = add_cmd(&cmds, tokens);
-	printf("%s\n", cmds->arg[0]);
 	return (cmds);
 }

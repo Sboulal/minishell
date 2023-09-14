@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 23:32:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:21:40 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,20 @@ void	protect_cmd(t_envp *env)
 // 	i = 0;
 // 	while (head)
 // 	{
-// 		// head->index = i;
 // 		i++;
 // 		head = head->next;
 // 	}
 // }
-void	exec_cmd(t_exec *exp)
+void	exec_cmd(t_exec *exp, char **env)
 {
 	t_mini *head;
 	int i;
-
 	i = 0;
-	// (void )env;
+	(void)env;
 	sig_cmd();
 	if (!(exp)->cmd)
 		return ;
-	if (exp->cmd)
+	if (exp->cmd->next)
 	{
 		head = exp->cmd;
 		while (head)
@@ -142,12 +140,31 @@ void	exec_cmd(t_exec *exp)
 		}
 		exp->nbr_cmd = i;
 	}
-	// if (!(*env) && !((exp->env)))
+	else
+		exp->nbr_cmd = 1;
+	
+	// if (*env)
+		// g_var.env = env;
+	// if (!(*env) && !((exp->env->env)))
 	// 	protect_cmd(exp->env);
 	// else if (!(exp->env) && (*(g_var.env)))
 	// 	creat_env(&(exp)->env);
-	if (!(exp)->exp)
-		creat_exp(&(exp)->exp, (exp)->env);
+	// 	printf(" ha ana %s \n", (exp)->exp->exp);
+	// if (!(exp)->exp->exp)
+	// {
+	// 	creat_exp(&(exp)->exp, (exp)->env);
+	// }
+	// exit(0);
+	t_export *head1;
+
+	head1 = (exp)->exp;
+	// if (!head1)
+		// printf("ma kayn walo %s\n", head1->exp);
+	while (head1)
+	{
+		printf("%s", head1->exp);
+		head1 = head1->next;
+	}
 	// if ((exp)->env)
 	// 	instiall_index(exp);
 	// if ((exp->nbr_cmd != 1 || ft_strcmp(exp->cmd->cmd, "cd") != 0))
@@ -157,7 +174,7 @@ void	exec_cmd(t_exec *exp)
 	// 	use_pipe(exp, exp->cmd);
 	// else
 	// 	builtins(exp, exp->cmd);
-	if ((exp->nbr_cmd == 1 && ft_strcmp(exp->cmd->cmd, "cd") == 0) || ((exp->cmd && exp->cmd->arg[0])
+	if ((exp->nbr_cmd == 1 && ft_strcmp(exp->cmd->cmd, "cd") == 0) || ((exp->cmd->arg[0])
 		&&  (ft_strcmp(exp->cmd->cmd, "export") == 0)))
 		builtins(exp, exp->cmd);
 	else

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 23:28:46 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:37:35 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	**execve_join(t_exec *exp, char *path, t_mini *cmd)
 char	**exec_chec_join(char *str, char *path, t_mini *cmd, t_exec *exp)
 {
 	char	**pt;
+
 	if (str)
 		pt = execve_join(exp, path, cmd);
 	else

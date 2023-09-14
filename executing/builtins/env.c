@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 17:29:41 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:49:32 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,27 +21,27 @@ char	*get_env(t_envp *list_env)
 	return (list_env->value);
 }
 
-// int	ft_strcmp(const char *s1, const char *s2)
-// {
-// 	unsigned char	*my_s1;
-// 	unsigned char	*my_s2;
-// 	size_t			i;
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned char	*my_s1;
+	unsigned char	*my_s2;
+	size_t			i;
 
-// 	i = 0;
-// 	if (!s1)
-// 		return (-1);
-// 	if (!s2)
-// 		return ((int )s1[i]);
-// 	my_s1 = (unsigned char *)s1;
-// 	my_s2 = (unsigned char *)s2;
-// 	while ((my_s1[i] != '\0' || my_s2[i] != '\0'))
-// 	{
-// 		if (my_s1[i] != my_s2[i])
-// 			return (my_s1[i] - my_s2[i]);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	if (!s1)
+		return (-1);
+	if (!s2)
+		return ((int )s1[i]);
+	my_s1 = (unsigned char *)s1;
+	my_s2 = (unsigned char *)s2;
+	while ((my_s1[i] != '\0' || my_s2[i] != '\0'))
+	{
+		if (my_s1[i] != my_s2[i])
+			return (my_s1[i] - my_s2[i]);
+		i++;
+	}
+	return (0);
+}
 
 void	sort_utile(t_export *head, t_export *tomp)
 {

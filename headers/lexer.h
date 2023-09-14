@@ -34,12 +34,11 @@
 
 typedef struct s_envp
 {
-    char *env; //line of enverment "PATH=/usr/local/bin"
-	char *variable; // variable of enverment "PATH"
-	char *value; //value "/usr/local/bin"
-	struct s_envp *next;
-	// struct s_envp *prev;
-}  t_envp;
+	char			*env;
+	char			*variable;
+	char			*value;
+	struct s_envp	*next;
+}	t_envp;
 
 typedef struct s_glob
 {
@@ -54,7 +53,6 @@ t_glob g_var;
 // {
 // 	 //end command 
 // }t_token;
-
 typedef struct s_lexer
 {
 	char *token;

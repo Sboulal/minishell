@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:43:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/13 17:29:41 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 14:42:29 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ t_export	*ft_lst_exp(t_export *exp)
 	t_export	*lst;
 
 	lst = exp;
+	if (!lst)
+		return (NULL);
+	if (!(lst->next))
+		return (lst);
 	while (lst && lst->next)
 		lst = lst->next;
 	return (lst);
