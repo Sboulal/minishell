@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 22:29:28 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 00:19:39 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	error_fork(pid_t pid)
 
 void	norm_pipe(t_mini *head, int **pipfd, t_exec *exp, int j)
 {
-	printf("write = %d  read = %d\n", head->fd[READ_END] , head->fd[WRITE_END]);
 	if (head->fd[READ_END] > 2)
 		dup2(head->fd[READ_END], READ_END);
 	else if (j > 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/14 22:59:10 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 00:18:41 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,18 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 
 	wc = 0;
 	head = tokens;
-	in = cmd->fd[0];
-	out = cmd->fd[1];
+	if (!check_redirections(tokens))
+	{
+		if (cmd->fd[0])
+			in = cmd->fd[0];
+		if (cmd->fd[1])
+			out = cmd->fd[1];
+	}
+	else
+	{
+		in = -4;
+		out = - 4;
+	}
 	cmd = (t_mini *) malloc(sizeof(t_mini));
 	while (tokens && tokens->type != PIPE_LINE)
 	{

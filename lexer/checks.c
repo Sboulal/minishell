@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 00:17:43 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,23 +128,38 @@ int	redirect(t_mini *cmd, char *type, char *file)
 	{
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
+		{
+			cmd->fd[1] = -4;
 			return (0);
+		}
 		check_and_redirect(&cmd->fd[1], fd);
 	}
+	else
+		cmd->fd[1] = -4;
 	if (!ft_strcmp(type, ">"))
 	{
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd == -1)
+		{
+			cmd->fd[1] = -4;
 			return (0);
+		}
 		check_and_redirect(&cmd->fd[1], fd);
 	}
+	else
+		cmd->fd[1] = -4;
 	if (!ft_strcmp(type, "<"))
 	{
 		fd = ft_open(file, O_RDONLY, 0);
 		if (fd == -1)
+		{
+			cmd->fd[0] = -4;
 			return (0);
+		}
 		check_and_redirect(&cmd->fd[0], fd);
 	}
+	else
+		cmd->fd[0] = -4;
 	return (1);
 }
 
