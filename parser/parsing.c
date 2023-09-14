@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 23:14:38 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:21:43 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_mini *parse(char *str)
 	string = skip_vid(str);
 	if(string == NULL)
 	{
-		ft_putstr_fd("$bash : syntax error",2);
+		ft_putstr_fd("$bash : syntax error\n",2);
 		return(NULL);
 	}
 	lexer= skip_op(string);

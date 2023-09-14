@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:19:59 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:38:24 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void		check_error_export(char *cmd, int i);
 int			check_export(char *cmd);
 void		use_pipe(t_exec *exp, t_mini *cmd);
 int			sig(void);
+void	print_in_echo(char **arg);
 // void		parcing_cmd(char *cmd, char **env);
 void		change_olde_pwd(t_envp **list, char *old);
 int			sig_cmd(void);

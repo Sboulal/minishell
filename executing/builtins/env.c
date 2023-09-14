@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 15:46:35 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:34:53 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void	builtins(t_exec *exp, t_mini *cmd)
 		exit_program(cmd);
 	else if ((ft_strcmp(cmd->cmd, "echo") == 0))
 	{
-		print_echo(cmd->arg, cmd->nbr_arg, exp);
+		// print_echo(cmd->arg, cmd->nbr_arg, exp);
+		print_in_echo(cmd->arg);
 	}
 	else if ((ft_strcmp(cmd->cmd, "pwd") == 0))
 	{

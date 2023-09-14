@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 14:26:53 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 20:24:36 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ void	check_error_export(char *cmd, int i)
 					printf("bash: syntax error near ");
 					printf("unexpected token `%c'\n", (cmd[i]));
 				}
-				else
-				{
-					printf("bash: export: `%s':", (cmd));
-					printf(" not a valid identifier\n");
-				}
+				// else
+				// {
+				// 	printf("bash: export: `%s':", (cmd));
+				// 	printf(" not a valid identifier\n");
+				// }
 			}
 		}
 	}
