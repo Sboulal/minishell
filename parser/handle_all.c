@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/14 16:48:14 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/14 22:59:10 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,15 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 {
 	int		wc;
 	int		i;
+	int		in;
+	int		out;
 	char	**options;
 	t_lexer	*head;
 
 	wc = 0;
 	head = tokens;
+	in = cmd->fd[0];
+	out = cmd->fd[1];
 	cmd = (t_mini *) malloc(sizeof(t_mini));
 	while (tokens && tokens->type != PIPE_LINE)
 	{
@@ -81,5 +85,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		j++;
 	}
 	cmd->arg[j] = NULL;
+	cmd->fd[0] = in;
+	cmd->fd[1] = out;
 	return (cmd);
 }

@@ -3,6 +3,7 @@
     "files.associations": {
         "complex": "c",
         "exec.h": "c",
-        "chrono": "c"
+        "chrono": "c",
+        "lexer.h": "c"
     }
 }
