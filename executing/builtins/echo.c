@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:37:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:45:04 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	check_arg(char **args, int k, int nbr, int len)
 	int	i;
 
 	i = 0;
+	if (!(*args))
+		return (0);
 	while (args[k][i])
 	{
 		if (!check_echo_arg(k, i, args))
@@ -86,7 +88,7 @@ void	print_echo(char **arg, int nbr, t_exec *exp)
 
 	i = 0;
 	len = 1;
-	(void)exp;
+
 	if (!(*arg) || !arg)
 		return ;
 	while (arg[i])

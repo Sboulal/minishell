@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 23:26:38 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:48:14 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	cmd->nbr_arg = i - 1;
 	cmd->arg = (char **)malloc(sizeof(char *) * i);
 	cmd->cmd = options[0];
+	cmd->next = NULL;
 	int j = 0;
 	i = 1;
 	while (options[i])

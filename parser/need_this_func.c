@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   need_this_func.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 23:23:51 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:32:33 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens)
 		g_var.status = 0;
 	new = handle_cmd(new, tokens);
 	add(cmds, new);
+
 	return (next_pipe(tokens));
 }

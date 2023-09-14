@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/14 14:41:57 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:13:12 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int main(int ac, char *av[],char *env[])
 	  // if (!(exp)->exp)
 		//   creat_exp(&(exec.env), (exec.env));
 	// t_export *head1;
-    exec.cmd = parse(bas);
     if (!exp)
     {
 		  g_var.env = env;
@@ -84,14 +83,17 @@ int main(int ac, char *av[],char *env[])
 		    protect_cmd(exec.env);
 	    else if (!(exec.env) && (*(g_var.env)))
 		    creat_env(&exec.env);
-		    // printf(" ha ana %s \n", exec.env->next->env);
+		    // printf("  %s \n", exec.env->next->env);
 	    // if (!(exec.exp->exp))
 	    // {
         exec.exp = NULL;
+        // exec.env = NULL;
+        // exec.cmd = NULL;
 	    	creat_exp(&exec.exp, exec.env);
         exp = exec.exp;
 	    // }
     }
+    exec.cmd = parse(bas);
 	// else
 	// 	g_var.env = NULL;
   // if (!(*env) && !((exec.env)))

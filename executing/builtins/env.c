@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:49:32 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:46:35 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,9 @@ void	builtins(t_exec *exp, t_mini *cmd)
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 		exit_program(cmd);
 	else if ((ft_strcmp(cmd->cmd, "echo") == 0))
+	{
 		print_echo(cmd->arg, cmd->nbr_arg, exp);
+	}
 	else if ((ft_strcmp(cmd->cmd, "pwd") == 0))
 	{
 		getcwd(s, PATH_MAX);

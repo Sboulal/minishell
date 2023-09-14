@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_to_execute.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:20:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 23:43:04 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:30:46 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ t_mini	*convert_to_cmds(t_lexer *tokens)
 	open_pipes(head);
 	while (tokens)
 		tokens = add_cmd(&cmds, tokens);
+	
 	return (cmds);
 }
