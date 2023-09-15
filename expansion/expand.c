@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:22:47 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_lexer *expand_lexer(t_lexer *our_lexer)
 		if(lexer->type== WORD)
 		{
 			lexer->token = parameter_expansion(lexer->token);
+			if (lexer->token)
 			lexer = word_spliting(lexer);
 		}
 		lexer = lexer->next;

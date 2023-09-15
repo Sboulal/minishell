@@ -6,7 +6,7 @@
 #    By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/10 17:27:32 by saboulal          #+#    #+#              #
-#    Updated: 2023/09/13 17:06:15 by nkhoudro         ###   ########.fr        #
+#    Updated: 2023/09/15 14:03:05 by nkhoudro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 CC = cc
 libft = libft/libft.a
 USER = $(shell whoami)
-CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include #-g -fsanitize=address
 RLFLAGES = -lreadline -lhistory -L/Users/$(USER)/.brew/opt/readline/lib
 #L = -L/Users/saboulal/.brew/opt/readline/lib
 #I = -I/Users/saboulal/.brew/opt/readline/include

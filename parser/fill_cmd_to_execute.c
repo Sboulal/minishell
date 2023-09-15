@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_cmd_to_execute.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:20:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/14 16:30:46 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/15 13:27:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,16 @@ t_lexer	*next_pipe(t_lexer *tokens)
 // i need dollars dollars dollars is what i need
 void	expands_dollars_dollars(char *token)
 {
-	while (*token)
+	char *head;
+
+	if (!token)
+		return ;
+	head = token;
+	while (*head)
 	{
-		if (*token == -1)
-			*token = '$';
-		token++;
+		if (*head == -1)
+			*head = '$';
+		head++;
 	}
 }
 

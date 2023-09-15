@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 04:08:46 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:10:22 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,16 @@ int main(int ac, char *av[],char *env[])
     ft_add_history(bas);
     if (!exp)
     {
-		  g_var.env = env;
-      if (!(*env) && !((exec.env->env)))
-		    protect_cmd(exec.env);
+		g_var.env = env;
+        if (!(*env) && !((exec.env->env)))
+		      protect_cmd(exec.env);
 	    else if (!(exec.env) && (*(g_var.env)))
-		    creat_env(&exec.env);
+		      creat_env(&exec.env);
+		g_var.envp = exec.env;
         exec.exp = NULL;
-	    	creat_exp(&exec.exp, exec.env);
+	    creat_exp(&exec.exp, exec.env);
         exp = exec.exp;
-    }
+    }   
     exec.cmd = parse(bas);
     exec_cmd(&exec, env);
     if (exec.cmd)
