@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 03:05:33 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:21:52 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ void	exec_cmd(t_exec *exp, char **env)
 	if (!(exp))
 		return ;
 	if ((exp->nbr_cmd == 1 && ft_strcmp(exp->cmd->cmd, "cd") == 0) || (exp->nbr_cmd == 1 && (exp->cmd->nbr_arg > 0)
-		&&  (ft_strcmp(exp->cmd->cmd, "export") == 0)))
+		&&  (ft_strcmp(exp->cmd->cmd, "export") == 0)) || (ft_strcmp(exp->cmd->cmd, "exit") == 0))
 		builtins(exp, exp->cmd);
 	else
 		use_pipe(exp, exp->cmd);

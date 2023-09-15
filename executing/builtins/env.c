@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 18:34:53 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:22:18 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,7 @@ void	builtins(t_exec *exp, t_mini *cmd)
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 		exit_program(cmd);
 	else if ((ft_strcmp(cmd->cmd, "echo") == 0))
-	{
-		// print_echo(cmd->arg, cmd->nbr_arg, exp);
 		print_in_echo(cmd->arg);
-	}
 	else if ((ft_strcmp(cmd->cmd, "pwd") == 0))
 	{
 		getcwd(s, PATH_MAX);
