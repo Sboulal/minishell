@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/14 16:13:12 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/15 02:25:23 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int main(int ac, char *av[],char *env[])
 	// t_export *head1;
     if (!exp)
     {
+      printf("ha ana\n");
 		  g_var.env = env;
       if (!(*env) && !((exec.env->env)))
 		    protect_cmd(exec.env);

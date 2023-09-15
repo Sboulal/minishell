@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 17:34:40 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 02:35:11 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,12 @@ void	exec_cmd(t_exec *exp, char **env)
 	else
 		exp->nbr_cmd = 1;
 	if (!(exp)->exp)
+	{
+		printf("ha ana\n");
+		printf("****************%s\n", exp->exp->exp);
 		return ;
-	if (!(exp)->env)
+	}
+	if (!(exp))
 		return ;
 	if ((exp->nbr_cmd == 1 && ft_strcmp(exp->cmd->cmd, "cd") == 0) || (exp->nbr_cmd == 1 && (exp->cmd->nbr_arg > 0)
 		&&  (ft_strcmp(exp->cmd->cmd, "export") == 0)))

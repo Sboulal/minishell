@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:37:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 02:45:55 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ void	add_back_envstring(t_envp *env)
 	head = env;
 	while (head)
 	{
-		g_var.env[i++] = ft_strdup(head->env);
+		if (head->env)
+			g_var.env[i++] = ft_strdup(head->env);
 		head = head->next;
 	}
 	g_var.env[i] = NULL;
@@ -104,6 +105,7 @@ void	edit_add(t_exec *exec, int i, int num)
 		add_back_exp(&exec->exp, list_exp(exec->cmd->arg[i]));
 		add_back_env(&exec->env, list_env(exec->cmd->arg[i]));
 		add_back_envstring(exec->env);
+		// printf("ha ana\n");
 	}
 	else
 	{

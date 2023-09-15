@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:38:02 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 02:42:38 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_envp	*list_env(char *env)
 		new->value = str[1];
 		new->env = ft_strjoin(str[0], "=");
 		new->env = ft_strjoin(new->env, str[1]);
-		// new->index = 0;
 		new->next = NULL;
 		return (free(str), new);
 	}

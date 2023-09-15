@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 20:24:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:00:38 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ void	edit_in_string(t_envp *env)
 
 void	export(t_exec *exec)
 {
+	t_export *head;
+
+	head = exec->exp;
 	if (!exec)
 	{
 		g_var.status = 127;
@@ -34,10 +37,10 @@ void	export(t_exec *exec)
 		sort_list(&exec->exp);
 	if (exec->cmd->nbr_arg == 0)
 	{
-		while (exec->exp)
+		while (head)
 		{
-			printf("declare -x %s\n", exec->exp->exp);
-			exec->exp = exec->exp->next;
+			printf("declare -x %s\n", head->exp);
+			head = head->next;
 		}
 	}
 	else
@@ -83,7 +86,7 @@ int	check_export(char *cmd)
 	check_error_export(cmd, i);
 	while (cmd[i + 1])
 	{
-		if (cmd[i] && cmd[i] == '+' && (cmd[i + 1] != '=' && cmd[i - 1] != '='))
+		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
 		{
 			printf ("bash: export: '%s': not a valid identifier\n", cmd);
 			g_var.status = 127;
