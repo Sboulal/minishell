@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 03:22:18 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:02:05 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ void	sort_utile(t_export *head, t_export *tomp)
 	tomp->variable = tmp2;
 }
 
-void	builtins(t_exec *exp, t_mini *cmd)
+void	builtins(t_exec **exp, t_mini *cmd)
 {
 	char	s[PATH_MAX];
 
 	if ((ft_strcmp(cmd->cmd, "env") == 0))
-		print_env(exp);
+		print_env(*exp);
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 		exit_program(cmd);
 	else if ((ft_strcmp(cmd->cmd, "echo") == 0))
@@ -78,13 +78,13 @@ void	builtins(t_exec *exp, t_mini *cmd)
 		else
 			printf("%s\n", s);
 		g_var.status = 0;
-		if (exp->nbr_cmd > 1)
+		if ((*exp)->nbr_cmd > 1)
 			exit(0);
 	}
 	else if ((ft_strcmp(cmd->cmd, "unset") == 0))
 		unset_env((exp), cmd->arg);
 	else if ((ft_strcmp(cmd->cmd, "cd") == 0))
-		cd_derc(cmd->arg, &exp->env, exp);
+		cd_derc(cmd->arg, &(*exp)->env, exp);
 	else if ((ft_strcmp(cmd->cmd, "export") == 0))
 		export(exp);
 }

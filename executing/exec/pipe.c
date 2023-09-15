@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 15:22:27 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:13:47 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/exec.h"
 
-void	edit_shlvl(t_exec *exp)
+void	edit_shlvl(t_exec **exp)
 {
 	t_envp	*head;
 	int		nb;
 	char	*str;
 
-	if (!exp->env)
+	if (!(*exp)->env)
 		return ;
-	head = exp->env;
+	head = (*exp)->env;
 	while (head && ft_strcmp(head->variable, "SHLVL") != 0)
 		head = head->next;
 	if (head)
@@ -45,7 +45,7 @@ int	error_fork(pid_t pid)
 	return (0);
 }
 
-void	norm_pipe(t_mini *head, int **pipfd, t_exec *exp, int j)
+void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 {
 	if (head->fd[READ_END] > 2)
 		dup2(head->fd[READ_END], READ_END);
@@ -53,19 +53,19 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec *exp, int j)
 		dup2(pipfd[j - 1][READ_END], READ_END);
 	if (head->fd[WRITE_END] > 2)
 		dup2(head->fd[WRITE_END], WRITE_END);
-	else if (j < exp->nbr_cmd - 1)
+	else if (j < (*exp)->nbr_cmd - 1)
 		dup2(pipfd[j][WRITE_END], WRITE_END);
 	if (head->fd[READ_END] > 2)
 		close(head->fd[READ_END]);
 	if (head->fd[WRITE_END] > 2)
 		close(head->fd[READ_END]);
-	close_file(pipfd, exp->nbr_cmd - 1);
+	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	buil_exec_pipe(exp, head);
 	if (ft_strcmp(head->cmd, "exit") == 0)
 		exit(0);
 }
 
-void	use_pipe(t_exec *exp, t_mini *cmd)
+void	use_pipe(t_exec **exp, t_mini *cmd)
 {
 	pid_t	*pid;
 	int		**pipfd;
@@ -74,8 +74,8 @@ void	use_pipe(t_exec *exp, t_mini *cmd)
 
 	head = cmd;
 	j = 0;
-	pid = (pid_t *)malloc((sizeof(pid_t) * (exp->nbr_cmd + 1)));
-	pipfd = incial_pipe(exp->nbr_cmd - 1, exp);
+	pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
+	pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
 	while (head)
 	{
 		pid[j] = fork();
@@ -88,6 +88,6 @@ void	use_pipe(t_exec *exp, t_mini *cmd)
 		j++;
 		head = head->next;
 	}
-	close_file(pipfd, exp->nbr_cmd - 1);
-	wait_pid(pid, exp);
+	close_file(pipfd, (*exp)->nbr_cmd - 1);
+	wait_pid(pid, (*exp));
 }

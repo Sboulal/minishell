@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 14:20:00 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:29:30 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ int main(int ac, char *av[],char *env[])
   char *bas;
   int i;
   t_export *exp;
-  t_exec exec;
+  t_exec *exec;
 
   exp = NULL;
+  exec = (t_exec *)ft_calloc(sizeof(t_exec));
 	i = 0;
     if(ac != 1)
     {
@@ -71,24 +72,27 @@ int main(int ac, char *av[],char *env[])
     if(bas == 0)
       break;
     ft_add_history(bas);
-    if (!exp)
+    if (!exec->env)
     {
-		g_var.env = env;
-        if (!(*env) && !((exec.env->env)))
-		      protect_cmd(exec.env);
-	    else if (!(exec.env) && (*(g_var.env)))
-		      creat_env(&exec.env);
-		g_var.envp = exec.env;
-        exec.exp = NULL;
-	    creat_exp(&exec.exp, exec.env);
-        exp = exec.exp;
+        if (*env)
+		      g_var.env = env;
+        if (!(*env) && !((exec->env)))
+        {
+            // printf("ha ana\n");
+			      protect_cmd(&exec->env);
+            // print_env(exec);
+        }
+	      else if (!(exec->env) && (*(g_var.env)))
+          creat_env(&exec->env);
+	      creat_exp(&exec->exp, exec->env);
+        exp = exec->exp;
     }
 	else
-		g_var.envp = exec.env;
-    exec.cmd = parse(bas);
+		g_var.envp = exec->env;
+    exec->cmd = parse(bas);
     exec_cmd(&exec, env);
-    if (exec.cmd)
-        ft_lstclear_cmd(&exec.cmd);
+    if (exec->cmd)
+        ft_lstclear_cmd(&exec->cmd);
   }
    return (0);  
 }

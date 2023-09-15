@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:37:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:07:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_delete_export(t_export **list)
 	g_var.status = 0;
 }
 
-void	unset_export(t_exec *exp, char **arg)
+void	unset_export(t_exec **exp, char **arg)
 {
 	t_export	*head;
 	int			i;
@@ -48,7 +48,7 @@ void	unset_export(t_exec *exp, char **arg)
 		return ;
 	while (arg[i])
 	{
-		head = exp->exp;
+		head = (*exp)->exp;
 		while (ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])))
 			head = head->next;
 		if (head->next
@@ -60,21 +60,21 @@ void	unset_export(t_exec *exp, char **arg)
 	}
 }
 
-void	unset_env(t_exec *exp, char **arg)
+void	unset_env(t_exec **exp, char **arg)
 {
 	int		i;
 	int		k;
 	t_envp	*head;
 
 	i = 0;
-	if (!exp)
+	if (!(*exp))
 		return ;
 	unset_export(exp, arg);
 	while (arg[i])
 	{
 		if (ft_strchr(arg[i], '='))
 		{
-			head = exp->env;
+			head = (*exp)->env;
 			k = ft_strlen(arg[i]);
 			while (ft_strncmp(arg[i], head->next->variable, k))
 				head = head->next;

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 03:17:31 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:56:39 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ void	edit_in_string(t_envp *env)
 		g_var.env[i] = ft_strdup(env->env);
 }
 
-void	export(t_exec *exec)
+void	export(t_exec **exec)
 {
 	t_export *head;
 
-	head = exec->exp;
-	if (!exec)
+	if (!(*exec))
 	{
 		g_var.status = 127;
 		return ;
 	}
-	if (exec->exp)
-		sort_list(&exec->exp);
-	if (exec->cmd->nbr_arg == 0)
+	head = (*exec)->exp;
+	if ((*exec)->exp)
+		sort_list(&(*exec)->exp);
+	if ((*exec)->cmd->nbr_arg == 0)
 	{
 		while (head)
 		{
@@ -46,7 +46,7 @@ void	export(t_exec *exec)
 	else
 		add_to_export(exec);
 	g_var.status = 0;
-	if (exec->nbr_cmd > 1)
+	if ((*exec)->nbr_cmd > 1)
 		exit(0);
 }
 

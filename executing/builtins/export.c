@@ -6,17 +6,17 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 12:57:21 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 17:58:57 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/exec.h"
 
-void	edit_in_g_variable(t_exec *exec, char **str, t_export *head, int num)
+void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 {
 	t_envp	*env;
 
-	env = exec->env;
+	env = (*exec)->env;
 	head->variable = str[0];
 	if (num == 2)
 		head->value = ft_strjoin(head->value, str[1]);
@@ -89,40 +89,40 @@ void	add_back_envstring(t_envp *env)
 	g_var.env[i] = NULL;
 }
 
-void	edit_add(t_exec *exec, int i, int num)
+void	edit_add(t_exec **exec, int i, int num)
 {
 	t_export	*head;
 	char		**str;
 
-	head = exec->exp;
-	if (check_argument_export(exec->cmd->arg[i]))
+	head = (*exec)->exp;
+	if (check_argument_export((*exec)->cmd->arg[i]))
 		return ;
-	str = list_clean(exec->cmd->arg[i], num);
+	str = list_clean((*exec)->cmd->arg[i], num);
 	while (head->next && (ft_strcmp(head->variable, str[0]) != 0))
 		head = head->next;
 	if (!head->next && (ft_strcmp(head->variable, str[0]) != 0))
 	{
-		add_back_exp(&exec->exp, list_exp(exec->cmd->arg[i]));
-		add_back_env(&exec->env, list_env(exec->cmd->arg[i]));
-		add_back_envstring(exec->env);
+		add_back_exp(&(*exec)->exp, list_exp((*exec)->cmd->arg[i]));
+		add_back_env(&(*exec)->env, list_env((*exec)->cmd->arg[i]));
+		add_back_envstring((*exec)->env);
 		// printf("ha ana\n");
 	}
 	else
 	{
-		if (ft_strchr(exec->cmd->arg[i], '='))
+		if (ft_strchr((*exec)->cmd->arg[i], '='))
 			edit_in_g_variable(exec, str, head, num);
 	}
 }
 
-void	add_to_export(t_exec *exec)
+void	add_to_export(t_exec **exec)
 {
 	int	i;
 	int	num;
 
 	i = 0;
-	while (exec->cmd->arg[i])
+	while ((*exec)->cmd->arg[i])
 	{
-		num = check_export(exec->cmd->arg[i]);
+		num = check_export((*exec)->cmd->arg[i]);
 		if (num)
 		{
 			edit_add(exec, i, num);

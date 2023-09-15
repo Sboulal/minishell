@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 12:48:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:10:57 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,18 @@ char	**execve_join(t_exec *exp, char *path, t_mini *cmd)
 	return (pt);
 }
 
-char	**exec_chec_join(char *str, char *path, t_mini *cmd, t_exec *exp)
+char	**exec_chec_join(char *str, char *path, t_mini *cmd, t_exec **exp)
 {
 	char	**pt;
 
 	if (str)
-		pt = execve_join(exp, path, cmd);
+		pt = execve_join((*exp), path, cmd); //need check
 	else
-		pt = execve_join(exp, cmd->cmd, cmd);
+		pt = execve_join((*exp), cmd->cmd, cmd);
 	return (pt);
 }
 
-void	exec_pipe(t_exec *exp, t_mini *cmd)
+void	exec_pipe(t_exec **exp, t_mini *cmd)
 {
 	int		i;
 	t_envp	*head;
@@ -56,7 +56,7 @@ void	exec_pipe(t_exec *exp, t_mini *cmd)
 	char	*path;
 
 	i = 0;
-	head = exp->env;
+	head = (*exp)->env;
 	while (head && ft_strcmp(head->variable, "PATH") != 0)
 		head = head->next;
 	path = head->env;

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:37:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:09:24 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ void	change_pwd_exp(t_export **list)
 	}
 }
 
-void	change_pwd(t_envp **list, t_exec *exp)
+void	change_pwd(t_envp **list, t_exec **exp)
 {
 	char	str[260];
 	t_envp	*head;
 
 	head = *list;
-	change_pwd_exp(&exp->exp);
+	change_pwd_exp(&(*exp)->exp);
 	while ((head)->next && ft_strncmp((head)->next->variable, "PWD", 4))
 		(head) = (head)->next;
 	change_olde_pwd(list, (head)->next->value);
@@ -114,7 +114,7 @@ void	change_olde_pwd(t_envp **list, char *old)
 	}
 }
 
-void	cd_derc(char **args, t_envp **list_env, t_exec *exp)
+void	cd_derc(char **args, t_envp **list_env, t_exec **exp)
 {
 	t_envp	*head;
 	char	*c;
@@ -139,6 +139,6 @@ void	cd_derc(char **args, t_envp **list_env, t_exec *exp)
 	}
 	change_pwd(&head, exp);
 	g_var.status = 0;
-	if (exp->nbr_cmd > 1)
+	if ((*exp)->nbr_cmd > 1)
 		exit(0);
 }

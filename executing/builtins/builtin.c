@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 03:59:04 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 18:27:51 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	sort_list(t_export **exp)
 	}
 }
 
-void	buil_exec_pipe(t_exec *exp, t_mini *cmd)
+void	buil_exec_pipe(t_exec **exp, t_mini *cmd)
 {
 	if (!cmd)
 		return ;
@@ -82,7 +82,7 @@ void	buil_exec_pipe(t_exec *exp, t_mini *cmd)
 		builtins(exp, cmd);
 }
 
-void	protect_cmd(t_envp *env)
+void	protect_cmd(t_envp **env)
 {
 	char	str[PATH_MAX];
 	char	**string;
@@ -97,15 +97,15 @@ void	protect_cmd(t_envp *env)
 	str1 = ft_strjoin(str1, "/Library/Apple/usr/bin:/Users/");
 	str1 = ft_strjoin(str1, string[1]);
 	str1 = ft_strjoin(str1, "/.brew/bin");
-	add_back_env(&env, list_env(str1));
+	add_back_env(env, list_env(str1));
 	g_var.env[0] = ft_strdup(str1);
-	add_back_env(&env, list_env(ft_strjoin("PWD=", str)));
+	add_back_env(env, list_env(ft_strjoin("PWD=", str)));
 	g_var.env[1] = ft_strdup(ft_strjoin("PWD=", str));
-	add_back_env(&env, list_env(ft_strjoin("HOME=/Users/", string[1])));
+	add_back_env(env, list_env(ft_strjoin("HOME=/Users/", string[1])));
 	g_var.env[2] = ft_strdup(ft_strjoin("HOME=/Users/", string[1]));
-	add_back_env(&env, list_env(ft_strjoin("SHLVL=", "1")));
+	add_back_env(env, list_env(ft_strjoin("SHLVL=", "1")));
 	g_var.env[3] = ft_strdup(("SHLVL=1"));
-	add_back_env(&env, list_env(ft_strjoin("_=", "/usr/bin/env")));
+	add_back_env(env, list_env(ft_strjoin("_=", "/usr/bin/env")));
 	g_var.env[3] = ft_strdup(("_=/usr/bin/env"));
 	g_var.env[4] = NULL;
 }
@@ -123,34 +123,34 @@ void	protect_cmd(t_envp *env)
 // 		head = head->next;
 // 	}
 // }
-void	exec_cmd(t_exec *exp, char **env)
+void	exec_cmd(t_exec **exp, char **env)
 {
 	t_mini *head;
 	int i;
 	i = 0;
 	(void)env;
 	sig_cmd();
-	if (!(exp)->cmd)
+	if (!(*exp)->cmd)
 		return ;
-	if (exp->cmd->next)
+	if ((*exp)->cmd->next)
 	{
-		head = exp->cmd;
+		head = (*exp)->cmd;
 		while (head)
 		{
 			head = head->next;
 			i++;
 		}
-		exp->nbr_cmd = i;
+		(*exp)->nbr_cmd = i;
 	}
 	else
-		exp->nbr_cmd = 1;
-	if (!(exp)->exp)
+		(*exp)->nbr_cmd = 1;
+	if ((!(*exp)->exp))
 		return ;
-	if (!(exp))
+	if (!((*exp)))
 		return ;
-	if ((exp->nbr_cmd == 1 && ft_strcmp(exp->cmd->cmd, "cd") == 0) || (exp->nbr_cmd == 1 && (exp->cmd->nbr_arg > 0)
-		&&  (ft_strcmp(exp->cmd->cmd, "export") == 0)) || (ft_strcmp(exp->cmd->cmd, "exit") == 0))
-		builtins(exp, exp->cmd);
+	if (((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "cd") == 0) || ((*exp)->nbr_cmd == 1 && ((*exp)->cmd->nbr_arg > 0)
+		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || (ft_strcmp((*exp)->cmd->cmd, "exit") == 0))
+		builtins(exp, (*exp)->cmd);
 	else
-		use_pipe(exp, exp->cmd);
+		use_pipe(exp, (*exp)->cmd);
 }
