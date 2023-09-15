@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 03:05:15 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 04:08:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int main(int ac, char *av[],char *env[])
     }
   while(1)
   {
-	sig_cmd();
+	  sig();
     bas = readline("minishell$ ");
     if(bas == 0)
       break;
