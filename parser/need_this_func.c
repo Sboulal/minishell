@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   need_this_func.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 00:05:49 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:22:03 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_lexer	*free_cmds(t_mini *new, t_lexer *tokens)
 	return (tokens);
 }
 
-t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens)
+t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 {
 	t_mini	*new;
 	int		status;
@@ -76,7 +76,7 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens)
 	handle_pipes(new, tokens);
 	if (tokens->type == PIPE_LINE)
 		tokens = tokens->next;
-	status = (handle_heredocs(new, tokens) && handle_redirection(new, tokens));
+	status = (handle_heredocs(new, tokens, env) && handle_redirection(new, tokens, env));
 	if (!status)
 	{
 		close_fds(new);

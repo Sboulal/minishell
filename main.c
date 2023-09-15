@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 18:29:30 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 23:31:29 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,7 @@ int main(int ac, char *av[],char *env[])
         if (*env)
 		      g_var.env = env;
         if (!(*env) && !((exec->env)))
-        {
-            // printf("ha ana\n");
 			      protect_cmd(&exec->env);
-            // print_env(exec);
-        }
 	      else if (!(exec->env) && (*(g_var.env)))
           creat_env(&exec->env);
 	      creat_exp(&exec->exp, exec->env);
@@ -89,7 +85,7 @@ int main(int ac, char *av[],char *env[])
     }
 	else
 		g_var.envp = exec->env;
-    exec->cmd = parse(bas);
+    exec->cmd = parse(bas, exec->env);
     exec_cmd(&exec, env);
     if (exec->cmd)
         ft_lstclear_cmd(&exec->cmd);

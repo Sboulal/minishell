@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 13:22:47 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:46:51 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,32 @@ char	*quotes_removal(char *token)
 	return (trim_quotes(token, quotes_len));
 }
 
-t_lexer *expand_lexer(t_lexer *our_lexer)
+t_lexer *expand_lexer(t_lexer *our_lexer, t_envp *env)
 {
 	t_lexer *lexer;
+	t_lexer *head;
 	t_lexer *first;
 
 	lexer = our_lexer;
+	head = our_lexer;
 	while(lexer)
 	{
 		if(lexer->type== WORD)
 		{
-			lexer->token = parameter_expansion(lexer->token);
+			lexer->token = parameter_expansion(lexer->token, env);
 			if (lexer->token)
 			lexer = word_spliting(lexer);
 		}
 		lexer = lexer->next;
 	}
-	lexer = our_lexer;
-	our_lexer = remove_empty_tokens(lexer,lexer,NULL);
-	first = our_lexer;
-	while(our_lexer)
+	lexer = head;
+	// head = remove_empty_tokens(lexer, lexer, NULL);
+	first = head;
+	while(head)
 	{
 		if(lexer->type == WORD)
-			our_lexer->token = quotes_removal(our_lexer->token);
-		our_lexer = our_lexer->next;
+			head->token = quotes_removal(head->token);
+		head = head->next;
 	}
 	return (first);
 }

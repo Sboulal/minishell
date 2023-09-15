@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:20:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 13:27:46 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 23:34:57 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	free_token_word(t_lexer *token, char *word)
 	free(token);
 }
 
-t_mini	*convert_to_cmds(t_lexer *tokens)
+t_mini	*convert_to_cmds(t_lexer *tokens, t_envp *env)
 {
 	t_lexer	*head;
 	t_mini	*cmds;
@@ -64,7 +64,7 @@ t_mini	*convert_to_cmds(t_lexer *tokens)
 	cmds = NULL;
 	open_pipes(head);
 	while (tokens)
-		tokens = add_cmd(&cmds, tokens);
+		tokens = add_cmd(&cmds, tokens, env);
 	
 	return (cmds);
 }

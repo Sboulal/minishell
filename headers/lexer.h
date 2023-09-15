@@ -21,11 +21,11 @@
 #include<stdbool.h>
 #include"../libft/libft.h"
 #include<fcntl.h>
-#define WORD 2
+#define WORD -1
 #define	PIPE_LINE  0
 #define	REDIRECTION 1
 #define HERE_DOC 3
-#define OPERATOR -1
+#define OPERATOR 2
 #define LIMITER 4
 
 #define READ_END 0
@@ -96,13 +96,13 @@ char	*here_doc_name(void);
 /*creation mini*/
 void	*tabfree(char **tab);
 void	handle_pipes(t_mini *cmd, t_lexer *tokens);
-int	handle_redirection(t_mini *cmd, t_lexer *tokens);
+int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env);
 t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens);
 /*creatin pars*/
-t_mini *parse(char *str);
+t_mini *parse(char *str, t_envp *env);
 int	position_of_operator(char *s);
 int	is_operator(char c);
-char	*heredoc_expansion(char *line);
+char	*heredoc_expansion(char *line, t_envp *env);
 void	ft_close(int fd);
 /*checks*/
 int check_parse(t_lexer *lexer);
@@ -111,18 +111,18 @@ int word_after(t_lexer *lexer);
 int check_redirections(t_lexer *lexer);
 int check_invalid_operator(t_lexer *lexer);
 void 	token_herdoc(t_lexer *lexer);
-int	redirect(t_mini *cmd, char *type, char *file);
+int	redirect(t_mini *cmd, char *type, char *file, t_envp *env);
 void	check_and_redirect(int *inf_out, int fd);
 int	ft_open(char *path, int flags, int mode);
 /*expansion*/
-t_lexer *expand_lexer(t_lexer *our_lexer);
+t_lexer *expand_lexer(t_lexer *our_lexer, t_envp *env);
 char	*quotes_removal(char *token);
 char	*trim_quotes(char *token, int quotes_len);
-char *parameter_expansion(char *tok);
+char *parameter_expansion(char *tok, t_envp *env);
 t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev);
 char *get_name(char *tok);
 int	get_name_len(char *token, int i);
-char	*get_env_value(char *name);
+char	*get_env_value(char *name, t_envp *env);
 char	*get_name_here(char *token);
 void	ft_dup2(int oldfd, int newfd);
 char	*replace_name_value_here(char *token, char *name, char *value);
@@ -132,8 +132,8 @@ char	*replace_name_value(char *token, char *name, char *value);
 void	free_all(t_lexer *tokens);
 void	free_tokens(t_lexer *tokens);
 /*second parts relation exec*/
-t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens);
-t_mini	*convert_to_cmds(t_lexer *tokens);
+t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env);
+t_mini	*convert_to_cmds(t_lexer *tokens, t_envp *env);
 void	open_pipes(t_lexer	*tokens);
 t_lexer	*next_pipe(t_lexer *tokens);
 void	expands_dollars_dollars(char *token);
@@ -144,12 +144,12 @@ void	ft_pipe(int fd[2]);
 void	ft_exit(int status, char *msg);
 /*ENV*/
 int	is_env_name(char c);
-int	handle_heredocs(t_mini *cmd, t_lexer *tokens);
+int	handle_heredocs(t_mini *cmd, t_lexer *tokens, t_envp *env);
 int	is_expand(char **limiter);
 void	change_flag(int s);
 int	handle_heredoc_suite(t_mini *cmd, char *limiter, char *file, int fd);
 void	check_heredoc(void);
-int	handle_heredoc(t_mini *cmd, char *limiter, char *file);
+int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env);
 int	word_split_count(char *line);
 t_lexer	*word_spliting(t_lexer *token);
 #endif

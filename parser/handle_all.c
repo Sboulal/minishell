@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 15:20:42 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:18:28 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_pipes(t_mini *cmd, t_lexer *tokens)
 		cmd->fd[1] = tokens->pipe[WRITE_END];
 }
 
-int	handle_redirection(t_mini *cmd, t_lexer *tokens)
+int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 {
 	int	status;
 
@@ -31,7 +31,7 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens)
 		{
 			if (!tokens->next)
 				return (0);
-			status = redirect(cmd, tokens->token, (tokens->next)->token);
+			status = redirect(cmd, tokens->token, (tokens->next)->token, env);
 			if (!status)
 				return (status);
 			tokens = tokens->next;
@@ -55,7 +55,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	wc = 0;
 	head = tokens;
 	int k = check_redirections(tokens);
-	// printf("%d\n", k);
 	if (k == 0)
 	{
 		in = -4;
@@ -64,7 +63,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 			in = cmd->fd[0];
 		if (cmd->fd[1] > 2)
 			out = cmd->fd[1];
-		printf("ha ana %d %d\n", in , out);
 	}
 	else
 	{

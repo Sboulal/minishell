@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 15:17:18 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:55:28 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,14 @@ int check_parse(t_lexer *lexer)
 }
 void	token_herdoc(t_lexer *lexer)
 {
-	while(lexer)
+	t_lexer *head;
+
+	head = lexer;
+	while(head)
 	{
-		if(lexer->type == HERE_DOC)
-			(lexer->next)->type =WORD;
-		lexer = lexer->next;
+		if(head->type == HERE_DOC)
+			(head->next)->type =WORD;
+		head = head->next;
 	}
 }
 
@@ -119,13 +122,24 @@ int	ft_open(char *path, int flags, int mode)
 		perror(path);
 	return (fd);
 }
- 
-int	redirect(t_mini *cmd, char *type, char *file)
+
+int test_file(char *file)
+{
+	if (file[0] == '$')
+	{
+		printf("bash: %s: ambiguous redirect\n", file);
+		return (1);
+	}
+	return (0);
+}
+int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 {
 	int	fd;
-
+	(void)env;
 	if (!ft_strcmp(type, ">>"))
 	{
+		if (test_file(file))
+			return (0);
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 		{
@@ -137,7 +151,9 @@ int	redirect(t_mini *cmd, char *type, char *file)
 
 	if (!ft_strcmp(type, ">"))
 	{
-		fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (test_file(file))
+			return (0);
+		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 		{
 			cmd->fd[1] = -4;
@@ -148,7 +164,9 @@ int	redirect(t_mini *cmd, char *type, char *file)
 
 	if (!ft_strcmp(type, "<"))
 	{
-		fd = ft_open(file, O_RDONLY, 0);
+		if (test_file(file))
+			return (0);
+		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 		{
 			cmd->fd[0] = -4;

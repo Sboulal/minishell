@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:49:44 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:08:10 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_env_name(char c)
 	return (0);
 }
 
-int	handle_heredocs(t_mini *cmd, t_lexer *tokens)
+int	handle_heredocs(t_mini *cmd, t_lexer *tokens, t_envp *env)
 {
 	int	status;
 
@@ -28,7 +28,7 @@ int	handle_heredocs(t_mini *cmd, t_lexer *tokens)
 		if (tokens->type == HERE_DOC)
 		{
 			tokens = tokens->next;
-			status = handle_heredoc(cmd, tokens->token, here_doc_name());
+			status = handle_heredoc(cmd, tokens->token, here_doc_name(), env);
 			if (!status)
 				return (status);
 		}

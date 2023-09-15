@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/14 22:21:43 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:47:27 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_lexer *skip_op(char **string)
 	return(tokens);
 }
 
-t_mini *parse(char *str)
+t_mini *parse(char *str, t_envp *env)
 {
 	char **string;
 	t_mini *mini;
@@ -81,8 +81,8 @@ t_mini *parse(char *str)
 		return (NULL);
 	}
 	token_herdoc(lexer);
-	lexer = expand_lexer(lexer);
-	mini = convert_to_cmds(lexer);
+	lexer = expand_lexer(lexer, env);
+	mini = convert_to_cmds(lexer, env);
 	free_tokens(lexer);
 	return(mini);
 }

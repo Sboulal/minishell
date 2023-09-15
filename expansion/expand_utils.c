@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 14:01:02 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:46:14 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 	{
 		if (*(tokens->token) == 0)
 		{
+			printf("ha na %s\n", tokens->token);
 			if (prev == NULL)
 			{
 				head = tokens->next;
@@ -120,26 +121,31 @@ char	*replace_name_value(char *token, char *name, char *value)
 	return (new_token);
 }
 
-char	*get_env_value(char *name)
+char	*get_env_value(char *name, t_envp *env)
 {
 	t_envp	*tmp;
 
-	tmp = g_var.envp;
+	if (!name)
+		return (NULL);
+	tmp = env;
+	if (!tmp)
+	{
+		
+		return (NULL);
+	}
 	if (*name == '?')
 		return (ft_itoa(g_var.status));
-	if (!tmp)
-		return (NULL);
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->variable, name))
 		{
 			if (tmp->value)
 				return (tmp->value);
-			return ("");
+			return (NULL);
 		}
 		tmp = tmp->next;
 	}
-	return ("");
+	return (NULL);
 }
 
 char	*get_name(char *token)
@@ -171,21 +177,26 @@ char	*get_name(char *token)
 	return (ft_substr(token, i, i + name_len));
 }
 
-char	*parameter_expansion(char *token)
+char	*parameter_expansion(char *token, t_envp *env)
 {
 	char	*name;
 	char	*value;
 	char	*new_token;
+	
+	if (!token)
+		return (NULL);
 	name = get_name(token);
 	if (!name)
 	{
 		expands_dollars_dollars(token);
 		return (token);
 	}
-	value = get_env_value(name + 1);
+	value = get_env_value(name + 1, env);
+	if (!value)
+		return (token);
 	new_token = replace_name_value(token, name, value);
 	if (*(name + 1) == '?')
 		free(value);
 	free(name);
-	return (parameter_expansion(new_token));
+	return (parameter_expansion(new_token,env));
 }
