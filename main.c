@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 14:10:22 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:20:00 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,9 @@ int main(int ac, char *av[],char *env[])
         exec.exp = NULL;
 	    creat_exp(&exec.exp, exec.env);
         exp = exec.exp;
-    }   
+    }
+	else
+		g_var.envp = exec.env;
     exec.cmd = parse(bas);
     exec_cmd(&exec, env);
     if (exec.cmd)
