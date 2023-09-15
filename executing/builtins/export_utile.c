@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 03:00:38 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:14:07 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	export(t_exec *exec)
 		exit(0);
 }
 
-void	check_error_export(char *cmd, int i)
+int	check_error_export(char *cmd, int i)
 {
 	if (!ft_isalpha(cmd[i]))
 	{
@@ -62,20 +62,24 @@ void	check_error_export(char *cmd, int i)
 				{
 					printf("export: usage: export [-nf] [na");
 					printf("me[=value] ...] or export -p \n");
+					return (0);
 				}
 				else if (cmd[i] == ')' || cmd[i] == '(')
 				{
 					printf("bash: syntax error near ");
 					printf("unexpected token `%c'\n", (cmd[i]));
+					return (0);
 				}
-				// else
-				// {
-				// 	printf("bash: export: `%s':", (cmd));
-				// 	printf(" not a valid identifier\n");
-				// }
+				else
+				{
+					printf("bash: export: `%s':", (cmd));
+					printf(" not a valid identifier\n");
+					return (0);
+				}
 			}
 		}
 	}
+	return (1);
 }
 
 int	check_export(char *cmd)
@@ -83,7 +87,8 @@ int	check_export(char *cmd)
 	int	i;
 
 	i = 0;
-	check_error_export(cmd, i);
+	if (check_error_export(cmd, i) == 0)
+		return (0);
 	while (cmd[i + 1])
 	{
 		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))

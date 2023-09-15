@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 18:38:24 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 03:13:49 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void		exec_cmd(t_exec *exp, char **env);
 void		exec_pipe(t_exec *exp, t_mini *cmd);
 void		buil_exec_pipe(t_exec *exp, t_mini *cmd);
 void		builtins(t_exec *exp, t_mini *cmd);
-void		check_error_export(char *cmd, int i);
+int		check_error_export(char *cmd, int i);
 int			check_export(char *cmd);
 void		use_pipe(t_exec *exp, t_mini *cmd);
 int			sig(void);
