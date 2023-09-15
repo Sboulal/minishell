@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:37:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 12:48:35 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,7 @@ void	exec_pipe(t_exec *exp, t_mini *cmd)
 	}
 	pt = exec_chec_join(str[i], path, cmd, exp);
 	g_var.status = execve(*pt, pt, g_var.env);
-	perror("execve");
+	printf("minishell: %s: command not found\n", cmd->cmd);
+	exit(1);
+	// perror("execve");
 }

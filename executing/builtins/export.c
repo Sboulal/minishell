@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 02:45:55 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 12:57:21 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_argument_export(char *str)
 				print_error_nor(str);
 				return (1);
 			}
-			if (str[i] != '+')
+			else if (str[i] == '+')
 			{
 				print_error_norr(str, i);
 				return (1);

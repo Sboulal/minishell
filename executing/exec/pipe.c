@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 04:01:25 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 12:49:30 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	use_pipe(t_exec *exp, t_mini *cmd)
 	j = 0;
 	pid = (pid_t *)malloc((sizeof(pid_t) * (exp->nbr_cmd + 1)));
 	pipfd = incial_pipe(exp->nbr_cmd - 1, exp);
-	printf("%d\n", exp->nbr_cmd - 1);
 	while (head)
 	{
 		pid[j] = fork();
@@ -84,6 +83,8 @@ void	use_pipe(t_exec *exp, t_mini *cmd)
 			return ;
 		else if (pid[j] == 0)
 			norm_pipe(head, pipfd, exp, j);
+		if (g_var.status < 0)
+			exit(1);
 		j++;
 		head = head->next;
 	}
