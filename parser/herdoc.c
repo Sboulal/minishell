@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:46:13 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file)
 	int		fd;
 
 	expand_mode = is_expand(&limiter);
-	// sigint_heredoc();
 	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
 		return (0);

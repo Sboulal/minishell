@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 00:18:41 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/15 15:20:42 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,17 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 
 	wc = 0;
 	head = tokens;
-	if (!check_redirections(tokens))
+	int k = check_redirections(tokens);
+	// printf("%d\n", k);
+	if (k == 0)
 	{
-		if (cmd->fd[0])
+		in = -4;
+		out = -4;
+		if (cmd->fd[0] > 2)
 			in = cmd->fd[0];
-		if (cmd->fd[1])
+		if (cmd->fd[1] > 2)
 			out = cmd->fd[1];
+		printf("ha ana %d %d\n", in , out);
 	}
 	else
 	{
