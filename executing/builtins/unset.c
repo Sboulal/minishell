@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 18:07:46 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 01:17:49 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,6 @@ void	unset_env(t_exec **exp, char **arg)
 		i++;
 	}
 	g_var.status = 0;
-	exit(0);
+	if ((*exp)->nbr_cmd > 1)
+		exit(0);
 }
