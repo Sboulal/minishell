@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 03:19:52 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 04:04:14 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,33 +62,45 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 	int		expand_mode;
 	char	*line;
 	char	*joined_line;
-	int		fd;
+	int		fd[2];
 
+	ft_pipe(fd);
+	while (1)
+	{
+		line = readline("> ");
+		if (!line || ft_memcmp(line, limiter, ft_strlen(line) + 1))
+		{
+			free(line);
+			break;
+		}
 	expand_mode = is_expand(&limiter);
-	// sig_her();
-	fd = open("file", O_RDONLY, 0644);
-	printf("%d %d %s\n", expand_mode, fd, file);
-		//puts("her");
-	if (fd == -1)
-	{
-		write(2, "is not working\n", 15);
-		return (0);
-	}
-	line = readline("> ");
-	while (line && ft_strcmp(line, limiter))
-	{
 		if (expand_mode && *line)
 			line = heredoc_expansion(line, env);
 		joined_line = ft_strjoin(line, "\n");
-		write(fd, joined_line, ft_strlen(joined_line));
-		free(line);
+		if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
+			return (free(line), -1);
 		free(joined_line);
-		
-		line = readline("> ");
+		line = NULL;
 	}
-	free(line);
-	check_heredoc();
-	return (handle_heredoc_suite(cmd, limiter, file, fd));
+	return (handle_heredoc_suite(cmd, limiter, file, fd[1]), fd[0]);
+	// // sig_her();
+	// fd = open("file", O_RDONLY, 0644);
+	// printf("%d %d %s\n", expand_mode, fd, file);
+	// 	//puts("her");
+	// if (fd == -1)
+	// {
+	// 	write(2, "is not working\n", 15);
+	// 	return (0);
+	// }
+	// line = readline("> ");
+	// while (line && ft_strcmp(line, limiter))
+	// {
+		
+	// 	line = readline("> ");
+	// }
+	// free(line);
+	// check_heredoc();
+	// return (handle_heredoc_suite(cmd, limiter, file, fd));
 }
 void	ft_close(int fd)
 {
