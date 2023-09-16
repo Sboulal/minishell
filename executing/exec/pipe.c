@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 14:23:56 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 16:38:46 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 
 	head = cmd;
 	j = 0;
+	
+	if (!*exp || !cmd)
+		return ;
 	pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
 	pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
 	while (head)

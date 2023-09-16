@@ -3,47 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 01:18:22 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 15:59:58 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/exec.h"
 
-t_mini *ft_new_command(int i,char **str)
-{
-   int k;
-   t_mini *new;
+// t_mini *ft_new_command(int i,char **str)
+// {
+//    int k;
+//    t_mini *new;
 
-   k = 1;
-    if (!str)
-        return (NULL);
-    (new) = (t_mini *)malloc(sizeof(t_mini));
-    (new)->nbr_arg = i;
-    if (!str[0])
-        return (NULL);
-    (new)->cmd = str[0];
-    (new)->next = NULL;
-    while (str[k])
-        k++;
-    (new)->arg = (char **)malloc(sizeof(char *) * (k + 1));
-    k = 1;
-    int d;
+//    k = 1;
+//     if (!str)
+//         return (NULL);
+//     (new) = (t_mini *)malloc(sizeof(t_mini));
+//     (new)->nbr_arg = i;
+//     if (!str[0])
+//         return (NULL);
+//     (new)->cmd = str[0];
+//     (new)->next = NULL;
+//     while (str[k])
+//         k++;
+//     (new)->arg = (char **)malloc(sizeof(char *) * (k + 1));
+//     k = 1;
+//     int d;
 
-    d = 0;
-    while (str[k])
-    {
-        (new)->arg[d] = ft_strdup(str[k]);
-        d++;
-        k++;
-    }
-    (new)->arg[d] = NULL;
-    (new)->fd[0] = -4;
-    (new)->fd[1] = -4;
-    return ((new));
-}
+//     d = 0;
+//     while (str[k])
+//     {
+//         (new)->arg[d] = ft_strdup(str[k]);
+//         d++;
+//         k++;
+//     }
+//     (new)->arg[d] = NULL;
+//     (new)->fd[0] = -4;
+//     (new)->fd[1] = -4;
+//     return ((new));
+// }
 
 void	sort_list(t_export **exp)
 {
@@ -145,6 +145,8 @@ void	exec_cmd(t_exec **exp, char **env)
 	else
 		(*exp)->nbr_cmd = 1;
 	if ((!(*exp)->exp))
+		return ;
+	if (!((*exp)))
 		return ;
 	if (!((*exp)))
 		return ;

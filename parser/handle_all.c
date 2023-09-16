@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 14:23:18 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 16:47:24 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,16 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		out = - 4;
 	}
 	cmd = (t_mini *) malloc(sizeof(t_mini));
-	while (tokens && tokens->type != PIPE_LINE)
+	head = tokens;
+	while (head && head->type != PIPE_LINE)
 	{
-		if (tokens->type == WORD)
+		if (head->type == WORD)
 			wc++;
-		tokens = tokens->next;
+		head = head->next;
 	}
 	options = (char **) malloc(sizeof(char *) * (wc + 1));
 	i = 0;
+	head = tokens;
 	while (head && head->type != PIPE_LINE)
 	{
 		if (head->type == WORD && head->type != LIMITER)
@@ -87,18 +89,33 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	options[i] = NULL;
 	cmd->nbr_arg = i - 1;
 	cmd->arg = (char **)malloc(sizeof(char *) * i);
-	cmd->cmd = options[0];
+	if (*options)
+	{
+		cmd->cmd = options[0];
+		i = 1;
+	}
+	else
+	{
+		cmd->cmd = NULL;
+		i = 0;
+	}
+	
 	cmd->next = NULL;
 	int j = 0;
-	i = 1;
-	while (options[i])
+	while (options[i] && ft_strcmp(tokens->token, options[i]))
 	{
 		cmd->arg[j] = ft_strdup(options[i]);
 		i++;
 		j++;
 	}
-	cmd->arg[j] = NULL;
-	cmd->fd[0] = in;
-	cmd->fd[1] = out;
+	if (*options)
+	{
+		cmd->arg[j] = NULL;
+		cmd->fd[0] = in;
+		cmd->fd[1] = out;
+	}
+	else
+		cmd->arg = NULL;
+	
 	return (cmd);
 }

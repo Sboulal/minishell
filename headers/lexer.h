@@ -76,7 +76,7 @@ typedef struct s_mini
    char *cmd; // command "ls"
     char **arg; // argument of command "-la"
     int nbr_arg; // number of command "2"
-   	int	fd[2]; 
+   	int	fd[2];
     struct s_mini *next;
 }t_mini;
 

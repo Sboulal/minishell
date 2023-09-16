@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 18:10:57 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 16:08:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	**execve_join(t_exec *exp, char *path, t_mini *cmd)
 
 	i = 0;
 	(void) exp;
+	if (!path || !cmd)
+		return (NULL);
 	pt = (char **)malloc(sizeof(char *) * (cmd->nbr_arg + 2));
 	if (!pt)
 		return (NULL);
@@ -56,6 +58,8 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	char	*path;
 
 	i = 0;
+	if (!(*exp) || !(cmd))
+		return ;
 	head = (*exp)->env;
 	while (head && ft_strcmp(head->variable, "PATH") != 0)
 		head = head->next;
@@ -70,6 +74,8 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 		i++;
 	}
 	pt = exec_chec_join(str[i], path, cmd, exp);
+	if (!pt)
+		return ;
 	g_var.status = execve(*pt, pt, g_var.env);
 	printf("minishell: %s: command not found\n", cmd->cmd);
 	exit(1);
