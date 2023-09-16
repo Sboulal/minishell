@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 18:02:05 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:53:49 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ void	builtins(t_exec **exp, t_mini *cmd)
 	{
 		getcwd(s, PATH_MAX);
 		if (*s)
-			printf("%s\n", s);
-		else
 			printf("%s\n", s);
 		g_var.status = 0;
 		if ((*exp)->nbr_cmd > 1)

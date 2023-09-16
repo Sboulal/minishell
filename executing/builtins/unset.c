@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 03:31:42 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 15:21:14 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,16 @@ void	unset_export(t_exec **exp, char **arg)
 	while (arg[i])
 	{
 		head = (*exp)->exp;
-		while (head->next && ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])))
+		if (head &&  ft_strcmp(arg[i], head->variable))
+		{
+			(*exp)->exp = (*exp)->exp->next;
+			free(head);
+			return ;
+		}
+		while (head->next && ft_strcmp(arg[i], head->next->variable))
 			head = head->next;
 		if (head->next
-			&& ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])) == 0)
+			&& ft_strcmp(arg[i], head->next->variable) == 0)
 			ft_delete_export(&head);
 		else
 			g_var.status = 127;
@@ -66,17 +72,25 @@ void	unset_env(t_exec **exp, char **arg)
 	t_envp	*head;
 
 	i = 0;
-	if (!(*exp))
+	if (!(*exp) && !(*exp)->env)
 		return ;
 	unset_export(exp, arg);
 	while (arg[i])
 	{
 		head = (*exp)->env;
-		while (head->next && ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])))
+		if (head &&  ft_strcmp(arg[i], head->variable) == 0)
+		{
+			(*exp)->env = (*exp)->env->next;
+			free(head);
+			return ;
+		}
+		while (head->next && !ft_strcmp(arg[i], head->next->variable))
 			head = head->next;
 		if (head->next
-			&& ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])) == 0)
-			ft_delete(&head);
+			&& ft_strcmp(arg[i], head->next->variable) == 0)
+			{
+				ft_delete(&head);
+			}
 		else
 			g_var.status = 127;
 		i++;
