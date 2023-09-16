@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 18:28:45 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 03:27:44 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,5 @@ char		*get_env(t_envp *list_env);
 void		print_error_nor(char *str);
 void		print_error_norr(char *str, int i);
 void	protect_cmd(t_envp **env);
+void	add_back_envstring(t_envp *env);
 #endif

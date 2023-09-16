@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 23:34:03 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 03:19:52 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,15 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 	int		fd;
 
 	expand_mode = is_expand(&limiter);
-	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	// sig_her();
+	fd = open("file", O_RDONLY, 0644);
+	printf("%d %d %s\n", expand_mode, fd, file);
+		//puts("her");
 	if (fd == -1)
+	{
+		write(2, "is not working\n", 15);
 		return (0);
+	}
 	line = readline("> ");
 	while (line && ft_strcmp(line, limiter))
 	{
@@ -77,6 +83,7 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 		write(fd, joined_line, ft_strlen(joined_line));
 		free(line);
 		free(joined_line);
+		
 		line = readline("> ");
 	}
 	free(line);

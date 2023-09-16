@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 01:17:49 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 03:31:42 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	unset_export(t_exec **exp, char **arg)
 	while (arg[i])
 	{
 		head = (*exp)->exp;
-		while (ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])))
+		while (head->next && ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])))
 			head = head->next;
 		if (head->next
 			&& ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])) == 0)
@@ -63,7 +63,6 @@ void	unset_export(t_exec **exp, char **arg)
 void	unset_env(t_exec **exp, char **arg)
 {
 	int		i;
-	int		k;
 	t_envp	*head;
 
 	i = 0;
@@ -72,20 +71,19 @@ void	unset_env(t_exec **exp, char **arg)
 	unset_export(exp, arg);
 	while (arg[i])
 	{
-		if (ft_strchr(arg[i], '='))
-		{
-			head = (*exp)->env;
-			k = ft_strlen(arg[i]);
-			while (ft_strncmp(arg[i], head->next->variable, k))
-				head = head->next;
-			if (head->next && ft_strncmp(arg[i], head->next->variable, k))
-				ft_delete(&head);
-			else
-				g_var.status = 127;
-		}
+		head = (*exp)->env;
+		while (head->next && ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])))
+			head = head->next;
+		if (head->next
+			&& ft_strncmp(arg[i], head->next->variable, ft_strlen(arg[i])) == 0)
+			ft_delete(&head);
+		else
+			g_var.status = 127;
 		i++;
 	}
+	add_back_envstring((*exp)->env);
 	g_var.status = 0;
 	if ((*exp)->nbr_cmd > 1)
 		exit(0);
 }
+
