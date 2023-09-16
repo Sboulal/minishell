@@ -140,7 +140,7 @@ void	expands_dollars_dollars(char *token);
 void	free_token_word(t_lexer *token, char *word);
 void	check_and_redirect(int *inf_out, int fd);
 void	expands_dollars_dollars(char *token);
-void	ft_pipe(int fd[2]);
+int		ft_pipe(int fd[2]);
 void	ft_exit(int status, char *msg);
 /*ENV*/
 int	is_env_name(char c);

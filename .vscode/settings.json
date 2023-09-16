@@ -4,6 +4,7 @@
         "complex": "c",
         "exec.h": "c",
         "chrono": "c",
-        "lexer.h": "c"
+        "lexer.h": "c",
+        "libft.h": "c"
     }
 }

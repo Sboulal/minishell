@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 00:55:28 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:22:16 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	token_herdoc(t_lexer *lexer)
 	while(head)
 	{
 		if(head->type == HERE_DOC)
-			(head->next)->type =WORD;
+			(head->next)->type =LIMITER;
 		head = head->next;
 	}
 }
@@ -107,10 +107,14 @@ void	ft_exit(int status, char *msg)
 	exit(status);
 }
 
-void	ft_pipe(int fd[2])
+int	ft_pipe(int fd[2])
 {
 	if (pipe(fd) == -1)
+	{
 		ft_putstr_fd("error",2);
+		return (1);	
+	}
+	return (0);
 }
 
 int	ft_open(char *path, int flags, int mode)

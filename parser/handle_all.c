@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 00:18:28 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/16 14:23:18 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	i = 0;
 	while (head && head->type != PIPE_LINE)
 	{
-		if (head->type == WORD)
+		if (head->type == WORD && head->type != LIMITER)
 			options[i++] = ft_strdup(head->token);
 		head = head->next;
 	}
