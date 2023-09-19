@@ -6,42 +6,11 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 22:22:43 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:15:31 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/exec.h"
-
-// void	print_tab(char **arg, int i, int nbr)
-// {
-// 	int	j;
-
-// 	j = 0;
-// 	while (arg[i])
-// 	{
-// 		j = 0;
-// 		while (arg[i][j])
-// 		{
-// 			if (arg[i][j] != '\'' && arg[i][j] != '\"')
-// 				printf("%c", arg[i][j]);
-// 			j++;
-// 		}
-// 		i++;
-// 		if (i < nbr)
-// 			printf(" ");
-// 	}
-// }
-
-// int	print_in_echo(char **args, int k, int nbr, int len)
-// {
-// 	if (k < nbr && args[k + 1])
-// 		printf(" ");
-// 	k++;
-// 	if (!args[k])
-// 		return (len);
-// 	print_tab(args, k, nbr);
-// 	return (len);
-// }
 
 int	check_echo_arg(int k, int i, char **args)
 {
@@ -128,9 +97,15 @@ int	check_firs_arg(char **arg, int i)
 
 	j = 1;
 	k = 0;
-	while (arg[0][j])
+	if (!(*arg))
+		return (k);
+	while (arg[0] && arg[0][j])
 	{
-		if ((arg[i][j] == 'n' && arg[i][0] == '-') || (arg[i][0] == '-' && arg[i][j] == 'n' && (arg[i][j + 1] == 'n' || arg[i][j + 1] == '\0' || (arg[i][j] == 'n' && arg[i][j] == ' ')) ) )
+		if ((arg[i][j] == 'n' && arg[i][0] == '-')
+		|| (arg[i][0] == '-' && arg[i][j] == 'n'
+		&& (arg[i][j + 1] == 'n'
+		|| arg[i][j + 1] == '\0'
+		|| (arg[i][j] == 'n' && arg[i][j] == ' '))))
 			k++;
 		else
 			return (k);
@@ -138,7 +113,7 @@ int	check_firs_arg(char **arg, int i)
 	}
 	return (k);
 }
-void	print_in_echo(char **arg)
+void	print_in_echo(char **arg, int n)
 {
 	int i;
 	int len; 
@@ -146,11 +121,15 @@ void	print_in_echo(char **arg)
 
 	i = 0;
 	int d;
-	
+
+	if (n == 0)
+	{
+		printf("\n");
+		return ;
+	}
 	len = check_firs_arg(arg, 0);
 	lent = ft_strlen(arg[0]);
 	lent = lent - 1;
-	// printf("%d %d %s\n", len, lent, arg[0]);
 	if (len < lent || len > lent || len == 0)
 	{
 		while (arg[i])
@@ -186,3 +165,4 @@ void	print_in_echo(char **arg)
 	}
 	exit(0);
 }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 15:59:58 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:48:24 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	exec_cmd(t_exec **exp, char **env)
 	sig_cmd();
 	if (!(*exp)->cmd)
 		return ;
-	if ((*exp)->cmd->next)
+	if ((*exp)->cmd && (*exp)->cmd->next)
 	{
 		head = (*exp)->cmd;
 		while (head)

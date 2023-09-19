@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:51:30 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/14 13:37:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:24:01 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	**incial_pipe(int nb_pip, t_exec *exp)
 		return_result = pipe(pipfd[i]);
 		if (return_result < 0)
 		{
+			close_pipe(pipfd, i);
 			perror("pipe");
 			return (NULL);
 		}

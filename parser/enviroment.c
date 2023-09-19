@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:49:44 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 00:08:10 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:25:25 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	handle_heredocs(t_mini *cmd, t_lexer *tokens, t_envp *env)
 		{
 			tokens = tokens->next;
 			status = handle_heredoc(cmd, tokens->token, here_doc_name(), env);
-			if (!status)
+			if (status == 4)
 				return (status);
 		}
 		else

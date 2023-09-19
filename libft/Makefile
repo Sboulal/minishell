@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+         #
+#    By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 17:01:31 by saboulal          #+#    #+#              #
-#    Updated: 2023/09/13 16:28:35 by saboulal         ###   ########.fr        #
+#    Updated: 2023/09/19 21:22:14 by nkhoudro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,11 +50,11 @@ SRCS = ft_atoi.c \
     ft_substr.c \
     ft_tolower.c \
     ft_toupper.c \
-
-Bonus = ft_lstnew.c \
-        ft_lstsize.c \
-        ft_lstlast.c \
-        ft_lstadd_front.c  \
+    ft_lstadd_back.c \
+    ft_lstnew.c \
+    ft_lstsize.c \
+    ft_lstlast.c \
+    ft_lstadd_front.c  \
        
         
 OBJS = ${SRCS:.c=.o}

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/15 23:31:29 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:48:10 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int is_isspace(char c)
 {
-    return (c == ' ' || (c >= '\t' && c <= 'r'));
+    return (c == ' ' || (c >= '\t' && c <= '\r'));
 }
 
 void	ft_lstclear_cmd(t_mini **lst)
@@ -68,10 +68,12 @@ int main(int ac, char *av[],char *env[])
   while(1)
   {
 	  sig();
-    bas = readline("minishell$ ");
-    if(bas == 0)
-      break;
-    ft_add_history(bas);
+    bas = readline("minishell>$");
+	if(bas == 0)
+		break;
+	if (ft_strlen(bas) == 0)
+		continue;
+	ft_add_history(bas);
     if (!exec->env)
     {
         if (*env)

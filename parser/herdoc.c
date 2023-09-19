@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 16:14:44 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:27:47 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,23 +57,32 @@ void	ft_dup2(int oldfd, int newfd)
 	if (dup2(oldfd, newfd) == -1)
 		ft_putstr_fd("error",2);
 }
- 
+ void	sigint_heredoc(void)
+{
+	struct sigaction	sa_sigint;
+
+	sa_sigint.sa_handler = &change_flag;
+	sigaction(SIGINT, &sa_sigint, NULL);
+}
 int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 {
 	int        expand_mode;
     char    *line;
     char    *joined_line;
     int        fd[2];
-
+	
+	(void)file;
     if (ft_pipe(fd))
 		return (1);
     while (1)
     {
+		sigint_heredoc();
         line = readline("> ");
         if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
         {
             free(line);
-            break;
+			cmd->fd[0] = fd[0];
+			return(close(fd[1]), fd[0]);
         }
         expand_mode = is_expand(&limiter);
         if (expand_mode &&line)
@@ -84,7 +93,7 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
         free(joined_line);
         line = NULL;
     }
-    return (handle_heredoc_suite(cmd, limiter, file, fd[1]), fd[0]);
+    return (close(fd[1]), fd[0]);
 }
 void	ft_close(int fd)
 {

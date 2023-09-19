@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 16:47:24 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/19 21:40:26 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,17 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 {
 	int		wc;
 	int		i;
+	int		j;
+	t_list	*list;
 	int		in;
 	int		out;
-	char	**options;
+	// char	**options;
 	t_lexer	*head;
 
 	wc = 0;
+	j = 0;
 	head = tokens;
+	list = ft_lstnew("");
 	int k = check_redirections(tokens);
 	if (k == 0)
 	{
@@ -71,51 +75,63 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	cmd = (t_mini *) malloc(sizeof(t_mini));
 	head = tokens;
-	while (head && head->type != PIPE_LINE)
-	{
-		if (head->type == WORD)
-			wc++;
-		head = head->next;
-	}
-	options = (char **) malloc(sizeof(char *) * (wc + 1));
+	// while (head && head->type != PIPE_LINE)
+	// {
+	// 	if (head->type == WORD)
+	// 		wc++;
+	// 	head = head->next;
+	// }
+	// options = (char **) malloc(sizeof(char *) * (wc + 1));
 	i = 0;
 	head = tokens;
 	while (head && head->type != PIPE_LINE)
 	{
-		if (head->type == WORD && head->type != LIMITER)
-			options[i++] = ft_strdup(head->token);
+		if (head && head->type == WORD && head->type != LIMITER)
+		{
+			ft_lstadd_back(&list, ft_lstnew(head->token));	
+		}
 		head = head->next;
 	}
-	options[i] = NULL;
-	cmd->nbr_arg = i - 1;
-	cmd->arg = (char **)malloc(sizeof(char *) * i);
-	if (*options)
+	list = list->next;
+	t_list *list_head;
+	if (list)
 	{
-		cmd->cmd = options[0];
-		i = 1;
+		cmd->cmd = ft_strdup(list->content);
+		cmd->next = NULL;
+		list = list->next;
 	}
-	else
+	if (list)
 	{
-		cmd->cmd = NULL;
-		i = 0;
+		list_head = list;
+		while (list_head)
+		{
+			list_head = list_head->next;
+			i++;
+		}
 	}
-	
-	cmd->next = NULL;
-	int j = 0;
-	while (options[i] && ft_strcmp(tokens->token, options[i]))
+	cmd->nbr_arg = i;
+	cmd->arg = (char **)malloc(sizeof(char *) * (i + 1));
+	if (!cmd->arg)
+		return (cmd);
+	if (list)
 	{
-		cmd->arg[j] = ft_strdup(options[i]);
-		i++;
-		j++;
-	}
-	if (*options)
-	{
+		list_head = list;
+		while (list_head)
+		{
+			cmd->arg[j] = list_head->content;
+			list_head = list_head->next;
+			j++;
+		}
 		cmd->arg[j] = NULL;
-		cmd->fd[0] = in;
-		cmd->fd[1] = out;
+		
 	}
 	else
 		cmd->arg = NULL;
 	
+	if (!k)
+	{
+		cmd->fd[0] = in;
+		cmd->fd[1] = out;
+	}
 	return (cmd);
 }

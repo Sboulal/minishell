@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/16 00:46:14 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:37:50 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 	{
 		if (*(tokens->token) == 0)
 		{
-			printf("ha na %s\n", tokens->token);
 			if (prev == NULL)
 			{
 				head = tokens->next;
@@ -129,12 +128,9 @@ char	*get_env_value(char *name, t_envp *env)
 		return (NULL);
 	tmp = env;
 	if (!tmp)
-	{
-		
 		return (NULL);
-	}
-	if (*name == '?')
-		return (ft_itoa(g_var.status));
+	// if (*name == '?')
+	// 	return (ft_itoa(g_var.status));
 	while (tmp)
 	{
 		if (!ft_strcmp(tmp->variable, name))
@@ -148,55 +144,242 @@ char	*get_env_value(char *name, t_envp *env)
 	return (NULL);
 }
 
-char	*get_name(char *token)
+
+int	contains_expand(char *s)
 {
 	int	i;
-	int	name_len;
-	int	dbl_quote;
 
 	i = 0;
-	name_len = -1;
-	dbl_quote = -1;
-	while (token[i])
+	while (s[i])
 	{
-		name_len = -1;
-		if (token[i] == '"')
-			dbl_quote *= -1;
-		if (token[i] == '\'' && dbl_quote == -1)
-			i = next_quote(i + 1, token[i], token);
-		if (token[i] == '$')
-			name_len = get_name_len(token, i);
-		if (name_len == 0)
-			token[i] = -1;
-		if (name_len > 0)
-			break ;
+		if (!is_identifier(s[i]))
+			return (i);
 		i++;
 	}
-	if (name_len == 0 || name_len == -1)
+	return (0);
+}
+int number_word_ident(char *token)
+{
+	int i;
+	int len;
+	int wc;
+
+	i = 0;
+	wc = 0;
+	len = 0;
+	if(!token)
+		return(0);
+	while (token[i])
+	{
+		if(is_identifier(token[i]))
+			i++;
+		else
+			return (i);
+	}
+	return (i);
+}
+// char	*get_name(char **token)
+// {
+// 	int	i;
+// 	int	name_len;
+// 	int	dbl_quote;
+// 	i = 0;
+// 	name_len = -1;
+// 	dbl_quote = -1;
+// 	while (token[i])
+// 	{
+// 		name_len = -1;
+// 		if (token[i] == '"')
+// 			dbl_quote *= -1;
+// 		if (token[i] == '\'' && dbl_quote == -1)
+// 			i = next_quote(i + 1, token[i], token);
+// 		if (token[i] == '$')
+// 			name_len = get_name_len(token, i);
+// 		if (name_len == 0)
+// 			token[i] = -1;
+// 		if (name_len > 0)
+// 			break ;
+// 		i++;
+// 	}
+// 	if (name_len == 0 || name_len == -1)
+// 		return (NULL);
+// 	return (ft_substr(token, i, i + name_len));
+// }
+
+char find_for_expand(char *token)
+{
+	int j;
+
+	if (!token)
+		return (*token);
+	j = 0;
+	while (token[j])
+	{
+		if (token[j] == '"')
+			return (token[j]);
+		if (token[j] == '\'')
+			return (token[j]);
+		if (token[j] == '$')
+			return (token[j]);
+		(j)++;
+	}
+	return (token[j]);
+}
+char *find_dollar_double(char **token, int *i, t_envp *env)
+{
+	int len;
+	char *str;
+	char *value;
+	int j;
+	
+	j = 0;
+	if (!(*token))
 		return (NULL);
-	return (ft_substr(token, i, i + name_len));
+	len = (*i);
+	str = ft_strdup("");
+	while (token[*i])
+	{
+		if (token[*i][0] == '$')
+		{
+			value = get_env_value(token[*i] + 1, env);
+			if (value)
+				str = ft_strjoin(str, value);
+		}
+		if (token[*i][0] != '"')
+				str = ft_strjoin(str, token[*i]);
+		(*i)++;
+		if (token[*i] && token[*i][0] == '"')
+		{
+			if (token[*i][1])
+			{
+				while (token[*i][j])
+					j++;
+				str = ft_strjoin(str, ft_substr(token[*i], 1, j));
+			}
+			(*i)++;
+			break ;
+		}
+	}
+	return(str);
+}
+char *find_dollar_singal(char **token, int *i)
+{
+	int j;
+	char *str;
+
+	j = 0;
+	if (!(*token))
+		return (NULL);
+	while (token[*i])
+	{
+		(*i)++;
+		str = ft_strjoin(str, token[*i]);
+		if (token[*i] && token[*i][0] == '\'')
+		{
+			if (token[*i][1])
+			{
+				while (token[*i][j])
+					j++;
+				str = ft_strjoin(str, ft_substr(token[*i], 1, j));
+			}
+			break ;
+		}
+	}
+	return (str);
 }
 
-char	*parameter_expansion(char *token, t_envp *env)
+char	*parameter_expansion(char **token, t_envp *env)
 {
-	char	*name;
+	int		i;
+	int		j;
+	int		k;
 	char	*value;
-	char	*new_token;
+	t_list *list;
+	char *s;
 	
-	if (!token)
+	
+	i = 0;
+	j = 0;
+	if (!(*token))
 		return (NULL);
-	name = get_name(token);
-	if (!name)
+	list = ft_lstnew("");
+	k = 0;
+	while (token[i])
 	{
-		expands_dollars_dollars(token);
-		return (token);
+		if (find_for_expand(token[i]) == '"')
+			ft_lstadd_back(&list, ft_lstnew(find_dollar_double(token, &i, env)));
+		else if (find_for_expand(token[i]) == '\'')
+			ft_lstadd_back(&list, ft_lstnew(find_dollar_singal(token, &i)));
+		else if (find_for_expand(token[i]) == '$')
+		{
+			value = get_env_value(token[i] + 1, env);
+			if (value)
+				ft_lstadd_back(&list, ft_lstnew(value));
+			i++;
+		}
+		else
+		{
+			ft_lstadd_back(&list, ft_lstnew(token[i]));
+			i++;
+		}
 	}
-	value = get_env_value(name + 1, env);
-	if (!value)
-		return (token);
-	new_token = replace_name_value(token, name, value);
-	if (*(name + 1) == '?')
-		free(value);
-	free(name);
-	return (parameter_expansion(new_token,env));
+	i = 0;
+	s = ft_strdup("");
+	while (list)
+	{
+		s = ft_strjoin(s, list->content);
+		list = list->next;
+	}
+	return (free(token), s);
 }
+// char	*parameter_expansion(char **token, t_envp *env)
+// {
+// 	int		i;
+// 	char **str;
+// 	int		j;
+// 	int		k;
+// 	char	*value;
+// 	t_list *list;
+// 	char *s;
+	
+	
+// 	i = 0;
+// 	j = 0;
+// 	if (!(*token))
+// 		return (NULL);
+// 	while (token[j])
+// 		j++;
+// 	// str = (char **)malloc(sizeof(char *) * (j + 1));
+// 	if (!str)
+// 		return (NULL);
+// 	k = 0;
+// 	while (token[i])
+// 	{
+// 		if (find_for_expand(token[i]) == '"')
+// 			str = find_dollar_double(token, &i, env);
+// 		else if (find_for_expand(token[i]) == '\'')
+// 			str = find_dollar_singal(token, &i);
+// 		else if (find_for_expand(token[i]) == '$')
+// 		{
+// 			value = get_env_value(token[i] + 1, env);
+// 				printf("*************ha ana %s %d\n", token[i], i);
+// 			if (value)
+// 				str[k++] = ft_strdup(value);
+// 			i++;
+// 		}
+// 		else
+// 		{
+// 			printf("ha ana %s %d\n", token[i] , i);
+// 			str[k++] = ft_strdup(token[i]);
+// 			i++;
+// 		}
+// 	}
+// 	i = 0;
+// 	s = ft_strdup("");
+// 	while (i < j && str[i])
+// 	{
+// 		s = ft_strjoin(s, str[i]);
+// 		i++;
+// 	}
+// 	return ( s);
+// }

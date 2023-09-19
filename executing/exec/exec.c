@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 16:08:50 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:46:32 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**execve_join(t_exec *exp, char *path, t_mini *cmd)
 	pt[i] = ft_strdup(path);
 	i++;
 	j = 0;
-	while (cmd->arg[j])
+	while (j < cmd->nbr_arg)
 	{
 		pt[i] = ft_strdup(cmd->arg[j]);
 		j++;
@@ -77,7 +77,9 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	if (!pt)
 		return ;
 	g_var.status = execve(*pt, pt, g_var.env);
-	printf("minishell: %s: command not found\n", cmd->cmd);
+	ft_putstr_fd("minishell : ",2);
+	ft_putstr_fd(*pt,2);
+	ft_putstr_fd(": command not found\n",2);
 	exit(1);
 	// perror("execve");
 }

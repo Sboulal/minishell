@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 03:27:44 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:17:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,12 @@ int		check_error_export(char *cmd, int i);
 int			check_export(char *cmd);
 void		use_pipe(t_exec **exp, t_mini *cmd);
 int			sig(void);
-void	print_in_echo(char **arg);
+void	print_in_echo(char **arg, int nbr_arg);
 // void		parcing_cmd(char *cmd, char **env);
 void		change_olde_pwd(t_envp **list, char *old);
 int			sig_cmd(void);
-void	edit_shlvl(t_exec **exp);
+void		edit_shlvl(t_exec **exp);
+void		close_pipe(int **pip, int j);
 void		edit_in_string(t_envp *env);
 void		sort_utile(t_export *head, t_export *tomp);
 void		close_file(int **pipfd, int nb_pip);

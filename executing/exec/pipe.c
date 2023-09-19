@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 16:38:46 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:38:49 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,21 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 		close(head->fd[READ_END]);
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	buil_exec_pipe(exp, head);
-	if (ft_strcmp(head->cmd, "exit") == 0)
+	// if (ft_strcmp(head->cmd, "exit") == 0)
 		exit(0);
 }
+void close_pipe(int **pip, int j)
+{
+	int i;
 
+	i = 0;
+	while (i < j)
+	{
+		close(pip[i][0]);
+		close(pip[i][1]);
+		i++;
+	}
+}
 void	use_pipe(t_exec **exp, t_mini *cmd)
 {
 	pid_t	*pid;
@@ -93,4 +104,5 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 	}
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	wait_pid(pid, (*exp));
+	// close_pipe(pipfd, (*exp)->nbr_cmd - 1);
 }
