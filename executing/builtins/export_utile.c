@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 17:56:39 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:49:01 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,60 @@ int	check_export(char *cmd)
 		return (0);
 	while (cmd[i + 1])
 	{
-		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
+		if (cmd[i] == '+' && cmd[i + 1] == '=')
+			return (2);
+		else if (cmd[i] == '+')
 		{
 			printf ("bash: export: '%s': not a valid identifier\n", cmd);
 			g_var.status = 127;
 			return (0);
 		}
-		if (cmd[i] == '+' && cmd[i + 1] == '=')
-			return (2);
+		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(i != 0 && cmd[i + 1] && ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
+		{
+			printf ("bash: export: '%s': not a valid identifier\n", cmd);
+			g_var.status = 127;
+			return (0);
+		}
 		i++;
 	}
 	return (1);
 }
+char **my_split_word(char *cmd, char c)
+{
+	int i;
+	char **str;
 
+	i = 0;
+	while (cmd[i])
+	{
+		if (cmd[i] == c)
+			break;
+		i++;
+	}
+	if (cmd[i])
+	{
+		str = (char **)malloc(sizeof(char *) * 3);
+		str[0] = ft_substr(cmd, 0, i);
+		str[1] = ft_substr(cmd, i + 1, ft_strlen(cmd));
+		str[2] = NULL;
+		return (str);
+	}
+	str = (char **)malloc(sizeof(char *) * 2);
+	str[0] = ft_substr(cmd, 0, ft_strlen(cmd));
+	str[1] = NULL;
+	return (str);
+}
 char	**list_clean(char *cmd, int num)
 {
 	char	**str;
 	char	**src;
 
-	str = ft_split(cmd, '='); 
+	str = my_split_word(cmd, '='); 
 	if (!(*str))
 		return (NULL);
 	if (num == 2)
 	{
-		src = ft_split(str[0], '+');
+		src = my_split_word(str[0], '+');
 		str[0] = src[0];
 	}
 	return (str);

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:43:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 03:35:53 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:07:19 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ t_export	*put_int_export(t_export *new, char *env, int num)
 	new->variable = str[0];
 	if (str[1])
 		new->value = str[1];
-	else
-		new->value = NULL;
+	else 
+		str[1] = ft_substr(str[0], ft_strlen(str[0]) - 1, ft_strlen(str[0]));
 	if (ft_strchr(env, '='))
 	{
 		new->exp = ft_strjoin(str[0], "=");

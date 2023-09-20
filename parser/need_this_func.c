@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 23:29:45 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:49:35 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,5 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 		g_var.status = 0;
 	new = handle_cmd(new, tokens);
 	add(cmds, new);
-	printf("ha ana\n");
 	return (next_pipe(tokens));
 }

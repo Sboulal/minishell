@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 03:33:42 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:03:52 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 {
 	t_envp	*env;
 
+	if (!(*exec))
+		return ;
 	env = (*exec)->env;
 	head->variable = str[0];
 	if (num == 2)
