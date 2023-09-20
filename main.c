@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 22:48:10 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:00:37 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ int main(int ac, char *av[],char *env[])
 	else
 		g_var.envp = exec->env;
     exec->cmd = parse(bas, exec->env);
-    exec_cmd(&exec, env);
+    if (exec->cmd)
+        exec_cmd(&exec, env);
     if (exec->cmd)
         ft_lstclear_cmd(&exec->cmd);
   }

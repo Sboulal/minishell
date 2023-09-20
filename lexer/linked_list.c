@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:57:02 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:04:16 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_lexer *create_node(char *s)
 
 		p = ft_calloc(sizeof(t_lexer));
 		p->token = s;
-		p->type =check_token(s);
+		p->type = check_token(s);
 		return(p);
 }
 

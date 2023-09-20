@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:50:51 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 15:02:01 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_token(char *s)
 		size_t	i;
 
 	i = 0;
+	if (!s)
+		return (-1);
 	if (!ft_strcmp(s, "|"))
 		return (PIPE_LINE);
 	if (!ft_strcmp(s, "<<"))
@@ -25,7 +27,7 @@ int	check_token(char *s)
 		return (REDIRECTION);
 	if (!ft_strcmp(s, "<") || !ft_strcmp(s, ">"))
 		return (REDIRECTION);
-	if (is_operator(s[i]))
+	if (s[i] && is_operator(s[i]))
 		return (OPERATOR);
 	else
 		return (WORD);
