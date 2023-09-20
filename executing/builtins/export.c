@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 17:58:57 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 03:33:42 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	edit_add(t_exec **exec, int i, int num)
 	char		**str;
 
 	head = (*exec)->exp;
-	if (check_argument_export((*exec)->cmd->arg[i]))
-		return ;
 	str = list_clean((*exec)->cmd->arg[i], num);
 	while (head->next && (ft_strcmp(head->variable, str[0]) != 0))
 		head = head->next;
@@ -124,9 +122,7 @@ void	add_to_export(t_exec **exec)
 	{
 		num = check_export((*exec)->cmd->arg[i]);
 		if (num)
-		{
 			edit_add(exec, i, num);
-		}
 		i++;
 	}
 }

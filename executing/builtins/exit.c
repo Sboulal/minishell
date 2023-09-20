@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 03:49:47 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 03:27:15 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ int	ft_me_atoi(const char *str)
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')
-			sgn *= (-1);
+		{
+			g_var.status = 247;
+			exit(g_var.status);
+		}
 		i++;
 	}
 	res = ft_at(str + i);
@@ -60,20 +63,31 @@ void	exit_program(t_mini *cmd)
 	int	i;
 
 	i = 0;
-	if (cmd->nbr_arg != 1 && cmd->nbr_arg != 0)
+	if (cmd->nbr_arg > 1)
 	{
 		printf("bash: exit: too many arguments\n");
 		g_var.status = 1;
 		return ;
 	}
-	if (cmd->nbr_arg > 0)
+	if (cmd->nbr_arg == 0)
+	{
+		printf("exit\n");
+		exit(0);
+	}
+	if (cmd->nbr_arg == 1)
 	{
 		g_var.status = ft_me_atoi(cmd->arg[0]);
+		if (g_var.status < 0)
+		{
+			printf("exit\n");
+			printf("bash: exit: %s: numeric argument required\n", cmd->arg[0]);
+			g_var.status = 255;
+		}
 		if (g_var.status > INT_MAX || g_var.status < INT_MIN)
 		{
 			printf("exit\n");
 			g_var.status = 255;
-			exit(0);
+			exit(255);
 		}
 		else
 		{
@@ -84,9 +98,9 @@ void	exit_program(t_mini *cmd)
 				else
 				{
 					printf("exit\n");
-					g_var.status = 0;
+					g_var.status = 255;
 					printf("bash: exit: %s: numeric argument required\n", cmd->arg[0]);
-					exit(0);
+					exit(255);
 				}
 			}
 		}
