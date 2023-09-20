@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 11:26:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:37:42 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	unset_export(t_exec **exp, char **arg)
 		if (num)
 		{
 			head = (*exp)->exp;
-			if (head &&  ft_strcmp(arg[i], head->variable))
+			if (head &&  ft_strcmp(arg[i], head->variable) == 0)
 			{
 				(*exp)->exp = (*exp)->exp->next;
 				free(head);
@@ -62,7 +62,7 @@ void	unset_export(t_exec **exp, char **arg)
 			while (head->next && ft_strcmp(arg[i], head->next->variable))
 				head = head->next;
 			if (head->next
-				&& !ft_strcmp(arg[i], head->next->variable))
+				&& ft_strcmp(arg[i], head->next->variable) == 0)
 				ft_delete_export(&head);
 			else
 				g_var.status = 127;
@@ -99,6 +99,7 @@ void	unset_env(t_exec **exp, char **arg)
 				&& ft_strcmp(arg[i], head->next->variable) == 0)
 				{
 					ft_delete(&head);
+				printf("----%s %s\n", arg[i], head->variable);
 				}
 			else
 				g_var.status = 127;
