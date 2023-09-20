@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/20 16:00:49 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:24:24 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ t_lexer *expand_lexer(t_lexer *our_lexer, t_envp *env)
 {
 	t_lexer *head;
 	t_lexer *lexer;
-	t_lexer *l;
+	// t_lexer *l;
 	char *s;
 	char **str;
 
@@ -259,11 +259,11 @@ t_lexer *expand_lexer(t_lexer *our_lexer, t_envp *env)
 			str = expand_dollars(s);
 			// printf("%s\n", *str);
 			add_back(&lexer, ft_strdup(parameter_expansion(str, env)));
-			l = lexer;
-			while (l && l->next)
-				l = l->next;
-			if (l->token)
-				l = word_spliting(l);
+			// l = lexer;
+			// while (l && l->next)
+			// 	l = l->next;
+			// if (l->token)
+			// 	l = word_spliting(l);
 		}
 		else
 			add_back(&lexer, ft_strdup(head->token));

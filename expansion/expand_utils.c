@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/20 15:56:47 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:52:06 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,12 +246,26 @@ char *find_dollar_double(char **token, int *i, t_envp *env)
 	str = ft_strdup("");
 	while (token[*i])
 	{
+		if (len != (*i) && token[*i][0] && ((token[*i][0] == '"') || (token[*i][1] && token[*i][0] == '"' && is_identifier(token[*i][1])) || (token[*i][1] && token[*i][0] != '"' && token[*i][0] != '$')))
+		{
+			// if (token[*i][0] == '"')
+			// {
+				str = ft_strjoin(str, ft_substr(token[*i], 0, ft_strlen(token[*i])));
+			// }
+			// else
+			// {
+			// 	str = ft_strjoin(str, ft_substr(token[*i], 0, ft_strlen));
+			// }
+			(*i)++;
+		}
 		if (token[*i][0] == '$')
 		{
 			value = get_env_value(token[*i] + 1, env);
 			if (value)
 				str = ft_strjoin(str, value);
 		}
+		// if (token[*i][0] != '"')
+		// 		str = ft_strjoin(str, token[*i]);
 		(*i)++;
 		if (token[*i] && token[*i][0] == '"')
 		{
@@ -265,7 +279,7 @@ char *find_dollar_double(char **token, int *i, t_envp *env)
 			break ;
 		}
 	}
-	return (str);
+	return(str);
 }
 char *find_dollar_singal(char **token, int *i)
 {
