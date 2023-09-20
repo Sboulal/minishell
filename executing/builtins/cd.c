@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/15 18:09:24 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:06:22 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,13 +114,13 @@ void	change_olde_pwd(t_envp **list, char *old)
 	}
 }
 
-void	cd_derc(char **args, t_envp **list_env, t_exec **exp)
+void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 {
 	t_envp	*head;
 	char	*c;
 
 	head = *list_env;
-	if (!args[0])
+	if (cmd->nbr_arg == 0)
 	{
 		c = get_env(head);
 		chdir(c);

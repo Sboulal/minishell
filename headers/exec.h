@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 11:26:11 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:16:42 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		creat_env(t_envp **lst);
 void		print_env(t_exec *exp);
 int			check_arg(char **args, int k, int nbr, int len);
 void		print_echo(char **arg, int nbr, t_exec *exp);
-void	cd_derc(char **args, t_envp **list_env, t_exec **exp);
+void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd);
 void		exit_program(t_mini *cmd);
 void		unset_env(t_exec **exp, char **arg);
 char		**list_clean(char *cmd, int num);

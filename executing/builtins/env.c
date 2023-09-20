@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/19 23:18:03 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:04:35 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	builtins(t_exec **exp, t_mini *cmd)
 {
 	char	s[PATH_MAX];
 
-	if ((ft_strcmp(cmd->cmd, "env") == 0))
+	if ((ft_strcmp(cmd->cmd, "env") == 0) && cmd->nbr_arg == 0)
 		print_env(*exp);
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
 		exit_program(cmd);
@@ -79,10 +79,10 @@ void	builtins(t_exec **exp, t_mini *cmd)
 		if ((*exp)->nbr_cmd > 1)
 			exit(0);
 	}
-	else if ((ft_strcmp(cmd->cmd, "unset") == 0))
+	else if ((ft_strcmp(cmd->cmd, "unset") == 0 && cmd->nbr_arg != 0))
 		unset_env((exp), cmd->arg);
 	else if ((ft_strcmp(cmd->cmd, "cd") == 0))
-		cd_derc(cmd->arg, &(*exp)->env, exp);
+		cd_derc(cmd->arg, &(*exp)->env, exp, cmd);
 	else if ((ft_strcmp(cmd->cmd, "export") == 0))
 		export(exp);
 }

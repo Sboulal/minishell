@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 13:02:39 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:24:57 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	unset_export(t_exec **exp, char **arg)
 	int num;
 
 	i = 0;
-	if (!exp)
+	if (!exp || !(*arg))
 		return ;
 	while (arg[i])
 	{
@@ -83,6 +83,7 @@ void	unset_env(t_exec **exp, char **arg)
 	unset_export(exp, arg);
 	while (arg[i])
 	{
+		printf("--------%s\n", arg[i]);
 		num = check_unset_env((*exp)->cmd->arg[i]);
 		if (num)
 		{
