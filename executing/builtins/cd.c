@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 13:28:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:06:22 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,38 +117,26 @@ void	change_olde_pwd(t_envp **list, char *old)
 void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 {
 	t_envp	*head;
-	// struct stat sb;
 	char	*c;
 
 	head = *list_env;
-
-	chdir(args[0]); // return 0 if success
 	if (cmd->nbr_arg == 0)
 	{
 		c = get_env(head);
 		chdir(c);
 		if (!c)
 		{
-			ft_putstr_fd("minishell: cd: HOME: No such file or directory\n", 2);
+			printf("minishell: cd: HOME: No such file or directory\n");
 			g_var.status = 1;
 		}
 		change_pwd(&head, exp);
 		return ;
 	}
-	else if ((access(args[0], X_OK) == 0) && (!ft_strncmp(args[0], "..", 2)))
+	else if (chdir(args[0]) != 0)
 	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent",2);
-		ft_putstr_fd(":directories: No such file or directory\n",2);
-		g_var.status = 126;
+		printf("minishell: cd: %s: No such file or directory\n", args[0]);
+		g_var.status = 2;
 	}
-	else if (!chdir(args[0]))
-	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(args[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		g_var.status = 1;
-	}
-	// how to check if the path is a directory or not
 	change_pwd(&head, exp);
 	g_var.status = 0;
 	if ((*exp)->nbr_cmd > 1)
