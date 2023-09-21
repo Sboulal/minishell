@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 13:53:56 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:52:59 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ int	error_fork(pid_t pid)
 {
 	if (pid < 0)
 	{
-		perror("fork");
+		// while (i < j)
+		// 	kill(pid, SIGKILL);
 		return (-1);
 	}
 	return (0);
@@ -61,8 +62,7 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 		close(head->fd[READ_END]);
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	buil_exec_pipe(exp, head);
-	// if (ft_strcmp(head->cmd, "exit") == 0)
-		exit(0);
+	// exit(0);
 }
 void close_pipe(int **pip, int j)
 {
@@ -89,7 +89,11 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 	if (!*exp || !cmd)
 		return ;
 	pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
+	if (!pid)
+		return ;
 	pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
+	if (!pipfd)
+		return ;
 	while (head)
 	{
 		pid[j] = fork();

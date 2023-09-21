@@ -3,47 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 18:57:59 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:24:50 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../headers/exec.h"
-
-// t_mini *ft_new_command(int i,char **str)
-// {
-//    int k;
-//    t_mini *new;
-
-//    k = 1;
-//     if (!str)
-//         return (NULL);
-//     (new) = (t_mini *)malloc(sizeof(t_mini));
-//     (new)->nbr_arg = i;
-//     if (!str[0])
-//         return (NULL);
-//     (new)->cmd = str[0];
-//     (new)->next = NULL;
-//     while (str[k])
-//         k++;
-//     (new)->arg = (char **)malloc(sizeof(char *) * (k + 1));
-//     k = 1;
-//     int d;
-
-//     d = 0;
-//     while (str[k])
-//     {
-//         (new)->arg[d] = ft_strdup(str[k]);
-//         d++;
-//         k++;
-//     }
-//     (new)->arg[d] = NULL;
-//     (new)->fd[0] = -4;
-//     (new)->fd[1] = -4;
-//     return ((new));
-// }
 
 void	sort_list(t_export **exp)
 {
@@ -109,47 +76,32 @@ void	protect_cmd(t_envp **env)
 	g_var.env[3] = ft_strdup(("_=/usr/bin/env"));
 	g_var.env[4] = NULL;
 }
+int numeber_cmd(t_mini *cmd)
+{
+	int i;
+	t_mini *head;
 
-// void instiall_index(t_exec *exp)
-// {
-// 	t_envp *head;
-// 	int	i;
-
-// 	head = exp->env;
-// 	i = 0;
-// 	while (head)
-// 	{
-// 		i++;
-// 		head = head->next;
-// 	}
-// }
+	i = 0;
+	if (!cmd)
+		return (0);
+	head = cmd;
+	while (head)
+	{
+		head = head->next;
+		i++;
+	}
+	return (i);
+}
 void	exec_cmd(t_exec **exp, char **env)
 {
-	t_mini *head;
 	int i;
 	i = 0;
 	(void)env;
 	sig_cmd();
-	if (!(*exp)->cmd)
+	if (!(*exp) || !(*exp)->cmd || !(*exp)->exp || !(*exp)->env)
 		return ;
-	if ((*exp)->cmd && (*exp)->cmd->next)
-	{
-		head = (*exp)->cmd;
-		while (head)
-		{
-			head = head->next;
-			i++;
-		}
-		(*exp)->nbr_cmd = i;
-	}
-	else
-		(*exp)->nbr_cmd = 1;
-	if ((!(*exp)->exp))
-		return ;
-	if (!((*exp)))
-		return ;
-	if (!((*exp)))
-		return ;
+	if ((*exp)->cmd)
+		(*exp)->nbr_cmd = numeber_cmd((*exp)->cmd);
 	if (((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "cd") == 0) || ((*exp)->nbr_cmd == 1 && ((*exp)->cmd->nbr_arg > 0)
 		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || (ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
 		builtins(exp, (*exp)->cmd);

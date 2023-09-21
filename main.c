@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 14:45:09 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:26:00 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,32 @@ static int is_isspace(char c)
 void	ft_lstclear_cmd(t_mini **lst)
 {
 	t_mini	*tmp;
+
+	if (!lst )
+		return ;
+	while (*lst)
+	{
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free(tmp);
+	}
+}
+void	ft_lstclear_exp(t_export **lst)
+{
+	t_export	*tmp;
+
+	if (!lst )
+		return ;
+	while (*lst)
+	{
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free(tmp);
+	}
+}
+void	ft_lstclear_env(t_envp **lst)
+{
+	t_envp	*tmp;
 
 	if (!lst )
 		return ;
@@ -88,14 +114,15 @@ int main(int ac, char *av[],char *env[])
         exp = exec->exp;
          k = 1;
     }
-	else
-		g_var.envp = exec->env;
     exec->cmd = parse(bas, exec->env);
-    if (exec->cmd)
-        exec_cmd(&exec, env);
-    if (exec->cmd)
-        ft_lstclear_cmd(&exec->cmd);
+//     if (exec->cmd)
+//         exec_cmd(&exec, env);
+//     if (exec->cmd)
+//         ft_lstclear_cmd(&exec->cmd);
   }
+  ft_lstclear_exp(&exp);
+  ft_lstclear_env(&exec->env);
+  free(exec);
    return (0);  
 }
 

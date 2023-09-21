@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 15:09:40 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:24:56 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void check_permision(t_mini *cmd)
 	
 	if (!cmd)
 		return ;
-	if (stat(cmd->cmd, &sb) == 0 && (access(cmd->cmd, X_OK) == 0))
+	if (stat(cmd->cmd, &sb) == 0 && (access(cmd->cmd, X_OK) == 0) && S_ISDIR(sb.st_mode))
 	{
 		ft_putstr_fd("minishell : ",2);
 		ft_putstr_fd(cmd->cmd,2);
@@ -96,5 +96,4 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	ft_putstr_fd(cmd->cmd,2);
 	ft_putstr_fd(": command not found\n",2);
 	exit(1);
-	// perror("execve");
 }

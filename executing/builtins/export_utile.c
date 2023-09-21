@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 13:06:53 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:10:53 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ int	check_unset(char *cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (!(is_identifier(cmd[i])) || ft_isdigit(cmd[i]))
+		if (!(is_identifier(cmd[i])) || ft_isdigit(cmd[0]))
 		{
 			printf ("bash: export: '%s': not a valid identifier\n", cmd);
 			g_var.status = 127;
