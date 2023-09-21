@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 14:42:40 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:54:31 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*get_name(char *token ,t_envp *env) // get value
 			k = i;
 			while (is_identifier(token[i]))
 				i++;
-			key = ft_substr(token, k, i - k - 1);
+			key = ft_substr(token, k, i - k);
 			val = get_env_value(key, env);
 			if (ft_strlen(val) != 0)
 				str = ft_strjoin(str, val);
@@ -123,7 +123,6 @@ char	*get_name(char *token ,t_envp *env) // get value
 		// }
 		i++;
 	}
-			printf("str = %s\n", str);
 	// if (name_len == 0 || name_len == -1)
 	// 	return (NULL);
 	return (str);

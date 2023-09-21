@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 12:58:58 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:09:40 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,11 @@ void check_permision(t_mini *cmd)
 	
 	if (!cmd)
 		return ;
-		// stat is a system call that returns information about a file pointed to by path.
-		// stat() stats the file pointed to by path and fills in buf.
-		//access() checks whether the calling process can access the file pathname.
-	if (stat(cmd->cmd, &sb) == -1 && access(cmd->cmd, X_OK) == 0 && !ft_strncmp(cmd->cmd, "/", 2))
+	if (stat(cmd->cmd, &sb) == 0 && (access(cmd->cmd, X_OK) == 0))
 	{
 		ft_putstr_fd("minishell : ",2);
 		ft_putstr_fd(cmd->cmd,2);
 		ft_putstr_fd(": Is a directory\n",2);
-		g_var.status = 126;
 		exit(1);
 	}
 	
