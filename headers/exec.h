@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 23:16:42 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:43:00 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,8 @@
 # include <string.h>
 # include <limits.h>
 # include <stdlib.h>
-
-// typedef struct s_glob
-// {
-// 	char	**env;
-// 	int		status;
-// }	t_glob;
-// t_glob	g_var;
-// typedef struct s_mini
-// {
-// 	char			*cmd;
-// 	char			**arg;
-// 	int				nbr_arg;
-// 	int				fd[2];
-// 	struct s_mini	*next;
-// }t_mini;
-
-// typedef struct s_envp
-// {
-// 	char			*env;
-// 	char			*variable;
-// 	char			*value;
-// 	struct s_envp	*next;
-// }	t_envp;
+# include <sys/types.h>
+# include <sys/stat.h>
 
 typedef struct s_export
 {
@@ -112,4 +91,8 @@ void	protect_cmd(t_envp **env);
 void	add_back_envstring(t_envp *env);
 int	check_unset(char *cmd);
 int	check_unset_env(char *cmd);
+void	ft_delete(t_envp **head);
+void	ft_delete_export(t_export **head);
+void check_permision(t_mini *cmd);
+
 #endif

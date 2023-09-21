@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 00:06:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 12:58:58 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,25 @@ char	**exec_chec_join(char *str, char *path, t_mini *cmd, t_exec **exp)
 		pt = execve_join((*exp), cmd->cmd, cmd);
 	return (pt);
 }
-
+void check_permision(t_mini *cmd)
+{
+	struct stat sb;
+	
+	if (!cmd)
+		return ;
+		// stat is a system call that returns information about a file pointed to by path.
+		// stat() stats the file pointed to by path and fills in buf.
+		//access() checks whether the calling process can access the file pathname.
+	if (stat(cmd->cmd, &sb) == -1 && access(cmd->cmd, X_OK) == 0 && !ft_strncmp(cmd->cmd, "/", 2))
+	{
+		ft_putstr_fd("minishell : ",2);
+		ft_putstr_fd(cmd->cmd,2);
+		ft_putstr_fd(": Is a directory\n",2);
+		g_var.status = 126;
+		exit(1);
+	}
+	
+}
 void	exec_pipe(t_exec **exp, t_mini *cmd)
 {
 	int		i;
@@ -61,6 +79,7 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	if (!(*exp) || !(cmd))
 		return ;
 	head = (*exp)->env;
+	check_permision(cmd);
 	while (head && ft_strcmp(head->variable, "PATH") != 0)
 		head = head->next;
 	path = head->env;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 01:08:11 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:45:09 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,12 @@ int main(int ac, char *av[],char *env[])
 {
   char *bas;
   int i;
+  int k;
   t_export *exp;
   t_exec *exec;
 
   exp = NULL;
+  k = 0;
   exec = (t_exec *)ft_calloc(sizeof(t_exec));
 	i = 0;
     if(ac != 1)
@@ -74,7 +76,7 @@ int main(int ac, char *av[],char *env[])
 	if (ft_strlen(bas) == 0)
 		continue;
 	ft_add_history(bas);
-    if (!exec->env)
+    if (k == 0)
     {
         if (*env)
 		      g_var.env = env;
@@ -84,6 +86,7 @@ int main(int ac, char *av[],char *env[])
           creat_env(&exec->env);
 	      creat_exp(&exec->exp, exec->env);
         exp = exec->exp;
+         k = 1;
     }
 	else
 		g_var.envp = exec->env;

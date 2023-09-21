@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 21:40:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:53:14 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		i;
 	int		j;
 	t_list	*list;
+	t_list	*tmp;
 	int		in;
 	int		out;
-	// char	**options;
 	t_lexer	*head;
 
 	wc = 0;
@@ -75,13 +75,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	cmd = (t_mini *) malloc(sizeof(t_mini));
 	head = tokens;
-	// while (head && head->type != PIPE_LINE)
-	// {
-	// 	if (head->type == WORD)
-	// 		wc++;
-	// 	head = head->next;
-	// }
-	// options = (char **) malloc(sizeof(char *) * (wc + 1));
 	i = 0;
 	head = tokens;
 	while (head && head->type != PIPE_LINE)
@@ -92,13 +85,22 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		}
 		head = head->next;
 	}
+	tmp = list;
 	list = list->next;
+	// if (!list)
+	// 	list = tmp;
 	t_list *list_head;
+	
 	if (list)
 	{
 		cmd->cmd = ft_strdup(list->content);
 		cmd->next = NULL;
 		list = list->next;
+	}
+	else
+	{
+		cmd->cmd = NULL;
+		cmd->next = NULL;
 	}
 	if (list)
 	{

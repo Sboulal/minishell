@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 05:16:51 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 14:42:40 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,9 @@ char	*get_name(char *token ,t_envp *env) // get value
 {
 	(void)env;
 	int	i;
-	int	name_len;
-	int	dbl_quote;
+	// int	name_len;
 
 	i = 0;
-	dbl_quote = -1;
-
-
 	char *str = ft_strdup("");
 	int k;
 	char *key;
@@ -65,14 +61,28 @@ char	*get_name(char *token ,t_envp *env) // get value
 		// name_len = 0;
 	while (token[i])
 	{
-		name_len = 0;
-		if (token[i] == '"')
-			dbl_quote *= -1;
-		if (token[i] == '\'')
+		if (token[i] == '$' && token[i + 1] == '?')
+		{
+			str = ft_strjoin(str, (ft_itoa(g_var.status)));
+			i += 2;
+			continue;
+		}
+		if (token[i] == '$' && token[i + 1] == '\0')
+		{
+			str = ft_strjoin(str, "$");
+			i++;
+			continue;
+		}
+		// if (token[i] == '"')
+		// {
+		// 	k = i;
+		// 	i = position_of_operator(char *s);
+		// }
+		else if (token[i] == '\'')
 		{
 			k = i;
 			i = next_quote(i + 1, token[i], token);
-			key = ft_substr(token, k, i - k);
+			key = ft_substr(token, k, i - k - 1);
 			str = ft_strjoin(str, key);
 			
 		}
@@ -91,15 +101,29 @@ char	*get_name(char *token ,t_envp *env) // get value
 			k = i;
 			while (is_identifier(token[i]))
 				i++;
-			key = ft_substr(token, k, i - k);
+			key = ft_substr(token, k, i - k - 1);
 			val = get_env_value(key, env);
 			if (ft_strlen(val) != 0)
 				str = ft_strjoin(str, val);
 			continue;
 		}
+		// if (token[i] == '\0' && token[i] == '"')
+		// {
+		// 	i++;
+		// 	k = i;
+		// 	while (token[i] && (is_identifier(token[i]) || token[i] == '_'))
+		// 		i++;
+		// 	key = ft_substr(token, k, i - k - 1);
+		// 	printf("key = %s\n", key);
+		// 	str = ft_strjoin(str, val);
+		// 	// i++;
+		// 	continue;
+		// }
 		str = ft_strjoin(str, to_string(token[i]));
+		// }
 		i++;
 	}
+			printf("str = %s\n", str);
 	// if (name_len == 0 || name_len == -1)
 	// 	return (NULL);
 	return (str);
