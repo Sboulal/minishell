@@ -81,6 +81,21 @@ typedef struct s_mini
     struct s_mini *next;
 }t_mini;
 
+typedef struct s_export
+{
+	char			*exp;
+	char			*variable;
+	char			*value;
+	struct s_export	*next;
+}	t_export;
+
+typedef struct s_exec
+{
+	t_export	*exp;
+	t_mini		*cmd;
+	int			nbr_cmd;
+	t_envp		*env;
+}t_exec;
 t_lexer *create_node(char *s);
 void add_back(t_lexer **head, char *s);
 void	add_middle(t_lexer *token, char *word);

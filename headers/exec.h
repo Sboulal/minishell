@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 16:46:05 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:57:26 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 
-typedef struct s_export
-{
-	char			*exp;
-	char			*variable;
-	char			*value;
-	struct s_export	*next;
-}	t_export;
 
-typedef struct s_exec
-{
-	t_export	*exp;
-	t_mini		*cmd;
-	int			nbr_cmd;
-	t_envp		*env;
-}t_exec;
 
 t_export	*ft_lst_exp(t_export *exp);
 t_export	*list_exp(char *env);
