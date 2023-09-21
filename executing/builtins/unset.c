@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 23:24:57 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:45:28 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ void	ft_delete_export(t_export **list)
 	(*list)->next = tmp;
 	free(head);
 	g_var.status = 0;
+}
+int is_identifier(char c)
+{
+	if (!c)
+		return (0);
+	if (isalnum(c) || c == '_')
+		return (1);
+	return (0);
 }
 
 void	unset_export(t_exec **exp, char **arg)

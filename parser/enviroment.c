@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enviroment.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:49:44 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 23:25:25 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 04:59:15 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	handle_heredocs(t_mini *cmd, t_lexer *tokens, t_envp *env)
 		{
 			tokens = tokens->next;
 			status = handle_heredoc(cmd, tokens->token, here_doc_name(), env);
-			if (status == 4)
-				return (status);
+			// if (status == 4)
+			// 	return (status);
 		}
 		else
 			tokens = tokens->next;

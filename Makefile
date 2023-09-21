@@ -6,7 +6,7 @@
 #    By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/10 17:27:32 by saboulal          #+#    #+#              #
-#    Updated: 2023/09/20 15:11:12 by saboulal         ###   ########.fr        #
+#    Updated: 2023/09/21 05:04:02 by saboulal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,9 @@ NAME = minishell
 CC = cc
 libft = libft/libft.a
 USER = $(shell whoami)
-CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include 
 RLFLAGES = -lreadline -lhistory -L/Users/$(USER)/.brew/opt/readline/lib
-#L = -L/Users/saboulal/.brew/opt/readline/lib
-#I = -I/Users/saboulal/.brew/opt/readline/include
+
 SRC = 	main.c\
 		lexer/lexer_util.c\
 		lexer/lexer.c\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/19 22:38:49 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 23:50:08 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,9 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 			return ;
 		else if (pid[j] == 0)
 			norm_pipe(head, pipfd, exp, j);
-		if (g_var.status < 0)
-			exit(1);
 		j++;
 		head = head->next;
 	}
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	wait_pid(pid, (*exp));
-	// close_pipe(pipfd, (*exp)->nbr_cmd - 1);
 }

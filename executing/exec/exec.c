@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 19:00:10 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 00:06:31 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 		return ;
 	g_var.status = execve(*pt, pt, g_var.env);
 	ft_putstr_fd("minishell : ",2);
-	ft_putstr_fd(*pt,2);
+	ft_putstr_fd(cmd->cmd,2);
 	ft_putstr_fd(": command not found\n",2);
 	exit(1);
 	// perror("execve");

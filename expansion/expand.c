@@ -6,14 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/20 18:24:24 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 04:28:49 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../headers/lexer.h"
-
-// this function copies the token string into a new 
-// allocated string without copying the -1 occurenccense=
 
 char	*trim_quotes(char *token, int quotes_len)
 {
@@ -38,41 +35,10 @@ char	*trim_quotes(char *token, int quotes_len)
 	free(token);
 	return (trimed_token);
 }
-int cont_word(char *token)
-{
-	int i;
-	int wc;
 
-	wc = 0;
-	i = 0;
-	if (!token)
-		return (0);
-	while(token[i])
-	{
-		if(!is_identifier(token[i]))
-			wc++;
-		i++;	
-	}
-	if (is_identifier(token[i - 1]))
-		wc++;
-	return (wc);
-}
-
-int	ft_count_len_word(char *token)
-{
-	int i;
-
-	i = 0;
-	if (!token)
-		return (0);
-	while (token[i])
-	{
-		if (i != 0 && !is_identifier(token[i]))
-			return (i);
-		i++;
-	}
-	return (i);
-}
+// this function removes the outer quotes of the passed string , 
+// by marking the quotes that needs to be removed by -1
+// and passing the token string to the trim quotes function
 char	*quotes_removal(char *token)
 {
 	int		i;
@@ -81,14 +47,14 @@ char	*quotes_removal(char *token)
 
 	i = 0;
 	quotes_len = 0;
-	if (!token)
-		return (0);
+	if(!token)
+		return(NULL);
 	while (token[i])
 	{
 		if (token[i] == '"' || token[i] == '\'')
 		{
 			c = token[i];
-			token[i] = -1;
+			 token[i] = -1;
 			i = next_quote(i + 1, c, token);
 			token[i] = -1;
 			quotes_len++;
@@ -99,183 +65,123 @@ char	*quotes_removal(char *token)
 		return (token);
 	return (trim_quotes(token, quotes_len));
 }
-char	**expand_dollars(char *token)
+
+// we will loop the linked list and remove empty strings that resulted from 
+// an unkown variable expansion .
+t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 {
-	int		i;
-	char	**str;
-	int 	k;
-	int 	d;
-	int		wc;
-	int		quotes_len;
-	int j;
-	i = 0;
-	quotes_len = 0;
-	if (!token)
-		return (NULL);
-	wc = cont_word(token);
-	str = (char **)malloc(sizeof(char *) * (wc + 1));
-	if (!str)
-		return (NULL);
-	k = 0;
-	while (k < wc)
+	while (tokens)
 	{
-		if (!is_identifier(token[i]))
+		if (*(tokens->token) == 0)
 		{
-			if (token[i] != '\'')
+			if (prev == NULL)
 			{
-				quotes_len = ft_count_len_word(token + i);
-				str[k] = ft_substr(token, i, quotes_len);
-				k++;
-				i = i + quotes_len;
+				head = tokens->next;
+				free_token_word(tokens, tokens->token);
+				tokens = head;
 			}
 			else
 			{
-				i++;
-				j = i;
-				while (token[j] && token[j] !='\'')
-					j++; 
-				str[k] = ft_substr(token, i - 1, j + 1);
-				k++;
-				i = i + j;
+				prev->next = tokens->next;
+				free_token_word(tokens, tokens->token);
+				tokens = prev->next;
 			}
 		}
-		else 
+		else
 		{
-			d = number_word_ident(token);
-			str[k] = ft_substr(token, i, d);
-			k = k + 1;
-			i = i + d;
+			prev = tokens;
+			tokens = tokens->next;
 		}
 	}
-	str[k] = NULL;
-	return (free(token), str);
+	return (head);
 }
-// char *delete_d(char *token, int *i)
-// {
-// 	int j;
-// 	char *str;
 
-// 	j = (*i);
-// 	if (token[*i] &&  token[*i] == '"')
-// 	{
-// 		while(token[(*i)] && token[(*i)] != '"')
-// 			(*i)++;
-// 		str = ft_substr(token, j + 1, (*i) - 1);
-// 			return (str);
-// 	}
-// 	while(token[(*i)] && token[(*i)] != '"')
-// 		(*i)++;
-// 	if ((token[(*i)] && token[*i] == '"'))
-// 		str = ft_substr(token, j, (*i) - 1);
-// 	return (str);
-// }
-char *delete_sing(char *token, int *i, char c)
-{
-	int j;
-	char *str;
-
-	j = (*i);
-	str = NULL;
-	if (token[*i] &&(token[*i] == c))
-	{
-		(*i)++;
-		while(token[(*i)] && (token[(*i)] != c))
-			(*i)++;
-		if (token[(*i)])
-			str = ft_substr(token, j + 1, (*i) - 1);
-		else
-			str = ft_substr(token, j + 1, (*i));
-			return (str);
-	}
-	while(token[(*i)] && (token[(*i)] != c))
-		(*i)++;
-	if ((token[(*i)] && (token[*i] == c)))
-		str = ft_substr(token, j, (*i) - 1);
-	return (str);
-}
-char *delete(char *token, int *i)
-{
-	int j;
-	char *str;
-
-	j = (*i);
-	while(token[(*i)] && (token[*i] != '\'' || token[*i] != '"'))
-		(*i)++;
-	str = ft_substr(token, j, (*i));
-	return (str);
-}
-char *add_to(char *token, int *i)
-{
-	int j;
-	char *str;
-
-	j = (*i);
-	(*i)++;
-	while(token[(*i)] && token[(*i)] != '"' && token[(*i)] != '\'')
-		(*i)++;
-	str = ft_substr(token, j, (*i));
-	return (str);
-}
-char *removal(char *token)
+char *remove_quote(char *str)
 {
 	int i;
-	char *str;
+	char *src;
+	char *sr;
+	int j;
+	
 
 	i = 0;
-	if (!token)
+	if (!str)
 		return (NULL);
-	str = ft_strdup("");
-	while (token[i])
+	src = ft_strdup("");
+	while(str[i])
 	{
-		if (token[i] == '"')
-			str = ft_strjoin(str, delete_sing(token , &i, '"'));
-		else if (token[i] == '\'')
-			str = ft_strjoin(str, delete_sing(token , &i, '\''));
-		else
-			str = ft_strjoin(str, delete(token , &i));
-	}
-	return (str);
-}
-void tt(void)
-{
-	system("leaks minishell");
-}
-t_lexer *expand_lexer(t_lexer *our_lexer, t_envp *env)
-{
-	t_lexer *head;
-	t_lexer *lexer;
-	// t_lexer *l;
-	char *s;
-	char **str;
-
-	head = our_lexer;
-	lexer = NULL;
-	while(head)
-	{
-		if(head->type == WORD)
+		if(str[i] == '"')
 		{
-			// printf("%s", head->token);
-			s = head->token;
-			str = expand_dollars(s);
-			// printf("%s\n", *str);
-			add_back(&lexer, ft_strdup(parameter_expansion(str, env)));
-			// l = lexer;
-			// while (l && l->next)
-			// 	l = l->next;
-			// if (l->token)
-			// 	l = word_spliting(l);
+			// i++;
+			j = i;
+			while (str[j] && str[j] == '"')
+				j++;
+			i = j;
+			while (str[j] && str[j] != '"')
+				j++;
+			sr = ft_substr(str, i, j - i);
+			src = ft_strjoin(src, sr);
+					
+			i = j;
+		}
+		else if(str[i] == '\'')
+		{
+			j = i;
+			while (str[j] && str[j] == '\'')
+				j++;
+			i = j;
+			while (str[j] && str[j] != '\'')
+				j++;
+			sr = ft_substr(str, i, j - i);
+			src = ft_strjoin(src, sr);
+					
+			i = j;
 		}
 		else
-			add_back(&lexer, ft_strdup(head->token));
-		head = head->next;
+		{
+			j = i;
+			while (str[j] && (str[j] != '\'' && str[j] != '"'))
+				j++;
+			sr = ft_substr(str, i, j);
+			src = ft_strjoin(src, sr);
+			i = i + (j - i);
+		}
+		if (!str[i])
+			break;
+		i++;
 	}
-	token_herdoc(lexer);
-	head = lexer;
-	while(head)
+	return (src);
+}
+
+//in the expansion part we only have to handle paramter expansion ($) and quotes
+//removal and we will implement these expansions in the same order of the 
+//bash cad variable expansion , word spliting => after word spliting we shall 
+// remove
+// unquoted  empty strings that did result from a variable expension ,
+// then quotes removal
+t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
+{
+	t_lexer	*token;
+	t_lexer	*head;
+
+	token = tokens;
+	while (token)
 	{
-		if(head->type == WORD)
-			head->token = removal(head->token);
-		head = head->next;
+		if (token->type == WORD)
+		{
+			token->token = get_name(token->token,env);
+			token = word_spliting(token);
+		}
+		token = token->next;
 	}
-	return (lexer);
+	token = tokens;
+	tokens = remove_empty_tokens(token, token, NULL);
+	head = tokens;
+	while (tokens)
+	{
+		if (tokens->type == WORD && tokens->token)
+			tokens->token = remove_quote(tokens->token);
+		tokens = tokens->next;
+	}
+	return (head);
 }

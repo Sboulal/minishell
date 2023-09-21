@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 23:27:47 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 04:48:57 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,19 @@ void	ft_close(int fd)
 	if (close(fd) == -1)
 		ft_putstr_fd("error",2);
 }
+int	replace_before_name_here(char *new_token, char *token)
+{
+	int	i;
+
+	i = 0;
+	while (token[i] != '$')
+	{
+		new_token[i] = token[i];
+		i++;
+	}
+	return (i);
+}
+
 char	*replace_name_value_here(char *token, char *name, char *value)
 {
 	char	*new_token;
@@ -125,6 +138,29 @@ char	*replace_name_value_here(char *token, char *name, char *value)
 		new_token[i++] = token[k++];
 	free(token);
 	return (new_token);
+}
+
+char	*get_name_here(char *token)
+{
+	int	i;
+	int	name_len;
+
+	i = 0;
+	name_len = -1;
+	while (token[i])
+	{
+		name_len = -1;
+		if (token[i] == '$')
+			name_len = get_name_len(token, i);
+		if (name_len == 0)
+			token[i] = -1;
+		if (name_len > 0)
+			break ;
+		i++;
+	}
+	if (name_len == 0 || name_len == -1)
+		return (NULL);
+	return (ft_substr(token, i, i + name_len));
 }
 
 char	*heredoc_expansion(char *line, t_envp *env)
