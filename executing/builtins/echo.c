@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 17:55:16 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:15:31 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,73 @@ int	check_echo_arg(int k, int i, char **args)
 	return (0);
 }
 
+// int	check_arg(char **args, int k, int nbr, int len)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (!(*args))
+// 		return (0);
+// 	while (args[k][i])
+// 	{
+// 		if (!check_echo_arg(k, i, args))
+// 			len++;
+// 		if (check_echo_arg(k, i, args))
+// 		{
+// 			i = 0;
+// 			while (args[k][i])
+// 			{
+// 				if (args[k][i] != '\'' && args[k][i] != '\"')
+// 					printf("%c", args[k][i++]);
+// 			}
+// 			len = print_in_echo(args, k, nbr, len);
+// 			return (print_in_echo(args, k, nbr, len));
+// 		}
+// 		i++;
+// 	}
+// 	return (0);
+// }
+
+// void	print_echo(char **arg, int nbr, t_exec *exp)
+// {
+// 	int	i;
+// 	int	len;
+
+// 	i = 0;
+// 	len = 1;
+
+// 	if (!(*arg) || !arg)
+// 		return ;
+// 	while (arg[i])
+// 	{
+// 		len = check_arg(arg, i, nbr, len);
+// 		if (len)
+// 		{
+// 			if (len == 1)
+// 				printf("\n");
+// 			if (exp->nbr_cmd > 1)
+// 				exit(0);
+// 			return ;
+// 		}
+// 		else
+// 			i++;
+// 	}
+// 	g_var.status = 0;
+// 	exit (0);
+// }
+// int	check_arg(char **arg)
+// {
+// 	int j;
+
+// 	j = 0;
+// 	k = 0;
+// 	while (arg[i][j])
+// 	{
+// 		if ((arg[i][j] == 'n' && arg[i][0] == '-') || (arg[i][j] == 'n' && arg[i - 1][j] == 'n') )
+// 			k++;
+// 		j++;
+// 	}
+// }
 int	check_firs_arg(char **arg, int i)
 {
 	int j;
@@ -32,7 +99,7 @@ int	check_firs_arg(char **arg, int i)
 	k = 0;
 	if (!(*arg))
 		return (k);
-	while (arg[i] && arg[i][j])
+	while (arg[0] && arg[0][j])
 	{
 		if ((arg[i][j] == 'n' && arg[i][0] == '-')
 		|| (arg[i][0] == '-' && arg[i][j] == 'n'

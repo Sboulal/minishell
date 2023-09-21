@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 18:56:55 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 11:43:00 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,22 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <errno.h>
 
+typedef struct s_export
+{
+	char			*exp;
+	char			*variable;
+	char			*value;
+	struct s_export	*next;
+}	t_export;
 
+typedef struct s_exec
+{
+	t_export	*exp;
+	t_mini		*cmd;
+	int			nbr_cmd;
+	t_envp		*env;
+}t_exec;
 
 t_export	*ft_lst_exp(t_export *exp);
 t_export	*list_exp(char *env);
@@ -50,6 +63,7 @@ void		export(t_exec **exec);
 void		sort_list(t_export **exp);
 void		creat_exp(t_export **exp, t_envp *env);
 void		add_back_exp(t_export **lst, t_export *new);
+t_mini		*ft_new_command(int i, char **str);
 void		exec_cmd(t_exec **exp, char **env);
 // void		buil_exec(t_exec *exp, t_mini *cmd, char **env);
 void	exec_pipe(t_exec **exp, t_mini *cmd);
