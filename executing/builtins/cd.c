@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 13:28:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:00:17 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ void	change_olde_pwd_exp(t_export **list, char *old)
 	while ((head)->next && ft_strncmp((head)->next->variable, "OLDPWD", 4))
 		(head) = (head)->next;
 	if (!(head->next))
-	{
-		add_back_exp(&head, list_exp(ft_strjoin("OLDPWD=", old)));
 		return ;
-	}
 	head = head->next;
 	if (head)
 	{
@@ -49,10 +46,7 @@ void	change_pwd_exp(t_export **list)
 	change_olde_pwd_exp(list, (head)->next->value);
 	getcwd(str, PATH_MAX);
 	if (!(head->next))
-	{
-		add_back_exp(list, list_exp(ft_strjoin("PWD=", str)));
 		return ;
-	}
 	head = head->next;
 	if (head)
 	{
@@ -67,7 +61,8 @@ void	change_pwd_exp(t_export **list)
 
 void	change_pwd(t_envp **list, t_exec **exp)
 {
-	char	str[260];
+	char	str[PATH_MAX];
+	char	*src;
 	t_envp	*head;
 
 	head = *list;
@@ -75,12 +70,15 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	while ((head)->next && ft_strncmp((head)->next->variable, "PWD", 4))
 		(head) = (head)->next;
 	change_olde_pwd(list, (head)->next->value);
-	getcwd(str, 260);
-	if (!(head->next))
+	src = getcwd(str, PATH_MAX);
+	if (!src && errno == ENOENT)
 	{
-		add_back_env(list, list_env(ft_strjoin("PWD=", str)));
-		return ;
+		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent",2);
+		ft_putstr_fd(":directories: No such file or directory\n",2);
+		g_var.status = 126;
 	}
+	if (!(head->next))
+		return ;
 	head = head->next;
 	if (head)
 	{
@@ -101,10 +99,7 @@ void	change_olde_pwd(t_envp **list, char *old)
 	while ((head)->next && ft_strncmp((head)->next->variable, "OLDPWD", 4))
 		(head) = (head)->next;
 	if (!(head->next))
-	{
-		add_back_env(list, list_env(ft_strjoin("OLDPWD=", old)));
 		return ;
-	}
 	head = head->next;
 	if (head)
 	{
@@ -121,34 +116,26 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 	char	*c;
 
 	head = *list_env;
-
-	chdir(args[0]); // return 0 if success
+	// return 0 if success
 	if (cmd->nbr_arg == 0)
 	{
 		c = get_env(head);
 		chdir(c);
 		if (!c)
 		{
-			ft_putstr_fd("minishell: cd: HOME: No such file or directory\n", 2);
+			ft_putstr_fd(": cd: HOME not set\n", 2);
 			g_var.status = 1;
 		}
 		change_pwd(&head, exp);
 		return ;
 	}
-	else if ((access(args[0], X_OK) == 0) && (!ft_strncmp(args[0], "..", 2)))
-	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent",2);
-		ft_putstr_fd(":directories: No such file or directory\n",2);
-		g_var.status = 126;
-	}
-	else if (!chdir(args[0]))
+	else if (chdir(args[0]) == -1)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(args[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd(": No such file or---- directory\n", 2);
 		g_var.status = 1;
 	}
-	// how to check if the path is a directory or not
 	change_pwd(&head, exp);
 	g_var.status = 0;
 	if ((*exp)->nbr_cmd > 1)
