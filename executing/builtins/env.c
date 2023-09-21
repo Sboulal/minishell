@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 00:04:38 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:45:28 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	builtins(t_exec **exp, t_mini *cmd)
 {
 	char	s[PATH_MAX];
 
+	if (!cmd || !exp)
+		return ;
 	if ((ft_strcmp(cmd->cmd, "env") == 0) && cmd->nbr_arg == 0)
 		print_env(*exp);
 	else if (ft_strcmp(cmd->cmd, "env") == 0)

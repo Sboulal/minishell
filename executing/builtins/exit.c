@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 03:27:15 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:52:50 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,14 @@ void	exit_program(t_mini *cmd)
 	i = 0;
 	if (cmd->nbr_arg > 1)
 	{
-		printf("bash: exit: too many arguments\n");
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd("too many arguments\n", 2);
 		g_var.status = 1;
 		return ;
 	}
 	if (cmd->nbr_arg == 0)
 	{
-		printf("exit\n");
+		ft_putstr_fd("exit\n", 2);
 		exit(0);
 	}
 	if (cmd->nbr_arg == 1)
@@ -79,13 +80,15 @@ void	exit_program(t_mini *cmd)
 		g_var.status = ft_me_atoi(cmd->arg[0]);
 		if (g_var.status < 0)
 		{
-			printf("exit\n");
-			printf("bash: exit: %s: numeric argument required\n", cmd->arg[0]);
+			ft_putstr_fd("exit\n", 2);
+			ft_putstr_fd("minishell: exit: ", 2);
+			ft_putstr_fd(cmd->arg[0], 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
 			g_var.status = 255;
 		}
 		if (g_var.status > INT_MAX || g_var.status < INT_MIN)
 		{
-			printf("exit\n");
+			ft_putstr_fd("exit\n", 2);
 			g_var.status = 255;
 			exit(255);
 		}
@@ -97,9 +100,9 @@ void	exit_program(t_mini *cmd)
 					i++;
 				else
 				{
-					printf("exit\n");
+					ft_putstr_fd("exit\n", 2);
+					ft_putstr_fd("minishell: exit: ", 2);
 					g_var.status = 255;
-					printf("bash: exit: %s: numeric argument required\n", cmd->arg[0]);
 					exit(255);
 				}
 			}

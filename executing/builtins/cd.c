@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 23:06:22 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 17:29:01 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,8 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 		chdir(c);
 		if (!c)
 		{
-			printf("minishell: cd: HOME: No such file or directory\n");
+			ft_putstr_fd("minishell: cd: HOME: No", 2);
+			ft_putstr_fd(" such file or directory\n", 2);
 			g_var.status = 1;
 		}
 		change_pwd(&head, exp);
@@ -134,7 +135,9 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 	}
 	else if (chdir(args[0]) != 0)
 	{
-		printf("minishell: cd: %s: No such file or directory\n", args[0]);
+		ft_putstr_fd("minishell: cd: ", 2);
+		ft_putstr_fd(args[0], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		g_var.status = 2;
 	}
 	change_pwd(&head, exp);
