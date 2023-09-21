@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 17:29:01 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:24:52 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,13 @@ void	change_olde_pwd_exp(t_export **list, char *old)
 {
 	t_export	*head;
 
-	head = *list;
-	if (!old)
+	if (!old || !(*list))
 		return ;
+	head = *list;
 	while ((head)->next && ft_strncmp((head)->next->variable, "OLDPWD", 4))
 		(head) = (head)->next;
 	if (!(head->next))
-	{
-		add_back_exp(&head, list_exp(ft_strjoin("OLDPWD=", old)));
 		return ;
-	}
 	head = head->next;
 	if (head)
 	{
@@ -46,13 +43,11 @@ void	change_pwd_exp(t_export **list)
 	head = *list;
 	while ((head)->next && ft_strncmp((head)->next->variable, "PWD", 4))
 		(head) = (head)->next;
-	change_olde_pwd_exp(list, (head)->next->value);
+	if ((head->next))
+		change_olde_pwd_exp(list, (head)->next->value);
 	getcwd(str, PATH_MAX);
 	if (!(head->next))
-	{
-		add_back_exp(list, list_exp(ft_strjoin("PWD=", str)));
 		return ;
-	}
 	head = head->next;
 	if (head)
 	{
@@ -67,20 +62,18 @@ void	change_pwd_exp(t_export **list)
 
 void	change_pwd(t_envp **list, t_exec **exp)
 {
-	char	str[260];
+	char	str[PATH_MAX];
 	t_envp	*head;
 
 	head = *list;
 	change_pwd_exp(&(*exp)->exp);
 	while ((head)->next && ft_strncmp((head)->next->variable, "PWD", 4))
 		(head) = (head)->next;
-	change_olde_pwd(list, (head)->next->value);
-	getcwd(str, 260);
+	if ((head->next))
+		change_olde_pwd(list, (head)->next->value);
+	getcwd(str, PATH_MAX);
 	if (!(head->next))
-	{
-		add_back_env(list, list_env(ft_strjoin("PWD=", str)));
 		return ;
-	}
 	head = head->next;
 	if (head)
 	{
@@ -101,10 +94,7 @@ void	change_olde_pwd(t_envp **list, char *old)
 	while ((head)->next && ft_strncmp((head)->next->variable, "OLDPWD", 4))
 		(head) = (head)->next;
 	if (!(head->next))
-	{
-		add_back_env(list, list_env(ft_strjoin("OLDPWD=", old)));
 		return ;
-	}
 	head = head->next;
 	if (head)
 	{
@@ -126,8 +116,7 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 		chdir(c);
 		if (!c)
 		{
-			ft_putstr_fd("minishell: cd: HOME: No", 2);
-			ft_putstr_fd(" such file or directory\n", 2);
+			ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 			g_var.status = 1;
 		}
 		change_pwd(&head, exp);
@@ -140,6 +129,7 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 		ft_putstr_fd(": No such file or directory\n", 2);
 		g_var.status = 2;
 	}
+	
 	change_pwd(&head, exp);
 	g_var.status = 0;
 	if ((*exp)->nbr_cmd > 1)
