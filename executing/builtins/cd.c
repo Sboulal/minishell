@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 23:00:17 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:06:05 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	change_pwd_exp(t_export **list)
 	head = *list;
 	while ((head)->next && ft_strncmp((head)->next->variable, "PWD", 4))
 		(head) = (head)->next;
+	if (!(head->next))
+		return ;
 	change_olde_pwd_exp(list, (head)->next->value);
 	getcwd(str, PATH_MAX);
 	if (!(head->next))
@@ -69,6 +71,8 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	change_pwd_exp(&(*exp)->exp);
 	while ((head)->next && ft_strncmp((head)->next->variable, "PWD", 4))
 		(head) = (head)->next;
+	if (!(head->next))
+		return ;
 	change_olde_pwd(list, (head)->next->value);
 	src = getcwd(str, PATH_MAX);
 	if (!src && errno == ENOENT)
