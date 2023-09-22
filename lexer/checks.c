@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 22:41:49 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:41:24 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,10 @@ int	ft_open(char *path, int flags, int mode)
 
 	fd = open(path, flags, mode);
 	if (fd == -1)
+	{
+		ft_putstr_fd("minishell: ", 2);
 		perror(path);
+	}
 	return (fd);
 }
 
@@ -131,7 +134,9 @@ int test_file(char *file)
 {
 	if (file[0] == '$')
 	{
-		printf("bash: %s: ambiguous redirect\n", file);
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(file, 2);
+		ft_putstr_fd(": ambiguous redirect\n", 2);
 		return (1);
 	}
 	return (0);

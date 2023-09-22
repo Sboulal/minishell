@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 13:06:53 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:20:16 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,23 @@ int	check_error_export(char *cmd, int i)
 			{
 				if (cmd[i] == '-')
 				{
-					printf("export: usage: export [-nf] [na");
-					printf("me[=value] ...] or export -p \n");
+					ft_putstr_fd("export: usage: export [-nf] [na", 2);
+					ft_putstr_fd("me[=value] ...] or export -p \n", 2);
 					return (0);
 				}
 				else if (cmd[i] == ')' || cmd[i] == '(')
 				{
-					printf("bash: syntax error near ");
-					printf("unexpected token `%c'\n", (cmd[i]));
+					ft_putstr_fd("minishell: syntax error near ", 2);
+					ft_putstr_fd("unexpected token `", 2);
+					ft_putchar_fd(cmd[i], 2);
+					ft_putstr_fd("'\n", 2);
 					return (0);
 				}
 				else
 				{
-					printf("bash: export: `%s':", (cmd));
-					printf(" not a valid identifier\n");
+					ft_putstr_fd("minishell: export: `", 2);
+					ft_putstr_fd(cmd, 2);
+					ft_putstr_fd("': not a valid identifier\n", 2);
 					return (0);
 				}
 			}
@@ -101,7 +104,9 @@ int	check_export(char *cmd)
 		}
 		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(i != 0 && cmd[i + 1] && ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
 		{
-			printf ("bash: export: '%s': not a valid identifier\n", cmd);
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_var.status = 127;
 			return (0);
 		}
@@ -118,7 +123,9 @@ int	check_unset(char *cmd)
 	{
 		if (!(is_identifier(cmd[i])) || ft_isdigit(cmd[i]))
 		{
-			printf ("bash: export: '%s': not a valid identifier\n", cmd);
+			ft_putstr_fd("minishell: unset: `", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_var.status = 127;
 			return (0);
 		}

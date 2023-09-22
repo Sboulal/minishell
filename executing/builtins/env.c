@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 00:04:38 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:31:34 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	builtins(t_exec **exp, t_mini *cmd)
 	{
 		ft_putstr_fd("env: ", 2);
 		ft_putstr_fd(cmd->arg[0], 2);
-		ft_putstr_fd(" No such file or directory\n", 2);
+		ft_putstr_fd("No such file or directory\n", 2);
 		g_var.status = 127;
 	}
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)

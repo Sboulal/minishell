@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/19 23:15:31 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:12:58 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	check_firs_arg(char **arg, int i)
 	k = 0;
 	if (!(*arg))
 		return (k);
-	while (arg[0] && arg[0][j])
+	while (arg[i] && arg[i][j])
 	{
 		if ((arg[i][j] == 'n' && arg[i][0] == '-')
 		|| (arg[i][0] == '-' && arg[i][j] == 'n'

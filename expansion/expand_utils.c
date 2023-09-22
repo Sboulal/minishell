@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 14:54:31 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:49:26 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,13 @@ char	*get_name(char *token ,t_envp *env) // get value
 			i++;
 			continue;
 		}
-		// if (token[i] == '"')
-		// {
-		// 	k = i;
-		// 	i = position_of_operator(char *s);
-		// }
 		else if (token[i] == '\'')
 		{
 			k = i;
 			i = next_quote(i + 1, token[i], token);
 			key = ft_substr(token, k, i - k - 1);
 			str = ft_strjoin(str, key);
+			printf("key = %s\n", key);
 			
 		}
 		if (token[i] == '$')

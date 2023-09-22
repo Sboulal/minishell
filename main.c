@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 14:45:09 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:37:20 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,9 @@ int main(int ac, char *av[],char *env[])
 	i = 0;
     if(ac != 1)
     {
-	    while(av[i])
-	    {
-	    	printf("%s: ", av[i]);
-	    	i++;
-	    }
-	    printf("No such file or directory\n");
+      ft_putstr_fd("minishell: ", 2);
+	    ft_putstr_fd(av[1], 2);
+      ft_putstr_fd(": No such file or directory\n", 2);
         return (0);
     }
   while(1)
@@ -95,7 +92,9 @@ int main(int ac, char *av[],char *env[])
         exec_cmd(&exec, env);
     if (exec->cmd)
         ft_lstclear_cmd(&exec->cmd);
+        free(bas);
   }
+  
    return (0);  
 }
 
