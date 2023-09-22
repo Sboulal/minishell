@@ -6,11 +6,101 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 21:42:51 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:37:45 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"../headers/lexer.h"
+
+char	*ft_strjoin_1(char	*s1, char		*s2)
+{
+	char	*s;
+	size_t	len_s1;
+	size_t	len_s2;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	s = malloc (sizeof(char) * (len_s1 + len_s2 + 1));
+	if (!s)
+		return (NULL);
+	while (s1[i])
+	{
+		s[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		s[len_s1++] = s2[j++];
+	s[len_s1] = '\0';
+	free(s1);
+	return (s);
+}
+
+char	*ft_strjoin_2(char	*s1, char		*s2)
+{
+	char	*s;
+	size_t	len_s1;
+	size_t	len_s2;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	s = malloc (sizeof(char) * (len_s1 + len_s2 + 1));
+	if (!s)
+		return (NULL);
+	while (s1[i])
+	{
+		s[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		s[len_s1++] = s2[j++];
+	s[len_s1] = '\0';
+	free(s2);
+	return (s);
+}
+
+char	*ft_strjoin_3(char	*s1, char		*s2)
+{
+	char	*s;
+	size_t	len_s1;
+	size_t	len_s2;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	if (!s1 || !s2)
+		return (NULL);
+	len_s1 = ft_strlen(s1);
+	len_s2 = ft_strlen(s2);
+	s = malloc (sizeof(char) * (len_s1 + len_s2 + 1));
+	if (!s)
+		return (NULL);
+	while (s1[i])
+	{
+		s[i] = s1[i];
+		i++;
+	}
+	while (s2[j])
+		s[len_s1++] = s2[j++];
+	s[len_s1] = '\0';
+	free(s1);
+	free(s2);
+	return (s);
+}
+
+
 int	get_name_len(char *token, int i)
 {
 	int	name_len;
@@ -60,13 +150,13 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 	{
 		if (token[i] == '$' && token[i + 1] == '?')
 		{
-			str = ft_strjoin(str, (ft_itoa(g_var.status)));
+			str = ft_strjoin_3(str, (ft_itoa(g_var.status)));
 			i += 2;
 			continue;
 		}
 		if (token[i] == '$' && token[i + 1] == '\0')
 		{
-			str = ft_strjoin(str, "$");
+			str = ft_strjoin_1(str, "$");
 			i++;
 			continue;
 		}
@@ -74,10 +164,10 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 		{	i++;
 			if (!(ft_isalpha(token[i]) || token[i] == '_' ))
 			{
-				str = ft_strjoin(str, "$");
+				str = ft_strjoin_1(str, "$");
 				if (token[i] == '\0')
 					break;
-				str = ft_strjoin(str, to_string(token[i++]));
+				str = ft_strjoin_3(str, to_string(token[i++]));
 				continue;
 			}
 			k = i;
@@ -86,10 +176,10 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 			key = ft_substr(token, k, i - k);
 			val = get_env_value(key, env);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin(str, val);
+				str = ft_strjoin_3(str, val);
 			continue;
 		}
-		str = ft_strjoin(str, to_string(token[i]));
+		str = ft_strjoin_3(str, to_string(token[i]));
 		i++;
 	}
 	return (str);
@@ -111,13 +201,13 @@ char	*get_name(char *token ,t_envp *env) // get value
 	{
 		if (token[i] == '$' && token[i + 1] == '?')
 		{
-			str = ft_strjoin(str, (ft_itoa(g_var.status)));
+			str = ft_strjoin_3(str, (ft_itoa(g_var.status)));
 			i += 2;
 			continue;
 		}
 		if (token[i] == '$' && token[i + 1] == '\0')
 		{
-			str = ft_strjoin(str, "$");
+			str = ft_strjoin_1(str, "$");
 			i++;
 			continue;
 		}
@@ -129,7 +219,7 @@ char	*get_name(char *token ,t_envp *env) // get value
 			while (k < i)
 			{
 				if (token[k] && token[k] != '\'')
-					str = ft_strjoin(str, to_string(token[k]));
+					str = ft_strjoin_3(str, to_string(token[k]));
 				k++;
 			}
 			i++;
@@ -142,7 +232,7 @@ char	*get_name(char *token ,t_envp *env) // get value
 			key = ft_substr(token, k + 1, i - k - 1);
 			char *s;
 			s = get_name_quot(key, env);
-			str = ft_strjoin(str, s);
+			str = ft_strjoin_3(str, s);
 			i++;
 			continue;
 		}
@@ -151,10 +241,10 @@ char	*get_name(char *token ,t_envp *env) // get value
 			i++;
 			if (!(ft_isalpha(token[i]) || token[i] == '_' ))
 			{
-				str = ft_strjoin(str, "$");
+				str = ft_strjoin_1(str, "$");
 				if (token[i] == '\0')
 					break;
-				str = ft_strjoin(str, to_string(token[i++]));
+				str = ft_strjoin_3(str, to_string(token[i++]));
 				continue;
 			}
 			k = i;
@@ -163,10 +253,10 @@ char	*get_name(char *token ,t_envp *env) // get value
 			key = ft_substr(token, k, i - k);
 			val = get_env_value(key, env);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin(str, val);
+				str = ft_strjoin_3(str, val);
 			continue;
 		}
-		str = ft_strjoin(str, to_string(token[i]));
+		str = ft_strjoin_3(str, to_string(token[i]));
 		i++;
 	}
 	return (str);

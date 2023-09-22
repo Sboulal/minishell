@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 20:48:28 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 22:37:53 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		in;
 	int		out;
 	t_lexer	*head;
-
+    
 	wc = 0;
 	j = 0;
 	head = tokens;
@@ -91,8 +91,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	tmp = list;
 	list = list->next;
-	// if (!list)
-	// 	list = tmp;
+	free(tmp);
 	t_list *list_head;
 	
 	if (list)

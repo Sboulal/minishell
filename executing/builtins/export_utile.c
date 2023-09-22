@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 14:42:38 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:22:54 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,7 @@ char	**list_clean(char *cmd, int num)
 		tmp = str[0];
 		src = my_split_word(tmp, '+');
 		str[0] = src[0];
+		// free (src)
 	}
 	return (str);
 }
