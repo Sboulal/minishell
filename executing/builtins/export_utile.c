@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 12:54:54 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:42:38 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ char	**list_clean(char *cmd, int num)
 		tmp = str[0];
 		src = my_split_word(tmp, '+');
 		str[0] = src[0];
-		printf("src[0] = %p\n", src);
 	}
 	return (str);
 }

@@ -5,6 +5,13 @@
         "exec.h": "c",
         "chrono": "c",
         "lexer.h": "c",
-        "libft.h": "c"
+        "libft.h": "c",
+        "__functional_base": "c",
+        "array": "c",
+        "istream": "c",
+        "locale": "c",
+        "memory": "c",
+        "tuple": "c",
+        "utility": "c"
     }
 }

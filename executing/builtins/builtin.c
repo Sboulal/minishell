@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 04:01:02 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 15:02:29 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,8 @@ void	exec_cmd(t_exec **exp, char **env)
 	i = 0;
 	(void)env;
 	sig_cmd();
-	if (!(*exp)->cmd)
-		return ;
+	// if (!(*exp)->cmd)
+	// 	return ;
 	if ((*exp)->cmd && (*exp)->cmd->next)
 	{
 		head = (*exp)->cmd;
