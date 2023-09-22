@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 02:37:20 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:41:59 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,36 @@
 #include "headers/lexer.h"
 #include "headers/exec.h"
 
-static int is_isspace(char c)
+int is_isspace(char c)
 {
     return (c == ' ' || (c >= '\t' && c <= '\r'));
+}
+
+void ft_lstclear_exp(t_export **lst)
+{
+  t_export	*tmp;
+
+  if (!lst )
+    return ;
+  while (*lst)
+  {
+    tmp = *lst;
+    *lst = (*lst)->next;
+    free(tmp);
+  }
+}
+void  ft_lstclear_env(t_envp **lst)
+{
+  t_envp	*tmp;
+
+  if (!lst )
+    return ;
+  while (*lst)
+  {
+    tmp = *lst;
+    *lst = (*lst)->next;
+    free(tmp);
+  }
 }
 
 void	ft_lstclear_cmd(t_mini **lst)
@@ -52,6 +79,7 @@ int main(int ac, char *av[],char *env[])
   int k;
   t_export *exp;
   t_exec *exec;
+  (void)env;
 
   exp = NULL;
   k = 0;
@@ -75,18 +103,13 @@ int main(int ac, char *av[],char *env[])
 	ft_add_history(bas);
     if (k == 0)
     {
-        if (*env)
-		      g_var.env = env;
         if (!(*env) && !((exec->env)))
 			      protect_cmd(&exec->env);
-	      else if (!(exec->env) && (*(g_var.env)))
-          creat_env(&exec->env);
+	      else if (!(exec->env) && (*env))
+          creat_env(&exec->env, env);
 	      creat_exp(&exec->exp, exec->env);
-        exp = exec->exp;
-         k = 1;
+        k = 1;
     }
-	else
-		g_var.envp = exec->env;
     exec->cmd = parse(bas, exec->env);
     if (exec->cmd)
         exec_cmd(&exec, env);
@@ -94,7 +117,8 @@ int main(int ac, char *av[],char *env[])
         ft_lstclear_cmd(&exec->cmd);
         free(bas);
   }
-  
+  ft_lstclear_exp(&exec->exp);
+  ft_lstclear_env(&exec->env);
    return (0);  
 }
 

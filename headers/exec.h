@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 22:52:25 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 12:33:42 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,12 @@
 # include <sys/stat.h>
 # include <sys/errno.h>
 
-typedef struct s_export
-{
-	char			*exp;
-	char			*variable;
-	char			*value;
-	struct s_export	*next;
-}	t_export;
-
-typedef struct s_exec
-{
-	t_export	*exp;
-	t_mini		*cmd;
-	int			nbr_cmd;
-	t_envp		*env;
-}t_exec;
-
 t_export	*ft_lst_exp(t_export *exp);
 t_export	*list_exp(char *env);
 t_envp		*list_env(char *env);
 t_envp		*ft_lst(t_envp *lst);
 void		add_back_env(t_envp **lst, t_envp *new);
-void		creat_env(t_envp **lst);
+void		creat_env(t_envp **lst, char **env);
 void		print_env(t_exec *exp);
 int			check_arg(char **args, int k, int nbr, int len);
 void		print_echo(char **arg, int nbr, t_exec *exp);
@@ -95,5 +79,6 @@ int	check_unset_env(char *cmd);
 void	ft_delete(t_envp **head);
 void	ft_delete_export(t_export **head);
 void check_permision(t_mini *cmd);
+void  ft_lstclear_env(t_envp **lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 02:17:40 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 03:03:51 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	exit_program(t_mini *cmd)
 	i = 0;
 	if (cmd->nbr_arg > 1)
 	{
+		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		g_var.status = 1;
 		return ;

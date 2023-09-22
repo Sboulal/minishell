@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 18:57:59 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/22 04:01:02 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,11 @@ void	protect_cmd(t_envp **env)
 	str1 = ft_strjoin(str1, string[1]);
 	str1 = ft_strjoin(str1, "/.brew/bin");
 	add_back_env(env, list_env(str1));
-	g_var.env[0] = ft_strdup(str1);
 	add_back_env(env, list_env(ft_strjoin("PWD=", str)));
-	g_var.env[1] = ft_strdup(ft_strjoin("PWD=", str));
 	add_back_env(env, list_env(ft_strjoin("HOME=/Users/", string[1])));
-	g_var.env[2] = ft_strdup(ft_strjoin("HOME=/Users/", string[1]));
 	add_back_env(env, list_env(ft_strjoin("SHLVL=", "1")));
-	g_var.env[3] = ft_strdup(("SHLVL=1"));
 	add_back_env(env, list_env(ft_strjoin("_=", "/usr/bin/env")));
-	g_var.env[3] = ft_strdup(("_=/usr/bin/env"));
-	g_var.env[4] = NULL;
+	free(str1);
 }
 
 // void instiall_index(t_exec *exp)
@@ -151,7 +146,7 @@ void	exec_cmd(t_exec **exp, char **env)
 	if (!((*exp)))
 		return ;
 	if (((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "cd") == 0) || ((*exp)->nbr_cmd == 1 && ((*exp)->cmd->nbr_arg > 0)
-		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || (ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
+		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
 		builtins(exp, (*exp)->cmd);
 	else
 		use_pipe(exp, (*exp)->cmd);

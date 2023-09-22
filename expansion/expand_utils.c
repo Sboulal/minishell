@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 02:49:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:36:50 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ char	*get_name(char *token ,t_envp *env) // get value
 	char *key;
 	char *val;
 
-		// name_len = 0;
 	while (token[i])
 	{
 		if (token[i] == '$' && token[i + 1] == '?')
@@ -77,16 +76,14 @@ char	*get_name(char *token ,t_envp *env) // get value
 		{
 			k = i;
 			i = next_quote(i + 1, token[i], token);
-			key = ft_substr(token, k, i - k - 1);
+			key = ft_substr(token, k, i - k);
 			str = ft_strjoin(str, key);
-			printf("key = %s\n", key);
-			
+			i++;
 		}
 		if (token[i] == '$')
 		{
 			i++;
-			// name_len = get_name_len(token, i);
-			if (!(ft_isalpha(token[i]) || token[i] == '_'))
+			if (!(ft_isalpha(token[i]) || token[i] == '_' ))
 			{
 				str = ft_strjoin(str, "$");
 				if (token[i] == '\0')
@@ -103,24 +100,9 @@ char	*get_name(char *token ,t_envp *env) // get value
 				str = ft_strjoin(str, val);
 			continue;
 		}
-		// if (token[i] == '\0' && token[i] == '"')
-		// {
-		// 	i++;
-		// 	k = i;
-		// 	while (token[i] && (is_identifier(token[i]) || token[i] == '_'))
-		// 		i++;
-		// 	key = ft_substr(token, k, i - k - 1);
-		// 	printf("key = %s\n", key);
-		// 	str = ft_strjoin(str, val);
-		// 	// i++;
-		// 	continue;
-		// }
 		str = ft_strjoin(str, to_string(token[i]));
-		// }
 		i++;
 	}
-	// if (name_len == 0 || name_len == -1)
-	// 	return (NULL);
 	return (str);
 }
 
