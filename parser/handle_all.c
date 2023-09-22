@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_all.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 13:53:14 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:45:14 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 				return (0);
 			status = redirect(cmd, tokens->token, (tokens->next)->token, env);
 			if (!status)
+			{
+				close_fds(cmd);
+				g_var.status = 1;
 				return (status);
+			}
 			tokens = tokens->next;
 			tokens->type = FILE;
 		}
@@ -53,7 +57,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		in;
 	int		out;
 	t_lexer	*head;
-
+    
 	wc = 0;
 	j = 0;
 	head = tokens;
@@ -87,8 +91,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	tmp = list;
 	list = list->next;
-	// if (!list)
-	// 	list = tmp;
+	free(tmp);
 	t_list *list_head;
 	
 	if (list)

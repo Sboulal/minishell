@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 15:09:40 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 21:02:02 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void check_permision(t_mini *cmd)
 	{
 		ft_putstr_fd("minishell : ",2);
 		ft_putstr_fd(cmd->cmd,2);
-		ft_putstr_fd(": Is a directory\n",2);
+		ft_putstr_fd(": is a directory\n",2);
+		g_var.status = 126;
 		exit(1);
 	}
 	
@@ -91,10 +92,12 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	pt = exec_chec_join(str[i], path, cmd, exp);
 	if (!pt)
 		return ;
-	g_var.status = execve(*pt, pt, g_var.env);
+	execve(*pt, pt, g_var.env);
+	g_var.status = 127;
 	ft_putstr_fd("minishell : ",2);
 	ft_putstr_fd(cmd->cmd,2);
 	ft_putstr_fd(": command not found\n",2);
-	exit(1);
+	g_var.status = 127;
+	exit(g_var.status);
 	// perror("execve");
 }

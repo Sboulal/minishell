@@ -110,6 +110,7 @@ int	check_token(char *s);
 char	**my_split(char *line, int wc);
 char	*here_doc_name(void);
 void	*tabfree(char **tab);
+void	close_fds(t_mini *cmd);
 void	handle_pipes(t_mini *cmd, t_lexer *tokens);
 int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env);
 t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens);
