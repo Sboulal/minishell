@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 13:53:14 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:48:28 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 				return (0);
 			status = redirect(cmd, tokens->token, (tokens->next)->token, env);
 			if (!status)
+			{
+				close_fds(cmd);
+				g_var.status = 1;
 				return (status);
+			}
 			tokens = tokens->next;
 			tokens->type = FILE;
 		}

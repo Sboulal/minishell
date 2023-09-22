@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 15:38:58 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 21:42:51 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 		str = ft_strjoin(str, to_string(token[i]));
 		i++;
 	}
-	printf	("str = %s\n", str);
 	return (str);
 }
 

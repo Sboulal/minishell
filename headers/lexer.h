@@ -107,6 +107,7 @@ int is_isspace(char c);
 int next_quote(int i, char quote,char *str);
 char	*get_word(char *s, size_t *index);
 int	check_token(char *s);
+void	close_fds(t_mini *cmd);
 char	**my_split(char *line, int wc);
 char	*here_doc_name(void);
 void	*tabfree(char **tab);
