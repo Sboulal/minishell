@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 01:41:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 15:34:18 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ char **my_split_word(char *cmd, char c)
 	int i;
 	char **str;
 	char *tmp;
+	char *tmp1;
 
 	i = 0;
 	tmp = cmd;
@@ -171,10 +172,11 @@ char **my_split_word(char *cmd, char c)
 		str[2] = NULL;
 		return (str);
 	}
+	tmp1 = cmd;
 	str = (char **)malloc(sizeof(char *) * 2);
-	str[0] = ft_substr(cmd, 0, ft_strlen(cmd));
+	str[0] = ft_substr(tmp1, 0, ft_strlen(tmp1));
 	str[1] = NULL;
-	return (str);
+	return (free(tmp1), str);
 }
 char	**list_clean(char *cmd, int num)
 {
@@ -185,15 +187,16 @@ char	**list_clean(char *cmd, int num)
 	if (!cmd)
 		return (NULL);
 	tmp = cmd;
-	str = my_split_word(tmp, '='); 
+	str = my_split_word(tmp, '=');
 	if (!(*str))
-		return (NULL);
+		return (free(tmp), NULL);
 	if (num == 2)
 	{
 		tmp = str[0];
 		src = my_split_word(tmp, '+');
 		str[0] = src[0];
-		// free (src)
+		free(src[1]);
+		free (tmp);
 	}
 	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 22:48:39 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 15:10:21 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,39 @@ void	protect_cmd(t_envp **env)
 {
 	char	str[PATH_MAX];
 	char	**string;
+	char	*tmp;
+	char	*tmp1;
+	char	*tmp2;
+	char	*tmp3;
 	char	*str1;
+	int i;
 
 	getcwd(str, PATH_MAX);
 	string = ft_split(str, '/');
-	g_var.env = (char **)malloc(sizeof(char *) * 5);
-	str1 = ft_strjoin("PATH=/Users/", string[1]);
-	str1 = ft_strjoin(str1, "/.brew/bin:/usr/local/bin:/usr/bin:");
-	str1 = ft_strjoin(str1, ":/bin:/usr/sbin:/sbin:/usr/local/munki:");
-	str1 = ft_strjoin(str1, "/Library/Apple/usr/bin:/Users/");
-	str1 = ft_strjoin(str1, string[1]);
-	str1 = ft_strjoin(str1, "/.brew/bin");
+	tmp = ft_strjoin("PATH=/Users/", string[1]);
+	str1 = ft_strjoin(tmp, "/.brew/bin:/usr/local/bin:/usr/bin:");
+	free(tmp);
+	tmp1 = ft_strjoin(str1, ":/bin:/usr/sbin:/sbin:/usr/local/munki:");
+	free(str1);
+	tmp2 = ft_strjoin(tmp1, "/Library/Apple/usr/bin:/Users/");
+	free(tmp1);
+	tmp3 = ft_strjoin(tmp2, string[1]);
+	free(tmp2);
+	str1 = ft_strjoin(tmp3, "/.brew/bin");
+	free(tmp3);
 	add_back_env(env, list_env(str1));
+	free(str1);
 	add_back_env(env, list_env(ft_strjoin("PWD=", str)));
 	add_back_env(env, list_env(ft_strjoin("HOME=/Users/", string[1])));
 	add_back_env(env, list_env(ft_strjoin("SHLVL=", "1")));
 	add_back_env(env, list_env(ft_strjoin("_=", "/usr/bin/env")));
+	i = 0;
+	while (string[i])
+	{
+		free(string[i]);
+		i++;
+	}
+	free(string);
 	free(str1);
 }
 

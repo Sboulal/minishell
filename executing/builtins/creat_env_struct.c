@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 23:12:14 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 14:50:06 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ t_envp	*list_env(char *env)
 {
 	t_envp	*new;
 	int		num;
+	char 	*tmp1;
 	char 	*tmp;
+	char 	*tmp2;
 	int i;
 	char	**str;
-	char	**src;
 
 	i = 0;
 	if (!env)
@@ -33,12 +34,16 @@ t_envp	*list_env(char *env)
 	if (num)
 	{
 		str = list_clean(env, num);
-		src = str;
-		new->variable = str[0];
-		new->value = str[1];
-		tmp = ft_strjoin(str[0], "=");
-		new->env = ft_strjoin(tmp, str[1]);
+		tmp1 = str[0];
+		tmp2 = str[1];
+		new->variable = ft_strdup(tmp1);
+		new->value = ft_strdup(tmp2);
+		tmp = ft_strjoin(tmp1, "=");
+		new->env = ft_strjoin(tmp, tmp2);
+		free(tmp1);
+		free(tmp2);
 		free(tmp);
+		free(str);
 		new->next = NULL;
 		return (new);
 	}
