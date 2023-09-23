@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 19:22:54 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/23 01:41:26 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,12 +171,6 @@ char **my_split_word(char *cmd, char c)
 		str[2] = NULL;
 		return (str);
 	}
-	//0x10000B779
-	//0x100009482
-	//0x100009574
-	//0x100008AE7
-	//0x100008CA0
-	// 0x100002E65
 	str = (char **)malloc(sizeof(char *) * 2);
 	str[0] = ft_substr(cmd, 0, ft_strlen(cmd));
 	str[1] = NULL;

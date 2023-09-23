@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 03:03:51 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:00:37 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	exit_program(t_mini *cmd)
 		{
 			ft_putstr_fd("exit\n", 2);
 			g_var.status = 255;
-			exit(255);
+			exit(g_var.status);
 		}
 		else
 		{

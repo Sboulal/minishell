@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 21:02:02 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:13:54 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void check_permision(t_mini *cmd)
 		ft_putstr_fd(cmd->cmd,2);
 		ft_putstr_fd(": is a directory\n",2);
 		g_var.status = 126;
-		exit(1);
+		exit(g_var.status);
 	}
 	
 }
@@ -99,5 +99,6 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	ft_putstr_fd(": command not found\n",2);
 	g_var.status = 127;
 	exit(g_var.status);
+	
 	// perror("execve");
 }

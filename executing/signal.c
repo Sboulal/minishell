@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 16:56:54 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/16 02:42:04 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 00:00:52 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,10 @@ int	sig(void)
 void	sig_add(int sig)
 {
 	if (sig == SIGQUIT)
-	{
-		printf("Quit\n");
 		return ;
-	}
 	if (sig == SIGINT)
 	{
 		rl_catch_signals = 0;
-		printf("\n");
 		return ;
 	}
 }

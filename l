@@ -1,0 +1,17 @@
+Makefile
+a
+executing
+expansion
+headers
+l
+lexer
+libft
+main.c
+main.o
+minishell
+minishell.dSYM
+nkhoudro
+ok
+p
+parser
+s

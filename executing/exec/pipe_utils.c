@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:51:30 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/19 22:24:01 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:37:21 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,34 @@ void	close_file(int **pipfd, int nb_pip)
 void	wait_pid(pid_t *pid, t_exec *exp)
 {
 	int	i;
-
+	int	status;
 	i = 0;
 	while (i < exp->nbr_cmd)
-		waitpid(pid[i++], NULL, 0);
+	{
+		waitpid(pid[i], &status, 0);
+		if (WIFEXITED(status))
+			g_var.status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+		{
+			if (WTERMSIG(status) == SIGQUIT)
+				printf("Quit: %d\n", SIGQUIT);
+			else if (WTERMSIG(status) == SIGINT)
+			{
+				printf("\n");
+				g_var.status = 130;
+			}
+		}
+		i++;
+	}
 }
+
+// {
+// 	int	i;
+	
+// 	i = 0;
+// 	while (i < exp->nbr_cmd)
+// 		waitpid(pid[i++], NULL, 0);
+// }
 
 int	**incial_pipe(int nb_pip, t_exec *exp)
 {

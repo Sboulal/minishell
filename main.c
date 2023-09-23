@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 22:32:25 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:54:49 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int main(int ac, char *av[],char *env[])
   (void)env;
 
   exp = NULL;
-  g_var.status = 0;
+  //g_var.status = 0;
   k = 0;
   exec = (t_exec *)ft_calloc(sizeof(t_exec));
 	i = 0;
@@ -95,7 +95,7 @@ int main(int ac, char *av[],char *env[])
     }
   while(1)
   {
-	  // sig();
+	  sig();
     bas = readline("minishell$ ");
 	if(bas == 0)
 		break;
