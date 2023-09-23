@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 22:37:53 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 21:11:27 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,4 +139,20 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		cmd->fd[1] = out;
 	}
 	return (cmd);
+}
+
+
+void    close_all_fds(t_mini *head)
+{
+    t_mini    *tmp;
+
+    tmp = head;
+    while (tmp->next)
+    {
+        if (tmp->fd[1] != -4 && tmp->fd[1] != 0)
+            ft_close(tmp->fd[1]);
+        if (tmp->fd[0] != -4 && tmp->fd[0] != 0)
+            ft_close(tmp->fd[0]);
+        tmp = tmp->next;
+    }
 }

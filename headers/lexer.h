@@ -104,6 +104,7 @@ void	add_middle(t_lexer *token, char *word);
 char **skip_vid(char *str);
 int count_string(char *str);
 int is_isspace(char c);
+void    close_all_fds(t_mini *head);
 int next_quote(int i, char quote,char *str);
 char	*get_word(char *s, size_t *index);
 int	check_token(char *s);

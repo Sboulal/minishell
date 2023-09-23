@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:43:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 11:07:19 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 16:51:48 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,36 @@
 t_export	*put_int_export(t_export *new, char *env, int num)
 {
 	char	**str;
+	char 	*tmp1;
+	char 	*tmp;
+	char 	*tmp2;
+	int 	i;
 
 	str = list_clean(env, num);
-	new->variable = str[0];
+	new->variable = ft_strdup(str[0]);
+	
 	if (str[1])
-		new->value = str[1];
+		new->value = ft_strdup(str[1]);
 	else 
-		str[1] = ft_substr(str[0], ft_strlen(str[0]) - 1, ft_strlen(str[0]));
+		tmp = ft_substr(str[0], ft_strlen(str[0]) - 1, ft_strlen(str[0]));
 	if (ft_strchr(env, '='))
 	{
-		new->exp = ft_strjoin(str[0], "=");
-		new->exp = ft_strjoin(new->exp, "\"");
-		if (str[1])
-			new->exp = ft_strjoin(new->exp, new->value);
-		new->exp = ft_strjoin(new->exp, "\"");
+		tmp1 = ft_strjoin(str[0], "=");
+		tmp2 = ft_strjoin(tmp1, "\"");
+		free(tmp1);
+		if (tmp)
+			tmp1 = ft_strjoin(tmp2, new->value);
+		new->exp = ft_strjoin(tmp1, "\"");
 	}
 	else
-		new->exp = str[0];
+		new->exp = ft_strdup(str[0]);
 	new->next = NULL;
+	i = 0;
+	// free(tmp);
+	// free(tmp1);
+	// free(tmp2);
+	while (str[i])
+		free(str[i++]);
 	return (free(str), new);
 }
 

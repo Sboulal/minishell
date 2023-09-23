@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/23 15:51:53 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 21:48:28 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,11 @@ int main(int ac, char *av[],char *env[])
 	      creat_exp(&exec->exp, exec->env);
         k = 1;
     }
-    // exec->cmd = parse(bas, exec->env);
-    // if (exec->cmd)
-    //     exec_cmd(&exec, env);
-      
+    exec->cmd = parse(bas, exec->env);
+    close_all_fds(exec->cmd);
+    if (exec->cmd)
+        exec_cmd(&exec, env);
+    close_all_fd(exec->cmd);
     if (exec->cmd)
         ft_lstclear_cmd(&exec->cmd);
     free(bas);

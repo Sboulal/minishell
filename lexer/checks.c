@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 02:41:24 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 21:03:36 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 	{
 		if (test_file(file))
 			return (0);
-		fd = ft_open(file,  O_WRONLY , 0644);
+		fd = ft_open(file,  O_RDONLY , 0644);
 		if (fd == -1)
 		{
 			cmd->fd[0] = -4;

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 12:33:42 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 17:02:14 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void	ft_delete(t_envp **head);
 void	ft_delete_export(t_export **head);
 void check_permision(t_mini *cmd);
 void  ft_lstclear_env(t_envp **lst);
+void close_all_fd(t_mini *head);
 
 #endif

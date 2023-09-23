@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:20:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 23:30:48 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 21:50:21 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ t_mini	*convert_to_cmds(t_lexer *tokens, t_envp *env)
 
 	head = tokens;
 	cmds = NULL;
-	open_pipes(head);
 	while (tokens)
 		tokens = add_cmd(&cmds, tokens, env);
 	

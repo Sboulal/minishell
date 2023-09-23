@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 04:32:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 21:54:12 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 	if (head->fd[READ_END] > 2)
 		close(head->fd[READ_END]);
 	if (head->fd[WRITE_END] > 2)
-		close(head->fd[READ_END]);
+		close(head->fd[WRITE_END]);
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	buil_exec_pipe(exp, head);
 	// if (ft_strcmp(head->cmd, "exit") == 0)
@@ -100,6 +100,6 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 		j++;
 		head = head->next;
 	}
-	close_file(pipfd, (*exp)->nbr_cmd - 1);
+	close_file(pipfd, (*exp)->nbr_cmd);
 	wait_pid(pid, (*exp));
 }

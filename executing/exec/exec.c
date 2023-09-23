@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 23:13:54 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 19:46:20 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,4 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	ft_putstr_fd(": command not found\n",2);
 	g_var.status = 127;
 	exit(g_var.status);
-	
-	// perror("execve");
 }
