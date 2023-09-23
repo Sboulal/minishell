@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 23:20:47 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 02:02:42 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ char	*get_name(char *token ,t_envp *env) // get value
 		if (token[i] == '$' && token[i + 1] == '?')
 		{
 			str = ft_strjoin_3(str, (ft_itoa(g_var.status)));
+			
 			i += 2;
 			continue;
 		}
@@ -253,7 +254,9 @@ char	*get_name(char *token ,t_envp *env) // get value
 			key = ft_substr(token, k, i - k);
 			val = get_env_value(key, env);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin_3(str, val);
+			{
+				str = ft_strjoin_1(str, val);
+			}
 			continue;
 		}
 		str = ft_strjoin_3(str, to_string(token[i]));

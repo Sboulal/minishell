@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 16:56:54 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 00:00:52 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 01:47:04 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	handle_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
+		g_var.status = 1;
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:51:30 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 23:37:21 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/23 01:45:28 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,16 @@ void	wait_pid(pid_t *pid, t_exec *exp)
 		else if (WIFSIGNALED(status))
 		{
 			if (WTERMSIG(status) == SIGQUIT)
+			{
 				printf("Quit: %d\n", SIGQUIT);
+				g_var.status = 131;
+			}
 			else if (WTERMSIG(status) == SIGINT)
 			{
 				printf("\n");
 				g_var.status = 130;
 			}
+			
 		}
 		i++;
 	}
