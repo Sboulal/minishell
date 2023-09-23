@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/23 21:11:27 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 00:25:30 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int k = check_redirections(tokens);
 	if (k == 0)
 	{
-		in = -4;
-		out = -4;
+		in = 0;
+		out = 1;
 		if (cmd->fd[0] > 2)
 			in = cmd->fd[0];
 		if (cmd->fd[1] > 2)
@@ -74,8 +74,8 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	else
 	{
-		in = -4;
-		out = - 4;
+		in = 0;
+		out = 1;
 	}
 	cmd = (t_mini *) malloc(sizeof(t_mini));
 	head = tokens;
@@ -145,7 +145,8 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 void    close_all_fds(t_mini *head)
 {
     t_mini    *tmp;
-
+	if (!head)
+		return ;
     tmp = head;
     while (tmp->next)
     {

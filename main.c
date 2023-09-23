@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/23 21:48:28 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 00:24:41 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ int main(int ac, char *av[],char *env[])
   {
 	  sig();
     bas = readline("minishell$ ");
-	if(bas == 0)
-		break;
 	if (ft_strlen(bas) == 0)
 		continue;
 	ft_add_history(bas);
+	if(bas == 0)
+		break;
     if (k == 0)
     {
         if (!(*env) && !((exec->env)))

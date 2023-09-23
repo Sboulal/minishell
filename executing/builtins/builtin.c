@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 15:10:21 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 00:12:42 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,12 @@ void	buil_exec_pipe(t_exec **exp, t_mini *cmd)
 		&& ft_strcmp(cmd->cmd, "echo") != 0 && ft_strcmp(cmd->cmd, "pwd") != 0
 		&& ft_strcmp(cmd->cmd, "unset") != 0 && ft_strcmp(cmd->cmd, "cd") != 0
 		&& ft_strcmp(cmd->cmd, "export") != 0)
+		{
 		exec_pipe(exp, cmd);
+		}
 	else
 		builtins(exp, cmd);
+		printf("here\n");
 }
 
 void	protect_cmd(t_envp **env)
