@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 17:02:14 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 01:54:47 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_export	*list_exp(char *env);
 t_envp		*list_env(char *env);
 t_envp		*ft_lst(t_envp *lst);
 void		add_back_env(t_envp **lst, t_envp *new);
-void		creat_env(t_envp **lst, char **env);
+void		creat_env(t_envp **lst);
 void		print_env(t_exec *exp);
 int			check_arg(char **args, int k, int nbr, int len);
 void		print_echo(char **arg, int nbr, t_exec *exp);

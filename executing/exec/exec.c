@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 23:51:08 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 02:07:27 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void check_permision(t_mini *cmd)
 	
 	if (!cmd)
 		return ;
-	if (stat(cmd->cmd, &sb) == 0 && (access(cmd->cmd, X_OK) == 0))
+	if (stat(cmd->cmd, &sb) == -1 && ((access(cmd->cmd, X_OK)) == 0) && S_ISREG(sb.st_mode))
 	{
 		ft_putstr_fd("minishell : ",2);
 		ft_putstr_fd(cmd->cmd,2);
@@ -92,7 +92,6 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	pt = exec_chec_join(str[i], path, cmd, exp);
 	if (!pt)
 		return ;
-	printf("[test]\n");
 	execve(*pt, pt, g_var.env);
 	g_var.status = 127;
 	ft_putstr_fd("minishell : ",2);

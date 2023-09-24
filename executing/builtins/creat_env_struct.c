@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 14:50:06 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 01:54:35 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,20 @@ void	add_back_env(t_envp **lst, t_envp *new)
 	ft_lst(*lst)->next = new;
 }
 
-void	creat_env(t_envp **lst, char **env)
+void	creat_env(t_envp **lst)
 {
 	int	i;
 	t_envp	*tmp;
 
 	i = 0;
-	if (!env[i])
+	if (!g_var.env[i])
 	{
 		g_var.status = 127;
 		return ;
 	}
-	while (env[i])
+	while (g_var.env[i])
 	{
-		tmp = list_env(env[i]);
+		tmp = list_env(g_var.env[i]);
 		add_back_env(lst, tmp);
 		i++;
 	}

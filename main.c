@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 00:24:41 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 02:00:20 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,13 @@ int main(int ac, char *av[],char *env[])
 		break;
     if (k == 0)
     {
-        if (!(*env) && !((exec->env)))
-			      protect_cmd(&exec->env);
-	      else if (!(exec->env) && (*env))
-          creat_env(&exec->env, env);
+        g_var.env = env;
+        if (!(*env) && !((exec->env->env)))
+		      protect_cmd(&exec->env);
+	      else if (!(exec->env) && (*(g_var.env)))
+		      creat_env(&exec->env);
+		    g_var.envp = exec->env;
+        exec->exp = NULL;
 	      creat_exp(&exec->exp, exec->env);
         k = 1;
     }
