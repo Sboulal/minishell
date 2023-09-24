@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 10:22:07 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:56:32 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 void	ft_lstclear(t_list **lst)
 {
 	t_list	*tmp;
+	t_list 	*head;
 
-	if (!lst )
+	if (!(*lst) )
 		return ;
-	while (*lst)
+	head = *lst;
+	while (head)
 	{
-		tmp = *lst;
-		*lst = (*lst)->next;
+		tmp = head;
+		head = (head)->next;
 		free(tmp);
 	}
 }
@@ -63,7 +65,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		i;
 	int		j;
 	t_list	*list;
-	t_list	*tmp;
+	// t_list	*tmp;
 	int		in;
 	int		out;
 	t_lexer	*head;
@@ -99,10 +101,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		}
 		head = head->next;
 	}
-	tmp = list;
-	list = list->next;
-	// if (!list)
-	// 	list = tmp;
 	t_list *list_head;
 	
 	if (list)
@@ -148,6 +146,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		cmd->fd[0] = in;
 		cmd->fd[1] = out;
 	}
-	ft_lstclear(&tmp);
+	ft_lstclear(&list);
 	return (cmd);
 }

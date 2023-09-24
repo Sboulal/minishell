@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:20:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 08:34:38 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:40:56 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_mini	*convert_to_cmds(t_lexer *tokens, t_envp *env)
 
 	head = tokens;
 	cmds = NULL;
-	while (tokens)
-		tokens = add_cmd(&cmds, tokens, env);
+	while (head)
+		head = add_cmd(&cmds, head, env);
 	return (cmds);
 }

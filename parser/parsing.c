@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 10:23:37 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:42:48 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,25 @@ t_lexer *skip_op(char **string)
 	return(tokens);
 }
 
+void	*tabfree1(char **tab)
+{
+	size_t	j;
+
+	j = 0;
+	if(!tab)
+		return (NULL);
+	while (tab[j])
+	{
+		printf("strrr: %p\n", tab[j]);
+		free(tab[j]);
+		tab[j] = NULL;
+		j++;
+	}
+	free(tab);
+	tab = NULL;
+	return (NULL);
+}
+
 t_mini *parse(char *str, t_envp *env)
 {
 	char **string;
@@ -76,16 +95,7 @@ t_mini *parse(char *str, t_envp *env)
 		return(NULL);
 	}
 	lexer = skip_op(string);
-	// int i = 0;
-	// while (string[i])
-	// {
-	// 	printf("ssd: %p\n", string[i]);
-	// 	free(string[i]);
-	// 	string[i] = NULL;
-	// 	i++;
-	// }
-	// free(string);
-	tabfree(string);
+	tabfree1(string);
 	if(!check_parse(lexer))
 	{
 		ft_putstr_fd("$bash : syntax error\n",2);
@@ -94,6 +104,7 @@ t_mini *parse(char *str, t_envp *env)
 	token_herdoc(lexer);
 	lexer = expand_lexer(lexer, env);
 	mini = convert_to_cmds(lexer, env);
+	free_tokens(lexer);
 	return(mini);
 }
 

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 10:22:26 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 16:57:09 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,10 @@ static int is_isspace(char c)
 void	ft_lstclear_cmd(t_mini **lst)
 {
 	t_mini	*tmp;
-	int i = 0;
 
-	if (!lst )
+	if (!lst)
 		return ;
 	tmp = *lst;
-	while (tmp)
-	{
-		i = 0;
-		if (tmp->arg)
-		{
-			while (tmp->arg[i])
-			{
-				i++;
-			}
-		}
-		tmp = tmp->next;
-	}
 	while (*lst)
 	{
 		tmp = *lst;
@@ -139,7 +126,7 @@ int main(int ac, char *av[],char *env[])
     exec->cmd = parse(bas, exec->env);
 	if(g_var.heredoc_flag)
 	{
-	// 	  close_all_fds(exec->cmd);
+		  close_all_fds(exec->cmd);
 		if (exec->cmd)
 			free_cmd(exec->cmd);
 		  free(bas);

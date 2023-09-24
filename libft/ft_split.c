@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 17:45:51 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 10:26:48 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:42:46 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@ void	*tabfree(char **tab)
 
 	j = 0;
 	if(!tab)
-	{
-		puts("herre");
 		return (NULL);
-	}
 	while (tab[j])
 	{
-		// printf("strrr: %p\n", tab[j]);
 		free(tab[j]);
 		j++;
 	}
