@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/23 19:29:12 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 05:40:22 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void	free_cmd(t_mini *head)
 {
 	t_mini	*tmp;
-
+	if(!head)
+		return ;
 	while (head)
 	{
-		tabfree(head->arg);
+		if (head->arg)
+			tabfree(head->arg);
 		tmp = head->next;
 		free(head);
 		head = tmp;
@@ -27,9 +29,9 @@ void	free_cmd(t_mini *head)
 
 void	close_fds(t_mini *cmd)
 {
-	if (cmd->fd[0] != 0)
+	if (cmd->fd[0] != 0 && cmd->fd[0] != -4)
 		close(cmd->fd[0]);
-	if (cmd->fd[1] != 0)
+	if (cmd->fd[1] != 0 && cmd->fd[1] != -4)
 		close(cmd->fd[1]);
 }
 
@@ -85,6 +87,8 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 		g_var.status = 1;
 		return (free_cmds(new, tokens));
 	}
+	else
+		g_var.status = 0;
 	new = handle_cmd(new, tokens);
 	add(cmds, new);
 	return (next_pipe(tokens));

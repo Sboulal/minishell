@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 23:21:44 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:12:58 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ void	print_in_echo(char **arg, int n)
 
 	i = 0;
 	int d;
+
 	if (n == 0)
 	{
 		printf("\n");
@@ -162,7 +163,6 @@ void	print_in_echo(char **arg, int n)
 			i++;
 		}
 	}
-	//g_var.status = 0;
-	exit(g_var.status);
+	exit(0);
 }
 

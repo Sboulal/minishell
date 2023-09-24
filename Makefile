@@ -1,8 +1,8 @@
-NAME= minishell
+NAME = minishell
 CC = cc
 libft = libft/libft.a
 USER = $(shell whoami)
-CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include #-g -fsanitize=address
 RLFLAGES = -lreadline -lhistory -L/Users/$(USER)/.brew/opt/readline/lib
 
 SRC = 	main.c\

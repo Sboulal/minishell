@@ -3,28 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 17:45:51 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 16:17:54 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 05:20:20 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
 
-void	tabfree(char **tab)
+void	*tabfree(char **tab)
 {
-	size_t	i;
+	size_t	j;
 
-	i = 0;
-	if (!tab)
-		return ;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
+	j = 0;
+	if(!tab)
+		return (NULL);
+	while (tab[j])
+		free(tab[j++]);
 	free(tab);
+	return (NULL);
 }
 
 static int	words(char const *str, char c)

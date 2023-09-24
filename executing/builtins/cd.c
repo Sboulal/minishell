@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 23:52:21 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 04:59:30 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,7 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	{
 		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent",2);
 		ft_putstr_fd(":directories: No such file or directory\n",2);
-		g_var.status = 0;
-		return ;
+		g_var.status = 126;
 	}
 	if (!(head->next))
 		return ;
@@ -138,9 +137,8 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(args[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+		ft_putstr_fd(": No such file or---- directory\n", 2);
 		g_var.status = 1;
-		return ;
 	}
 	change_pwd(&head, exp);
 	g_var.status = 0;

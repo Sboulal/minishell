@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 02:55:08 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 18:57:59 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,8 +130,8 @@ void	exec_cmd(t_exec **exp, char **env)
 	i = 0;
 	(void)env;
 	sig_cmd();
-	// if (!(*exp)->cmd)
-	// 	return ;
+	if (!(*exp)->cmd)
+		return ;
 	if ((*exp)->cmd && (*exp)->cmd->next)
 	{
 		head = (*exp)->cmd;
@@ -151,7 +151,7 @@ void	exec_cmd(t_exec **exp, char **env)
 	if (!((*exp)))
 		return ;
 	if (((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "cd") == 0) || ((*exp)->nbr_cmd == 1 && ((*exp)->cmd->nbr_arg > 0)
-		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
+		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || (ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
 		builtins(exp, (*exp)->cmd);
 	else
 		use_pipe(exp, (*exp)->cmd);

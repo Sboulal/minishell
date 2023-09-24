@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 14:53:55 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 04:28:49 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,13 +169,19 @@ t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
 	{
 		if (token->type == WORD)
 		{
-			token = word_spliting(token);
 			token->token = get_name(token->token,env);
+			token = word_spliting(token);
 		}
 		token = token->next;
 	}
 	token = tokens;
 	tokens = remove_empty_tokens(token, token, NULL);
 	head = tokens;
+	while (tokens)
+	{
+		if (tokens->type == WORD && tokens->token)
+			tokens->token = remove_quote(tokens->token);
+		tokens = tokens->next;
+	}
 	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/23 21:38:27 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 05:30:00 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,17 @@ void	ft_dup2(int oldfd, int newfd)
 	sa_sigint.sa_handler = &change_flag;
 	sigaction(SIGINT, &sa_sigint, NULL);
 }
+
+int close_her(void)
+{
+	
+	if(open("/dev/stdin", O_RDONLY) == -1)
+	{
+		dup2(1,0);
+		return (0);
+	}
+	return 1;
+}
 int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 {
 	int        expand_mode;
@@ -76,8 +87,12 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 		return (1);
     while (1)
     {
-		sigint_heredoc();
+		// sigint_heredoc();
+	
         line = readline("> ");
+		if(!close_her())
+			break;
+		
         if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
         {
             free(line);

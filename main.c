@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 02:00:20 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 05:21:32 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,9 @@
 #include "headers/lexer.h"
 #include "headers/exec.h"
 
-int is_isspace(char c)
+static int is_isspace(char c)
 {
     return (c == ' ' || (c >= '\t' && c <= '\r'));
-}
-
-void ft_lstclear_exp(t_export **lst)
-{
-  t_export	*tmp;
-
-  if (!lst )
-    return ;
-  while (*lst)
-  {
-    tmp = *lst;
-    *lst = (*lst)->next;
-    free(tmp);
-  }
-}
-void  ft_lstclear_env(t_envp **lst)
-{
-  t_envp	*tmp;
-
-  if (!lst )
-    return ;
-  while (*lst)
-  {
-    tmp = *lst;
-    *lst = (*lst)->next;
-    free(tmp);
-  }
 }
 
 void	ft_lstclear_cmd(t_mini **lst)
@@ -79,10 +52,8 @@ int main(int ac, char *av[],char *env[])
   int k;
   t_export *exp;
   t_exec *exec;
-  (void)env;
 
   exp = NULL;
-  //g_var.status = 0;
   k = 0;
   exec = (t_exec *)ft_calloc(sizeof(t_exec));
 	i = 0;
@@ -97,35 +68,43 @@ int main(int ac, char *av[],char *env[])
   {
 	  sig();
     bas = readline("minishell$ ");
+	if(bas == 0)
+		break;
 	if (ft_strlen(bas) == 0)
 		continue;
 	ft_add_history(bas);
-	if(bas == 0)
-		break;
     if (k == 0)
     {
-        g_var.env = env;
-        if (!(*env) && !((exec->env->env)))
-		      protect_cmd(&exec->env);
+        if (*env)
+		      g_var.env = env;
+        if (!(*env) && !((exec->env)))
+			      protect_cmd(&exec->env);
 	      else if (!(exec->env) && (*(g_var.env)))
-		      creat_env(&exec->env);
-		    g_var.envp = exec->env;
-        exec->exp = NULL;
+          creat_env(&exec->env);
 	      creat_exp(&exec->exp, exec->env);
-        k = 1;
+        exp = exec->exp;
+         k = 1;
     }
+	else
+		g_var.envp = exec->env;
     exec->cmd = parse(bas, exec->env);
-    close_all_fds(exec->cmd);
+	if(g_var.heredoc_flag)
+	{
+		  close_all_fds(exec->cmd);
+		if (exec->cmd)
+			free_cmd(exec->cmd);
+		  free(bas);
+		  g_var.heredoc_flag = 0;
+		continue;
+		  
+	}
     if (exec->cmd)
         exec_cmd(&exec, env);
-    close_all_fd(exec->cmd);
     if (exec->cmd)
         ft_lstclear_cmd(&exec->cmd);
-    free(bas);
+        free(bas);
   }
-  ft_lstclear_exp(&exec->exp);
-  ft_lstclear_env(&exec->env);
-  free(exec);
+  
    return (0);  
 }
 

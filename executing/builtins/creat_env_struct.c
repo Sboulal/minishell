@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 01:54:35 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/20 10:42:57 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,8 @@ t_envp	*list_env(char *env)
 {
 	t_envp	*new;
 	int		num;
-	char 	*tmp1;
-	char 	*tmp;
-	char 	*tmp2;
-	int i;
 	char	**str;
 
-	i = 0;
 	if (!env)
 		return (NULL);
 	new = (t_envp *) malloc(sizeof(t_envp));
@@ -34,18 +29,12 @@ t_envp	*list_env(char *env)
 	if (num)
 	{
 		str = list_clean(env, num);
-		tmp1 = str[0];
-		tmp2 = str[1];
-		new->variable = ft_strdup(tmp1);
-		new->value = ft_strdup(tmp2);
-		tmp = ft_strjoin(tmp1, "=");
-		new->env = ft_strjoin(tmp, tmp2);
-		free(tmp1);
-		free(tmp2);
-		free(tmp);
-		free(str);
+		new->variable = str[0];
+		new->value = str[1];
+		new->env = ft_strjoin(str[0], "=");
+		new->env = ft_strjoin(new->env, str[1]);
 		new->next = NULL;
-		return (new);
+		return (free(str), new);
 	}
 	return (new);
 }
@@ -72,7 +61,6 @@ void	add_back_env(t_envp **lst, t_envp *new)
 void	creat_env(t_envp **lst)
 {
 	int	i;
-	t_envp	*tmp;
 
 	i = 0;
 	if (!g_var.env[i])
@@ -82,8 +70,7 @@ void	creat_env(t_envp **lst)
 	}
 	while (g_var.env[i])
 	{
-		tmp = list_env(g_var.env[i]);
-		add_back_env(lst, tmp);
+		add_back_env(lst, list_env(g_var.env[i]));
 		i++;
 	}
 }
@@ -105,5 +92,5 @@ void	print_env(t_exec *exp)
 		exp->env = exp->env->next;
 	}
 	g_var.status = 0;
-	exit(g_var.status);
+	exit(0);
 }

@@ -81,38 +81,19 @@ typedef struct s_mini
     struct s_mini *next;
 }t_mini;
 
-typedef struct s_export
-{
-	char			*exp;
-	char			*variable;
-	char			*value;
-	struct s_export	*next;
-}	t_export;
-
-typedef struct s_exec
-{
-	t_export	*exp;
-	t_mini		*cmd;
-	t_envp		*env;
-	char 		**env_string;
-	int			nbr_cmd;
-}t_exec;
-
 t_lexer *create_node(char *s);
 void add_back(t_lexer **head, char *s);
 void	add_middle(t_lexer *token, char *word);
 char **skip_vid(char *str);
-int count_string(char *str);
-int is_isspace(char c);
 void    close_all_fds(t_mini *head);
+void	free_cmd(t_mini *head);
+int count_string(char *str);
 int next_quote(int i, char quote,char *str);
 char	*get_word(char *s, size_t *index);
 int	check_token(char *s);
-void	close_fds(t_mini *cmd);
 char	**my_split(char *line, int wc);
 char	*here_doc_name(void);
 void	*tabfree(char **tab);
-void	close_fds(t_mini *cmd);
 void	handle_pipes(t_mini *cmd, t_lexer *tokens);
 int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env);
 t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens);

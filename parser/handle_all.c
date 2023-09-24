@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 00:25:30 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:53:14 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 				return (0);
 			status = redirect(cmd, tokens->token, (tokens->next)->token, env);
 			if (!status)
-			{
-				close_fds(cmd);
-				g_var.status = 1;
 				return (status);
-			}
 			tokens = tokens->next;
 			tokens->type = FILE;
 		}
@@ -57,7 +53,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		in;
 	int		out;
 	t_lexer	*head;
-    
+
 	wc = 0;
 	j = 0;
 	head = tokens;
@@ -65,8 +61,8 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int k = check_redirections(tokens);
 	if (k == 0)
 	{
-		in = 0;
-		out = 1;
+		in = -4;
+		out = -4;
 		if (cmd->fd[0] > 2)
 			in = cmd->fd[0];
 		if (cmd->fd[1] > 2)
@@ -74,8 +70,8 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	else
 	{
-		in = 0;
-		out = 1;
+		in = -4;
+		out = - 4;
 	}
 	cmd = (t_mini *) malloc(sizeof(t_mini));
 	head = tokens;
@@ -91,7 +87,8 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	tmp = list;
 	list = list->next;
-	free(tmp);
+	// if (!list)
+	// 	list = tmp;
 	t_list *list_head;
 	
 	if (list)
@@ -139,21 +136,4 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		cmd->fd[1] = out;
 	}
 	return (cmd);
-}
-
-
-void    close_all_fds(t_mini *head)
-{
-    t_mini    *tmp;
-	if (!head)
-		return ;
-    tmp = head;
-    while (tmp->next)
-    {
-        if (tmp->fd[1] != -4 && tmp->fd[1] != 0)
-            ft_close(tmp->fd[1]);
-        if (tmp->fd[0] != -4 && tmp->fd[0] != 0)
-            ft_close(tmp->fd[0]);
-        tmp = tmp->next;
-    }
 }

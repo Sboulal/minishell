@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/23 15:34:18 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/22 02:20:16 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,50 +153,39 @@ char **my_split_word(char *cmd, char c)
 {
 	int i;
 	char **str;
-	char *tmp;
-	char *tmp1;
 
 	i = 0;
-	tmp = cmd;
-	while (tmp[i])
+	while (cmd[i])
 	{
-		if (tmp[i] == c)
+		if (cmd[i] == c)
 			break;
 		i++;
 	}
-	if (tmp[i])
+	if (cmd[i])
 	{
 		str = (char **)malloc(sizeof(char *) * 3);
-		str[0] = ft_substr(tmp, 0, i);
-		str[1] = ft_substr(tmp, i + 1, ft_strlen(tmp));
+		str[0] = ft_substr(cmd, 0, i);
+		str[1] = ft_substr(cmd, i + 1, ft_strlen(cmd));
 		str[2] = NULL;
 		return (str);
 	}
-	tmp1 = cmd;
 	str = (char **)malloc(sizeof(char *) * 2);
-	str[0] = ft_substr(tmp1, 0, ft_strlen(tmp1));
+	str[0] = ft_substr(cmd, 0, ft_strlen(cmd));
 	str[1] = NULL;
-	return (free(tmp1), str);
+	return (str);
 }
 char	**list_clean(char *cmd, int num)
 {
 	char	**str;
-	char *tmp;
 	char	**src;
 
-	if (!cmd)
-		return (NULL);
-	tmp = cmd;
-	str = my_split_word(tmp, '=');
+	str = my_split_word(cmd, '='); 
 	if (!(*str))
-		return (free(tmp), NULL);
+		return (NULL);
 	if (num == 2)
 	{
-		tmp = str[0];
-		src = my_split_word(tmp, '+');
+		src = my_split_word(str[0], '+');
 		str[0] = src[0];
-		free(src[1]);
-		free (tmp);
 	}
 	return (str);
 }

@@ -1,18 +1,24 @@
-here
-end
-[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-[?2004l[?2004hminishell$ 
-minishell$ [?2004l
-[?2004hminishell$ 
+blckvjbcklvb | << d 
+//heredoc pipe
+export x+="" // segmentation fault 
+export x=""
+$ooooooo""
+//export x+=
+""ls"|" //does not execute
+"$" // $ command not found 
+''''''ls // must execute itself
+''ls //must be executed 
+ls"" //segmentation fault 
+unset all the variables // it should work 
+export "l"= // should export 
+export 'pp' //should export 
+export ll>l // should not export l
+unset p7 //should unset 
+cd // segmentation fauld
+env sfsdfdjsfkl // should run
+echo -nn -nnn -nn // stupid
+ls >$dks //ambigous
+>>$d //ambigous
+<<s  ; $fghs // segfault
+export $dkjghjk // $sfgjdhs must be NULL at execution part 
+"" // usr /local/bin instead of NULL

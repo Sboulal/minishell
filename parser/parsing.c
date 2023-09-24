@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/23 21:47:48 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:12:16 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,26 +70,21 @@ t_mini *parse(char *str, t_envp *env)
 	string = skip_vid(str);
 	if(string == NULL)
 	{
-		ft_putstr_fd("minishell$: syntax error near unexpected token ",2);
-		ft_putstr_fd(str,2);
-		ft_putstr_fd("\n",2);
+		ft_putstr_fd("$bash : syntax error\n",2);
 		return(NULL);
 	}
 	lexer= skip_op(string);
 	tabfree(string);
 	if(!check_parse(lexer))
 	{
-		g_var.status = 258;
-		free_all(lexer);
-		ft_putstr_fd("minishell$: syntax error near unexpected token ",2);
-		ft_putstr_fd(str,2);
-		ft_putstr_fd("\n",2);
-		
+		ft_putstr_fd("$bash : syntax error\n",2);
 		return (NULL);
 	}
 	token_herdoc(lexer);
 	lexer = expand_lexer(lexer, env);
 	mini = convert_to_cmds(lexer, env);
+	if(mini == NULL)
+		return(NULL);
 	free_tokens(lexer);
 	return(mini);
 }
