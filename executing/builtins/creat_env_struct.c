@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_env_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 10:42:57 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 06:53:34 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,13 @@ t_envp	*list_env(char *env)
 {
 	t_envp	*new;
 	int		num;
+	int		i;
+	char *tmp;
 	char	**str;
 
 	if (!env)
 		return (NULL);
+	i = 0;
 	new = (t_envp *) malloc(sizeof(t_envp));
 	if (!new)
 		return (NULL);
@@ -29,11 +32,15 @@ t_envp	*list_env(char *env)
 	if (num)
 	{
 		str = list_clean(env, num);
-		new->variable = str[0];
-		new->value = str[1];
+		new->variable = ft_strdup(str[0]);
+		new->value = ft_strdup(str[1]);
 		new->env = ft_strjoin(str[0], "=");
-		new->env = ft_strjoin(new->env, str[1]);
+		tmp = new->env;
+		new->env = ft_strjoin(tmp, str[1]);
 		new->next = NULL;
+		while (str[i])
+			free(str[i++]);
+		free(tmp);
 		return (free(str), new);
 	}
 	return (new);

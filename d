@@ -1,0 +1,5 @@
+here
+end
+[?2004hminishell$ 
+minishell$ 
+minishell$ [Kminishell$ [Kminishell$ [Kminishell$ [Kminishell$ 
