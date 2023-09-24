@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal <saboulal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 14:47:42 by saboulal          #+#    #+#             */
-/*   Updated: 2022/11/04 14:06:45 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:08:37 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
+#include "libft.h"
 t_list	*ft_lstnew(void *content)
 {
 	t_list	*new;

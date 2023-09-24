@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/19 23:12:16 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:23:37 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_lexer *skip_op(char **string)
 		{
 			token = get_word(string[i],&j);
 			add_back(&tokens, token);
+			free(token);
 		}
 		i++;
 	}
@@ -67,13 +68,23 @@ t_mini *parse(char *str, t_envp *env)
 	t_mini *mini;
 	t_lexer *lexer;
 
+	(void)env;
 	string = skip_vid(str);
 	if(string == NULL)
 	{
 		ft_putstr_fd("$bash : syntax error\n",2);
 		return(NULL);
 	}
-	lexer= skip_op(string);
+	lexer = skip_op(string);
+	// int i = 0;
+	// while (string[i])
+	// {
+	// 	printf("ssd: %p\n", string[i]);
+	// 	free(string[i]);
+	// 	string[i] = NULL;
+	// 	i++;
+	// }
+	// free(string);
 	tabfree(string);
 	if(!check_parse(lexer))
 	{
@@ -83,9 +94,6 @@ t_mini *parse(char *str, t_envp *env)
 	token_herdoc(lexer);
 	lexer = expand_lexer(lexer, env);
 	mini = convert_to_cmds(lexer, env);
-	if(mini == NULL)
-		return(NULL);
-	free_tokens(lexer);
 	return(mini);
 }
 

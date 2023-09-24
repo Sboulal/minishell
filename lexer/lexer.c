@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:09:34 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/14 15:03:48 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 09:42:20 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,28 @@ void	free_tokens(t_lexer *tokens)
 {	
 	t_lexer	*prev;
 
+	// prev = tokens;
+	// while (prev)
+	// {
+	// 	printf("token: <<%s>>\n", prev->token);
+	// 	prev = prev->next;
+	// }
 	while (tokens)
 	{
 		prev = tokens;
-		if ((prev->type != WORD  && prev->type != LIMITER))
-			free(tokens->token);
+		// if ((prev->type != WORD  && prev->type != LIMITER))
+		// 	free(tokens->token);
 		tokens = tokens->next;
-		free(prev);
+		if (prev->token)
+		{
+			free(prev->token);
+			prev->token = NULL;
+		}
+		if (prev)
+		{
+			free(prev);
+			prev = NULL;
+		}
 	}
 }
 void	free_all(t_lexer *tokens)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 05:30:00 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 08:47:41 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
     char    *line;
     char    *joined_line;
     int        fd[2];
-	
-	(void)file;
+
+	free(file);
     if (ft_pipe(fd))
 		return (1);
     while (1)
@@ -92,10 +92,10 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
         line = readline("> ");
 		if(!close_her())
 			break;
-		
         if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
         {
-            free(line);
+			if (line)
+            	free(line);
 			cmd->fd[0] = fd[0];
 			return(close(fd[1]), fd[0]);
         }
@@ -106,6 +106,7 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
         if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
             return (free(line), -1);
         free(joined_line);
+		free(line);
         line = NULL;
     }
     return (close(fd[1]), fd[0]);
@@ -193,6 +194,8 @@ char	*heredoc_expansion(char *line, t_envp *env)
 	value = get_env_value(name + 1, env);
 	new_line = replace_name_value_here(line, name, value);
 	if (*(name + 1) == '?')
+		free(value);
+	if (value)
 		free(value);
 	free(name);
 	return (heredoc_expansion(new_line, env));

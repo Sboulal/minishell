@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 04:28:49 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:01:37 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,7 @@ char *remove_quote(char *str)
 			while (str[j] && str[j] != '"')
 				j++;
 			sr = ft_substr(str, i, j - i);
-			src = ft_strjoin(src, sr);
-					
+			src = ft_strjoin3(src, sr);
 			i = j;
 		}
 		else if(str[i] == '\'')
@@ -133,8 +132,7 @@ char *remove_quote(char *str)
 			while (str[j] && str[j] != '\'')
 				j++;
 			sr = ft_substr(str, i, j - i);
-			src = ft_strjoin(src, sr);
-					
+			src = ft_strjoin3(src, sr);
 			i = j;
 		}
 		else
@@ -143,13 +141,14 @@ char *remove_quote(char *str)
 			while (str[j] && (str[j] != '\'' && str[j] != '"'))
 				j++;
 			sr = ft_substr(str, i, j);
-			src = ft_strjoin(src, sr);
+			src = ft_strjoin3(src, sr);
 			i = i + (j - i);
 		}
 		if (!str[i])
 			break;
 		i++;
 	}
+	free(str);
 	return (src);
 }
 

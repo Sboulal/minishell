@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 07:06:53 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 07:25:16 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,8 @@ char **my_split_word(char *cmd, char c)
 	int i;
 	char **str;
 	char *tmp;
-	char *tmp1;
-	char *tmp2;
+	// char *tmp1;
+	// char *tmp2;
 
 	i = 0;
 	while (cmd[i])

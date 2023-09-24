@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:03:16 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 17:25:36 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 08:29:20 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_lexer	*word_spliting(t_lexer *token)
 		return (token);
 	words = my_split(token->token, wc);
 	free(token->token);
-	token->token = words[0];
+	token->token = ft_strdup(words[0]);
 	i = 1;
 	while (words[i])
 	{
@@ -109,6 +109,6 @@ t_lexer	*word_spliting(t_lexer *token)
 		token = token->next;
 		i++;
 	}
-	free(words);
+	tabfree(words);
 	return (token);
 }

@@ -56,9 +56,9 @@ t_glob g_var;
 // }t_token;
 typedef struct s_lexer
 {
-	char *token;
+	char 	*token;
 	int 	type;
-	int pipe[2];
+	int 	pipe[2];
 	struct s_lexer *next;
 }t_lexer;
 

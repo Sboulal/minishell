@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:45:16 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 14:32:29 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:28:34 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char **skip_vid(char *str)
 	wc = count_string(str);
 	if(wc == -1)
 		return(NULL);
-	res = ft_calloc((wc + 1) * sizeof(char *));
+	res = malloc((wc + 1) * sizeof(char *));
 	i = 0;
 	j = 0;
 	while(i < wc)
@@ -99,6 +99,13 @@ char **skip_vid(char *str)
 		res[i] = get_next_word(str,&j);
 		i++;
 	}
+	res[i] = NULL;
+	// i = 0;
+	// while (res[i])
+	// {
+	// 	printf("re: <%s>\n", res[i]);
+	// 	i++;
+	// }
 	return(res);
 	
 }

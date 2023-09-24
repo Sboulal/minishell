@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   need_this_func.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 05:40:22 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:21:02 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,11 @@ t_lexer	*free_cmds(t_mini *new, t_lexer *tokens)
 t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 {
 	t_mini	*new;
+	t_lexer *tmp;
+	t_lexer *tmp1;
 	int		status;
 
+	tmp = tokens;
 	new = ft_calloc(sizeof(t_mini));
 	// if(handle_heredocs(new, tokens, env) == 4)
 	// 	return (NULL);
@@ -91,5 +94,16 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 		g_var.status = 0;
 	new = handle_cmd(new, tokens);
 	add(cmds, new);
-	return (next_pipe(tokens));
+	tmp1 = next_pipe(tokens);
+	if (tmp)
+	{
+		if (tmp->token)
+		{
+			free(tmp->token);
+			tmp->token = NULL;
+		}
+		free(tmp);
+		tmp = NULL;
+	}
+	return (tmp1);
 }

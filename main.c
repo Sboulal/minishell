@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 07:00:43 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 10:22:26 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,37 @@ static int is_isspace(char c)
 void	ft_lstclear_cmd(t_mini **lst)
 {
 	t_mini	*tmp;
+	int i = 0;
+
+	if (!lst )
+		return ;
+	tmp = *lst;
+	while (tmp)
+	{
+		i = 0;
+		if (tmp->arg)
+		{
+			while (tmp->arg[i])
+			{
+				i++;
+			}
+		}
+		tmp = tmp->next;
+	}
+	while (*lst)
+	{
+		tmp = *lst;
+		*lst = (*lst)->next;
+		if (tmp->arg)
+			tabfree(tmp->arg);
+		if (tmp->cmd)
+			free(tmp->cmd);
+		free(tmp);
+	}
+}
+void	ft_lstclear_exp(t_export **lst)
+{
+	t_export	*tmp;
 
 	if (!lst )
 		return ;
@@ -57,10 +88,10 @@ static void ft_add_history(char *bas)
   if(*bas != 0)
     add_history(ptr);
 }
-void ft_leaks()
-{
-    system("leaks minishell");
-}
+// void ft_leaks()
+// {
+//     system("leaks minishell");
+// }
 int main(int ac, char *av[],char *env[])
 {
   char *bas;
@@ -72,7 +103,7 @@ int main(int ac, char *av[],char *env[])
 
   exp = NULL;
   k = 0;
-  atexit(ft_leaks);
+  // atexit(ft_leaks);
   exec = (t_exec *)ft_calloc(sizeof(t_exec));
 	i = 0;
     if(ac != 1)
@@ -95,34 +126,35 @@ int main(int ac, char *av[],char *env[])
     {
         // if (*env)
 		      g_var.env = env;
-        // if (!(*env) && !((exec->env)))
-			  //     protect_cmd(&exec->env);
-	      // else if (!(exec->env) && (*(g_var.env)))
+        if (!(*env) && !((exec->env)))
+			      protect_cmd(&exec->env);
+	      else if (!(exec->env) && (*(g_var.env)))
           creat_env(&exec->env);
-	      // creat_exp(&exec->exp, exec->env);
+	      creat_exp(&exec->exp, exec->env);
         // exp = exec->exp;
          k = 1;
     }
-	// else
-	// 	g_var.envp = exec->env;
-  //   exec->cmd = parse(bas, exec->env);
-	// if(g_var.heredoc_flag)
-	// {
-	// // 	  close_all_fds(exec->cmd);
-	// 	if (exec->cmd)
-	// 		free_cmd(exec->cmd);
-	// 	  free(bas);
-	// 	  g_var.heredoc_flag = 0;
-	// 	continue;
-		  
-	// }
+	else
+		g_var.envp = exec->env;
+    exec->cmd = parse(bas, exec->env);
+	if(g_var.heredoc_flag)
+	{
+	// 	  close_all_fds(exec->cmd);
+		if (exec->cmd)
+			free_cmd(exec->cmd);
+		  free(bas);
+		  g_var.heredoc_flag = 0;
+		continue;
+	}
     // if (exec->cmd)
     //     exec_cmd(&exec, env);
-    // if (exec->cmd)
-    //     ft_lstclear_cmd(&exec->cmd);
-        free(bas);
+    if (exec->cmd)
+        ft_lstclear_cmd(&exec->cmd);
+	if (bas)
+    	free(bas);
   }
   ft_lstclear_env(&exec->env);
+  ft_lstclear_exp(&exec->exp);
    return (0);  
 }
 

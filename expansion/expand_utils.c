@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/22 02:49:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 09:59:43 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ char	*get_name(char *token ,t_envp *env) // get value
 	{
 		if (token[i] == '$' && token[i + 1] == '?')
 		{
-			str = ft_strjoin(str, (ft_itoa(g_var.status)));
+			str = ft_strjoin3(str, (ft_itoa(g_var.status)));
 			i += 2;
 			continue;
 		}
 		if (token[i] == '$' && token[i + 1] == '\0')
 		{
-			str = ft_strjoin(str, "$");
+			str = ft_strjoin2(str, "$");
 			i++;
 			continue;
 		}
@@ -78,9 +78,7 @@ char	*get_name(char *token ,t_envp *env) // get value
 			k = i;
 			i = next_quote(i + 1, token[i], token);
 			key = ft_substr(token, k, i - k - 1);
-			str = ft_strjoin(str, key);
-			printf("key = %s\n", key);
-			
+			str = ft_strjoin3(str, key);
 		}
 		if (token[i] == '$')
 		{
@@ -88,10 +86,10 @@ char	*get_name(char *token ,t_envp *env) // get value
 			// name_len = get_name_len(token, i);
 			if (!(ft_isalpha(token[i]) || token[i] == '_'))
 			{
-				str = ft_strjoin(str, "$");
+				str = ft_strjoin2(str, "$");
 				if (token[i] == '\0')
 					break;
-				str = ft_strjoin(str, to_string(token[i++]));
+				str = ft_strjoin3(str, to_string(token[i++]));
 				continue;
 			}
 			k = i;
@@ -100,7 +98,9 @@ char	*get_name(char *token ,t_envp *env) // get value
 			key = ft_substr(token, k, i - k);
 			val = get_env_value(key, env);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin(str, val);
+				str = ft_strjoin2(str, val);
+			if (val)
+				free(val);
 			continue;
 		}
 		// if (token[i] == '\0' && token[i] == '"')
@@ -115,12 +115,13 @@ char	*get_name(char *token ,t_envp *env) // get value
 		// 	// i++;
 		// 	continue;
 		// }
-		str = ft_strjoin(str, to_string(token[i]));
+		str = ft_strjoin3(str, to_string(token[i]));
 		// }
 		i++;
 	}
 	// if (name_len == 0 || name_len == -1)
 	// 	return (NULL);
+	free(token);
 	return (str);
 }
 
@@ -179,7 +180,7 @@ int	replace_before_name(char *new_token, char *token)
 // 	free(token);
 // 	return (new_token);
 // }
-char	*get_env_value(char *name,t_envp *env)
+char	*get_env_value(char *name, t_envp *env)
 {
 	t_envp	*tmp;
 
@@ -193,12 +194,12 @@ char	*get_env_value(char *name,t_envp *env)
 		if (!ft_strcmp(tmp->variable, name))
 		{
 			if (tmp->value)
-				return (tmp->value);
-			return ("");
+				return (ft_strdup(tmp->value));
+			return (ft_strdup(""));
 		}
 		tmp = tmp->next;
 	}
-	return ("");
+	return (ft_strdup(""));
 }
 // this funtion search for variable name and replace it by its value recursivly
 // char	*parameter_expansion(char *token,t_envp *env)
