@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 23:55:09 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 04:41:11 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	export(t_exec **exec)
 {
 	t_export *head;
 
+
 	if (!(*exec))
 	{
 		g_var.status = 127;
@@ -44,7 +45,9 @@ void	export(t_exec **exec)
 		}
 	}
 	else
+	{
 		add_to_export(exec);
+	}
 	g_var.status = 0;
 	if ((*exec)->nbr_cmd > 1)
 		exit(g_var.status);

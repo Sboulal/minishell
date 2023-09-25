@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/20 15:54:26 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 04:45:10 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,13 @@ void	edit_add(t_exec **exec, int i, int num)
 	char		**str;
 
 	head = (*exec)->exp;
+	if (!head)
+	{
+		add_back_exp(&(*exec)->exp, list_exp((*exec)->cmd->arg[i]));
+		add_back_env(&(*exec)->env, list_env((*exec)->cmd->arg[i]));
+		add_back_envstring((*exec)->env);
+		return ;
+	}
 	str = list_clean((*exec)->cmd->arg[i], num);
 	while (head->next && (ft_strcmp(head->variable, str[0]) != 0))
 		head = head->next;

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/25 00:32:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 04:38:30 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,8 @@ void	exec_cmd(t_exec **exp, char **env)
 	}
 	else
 		(*exp)->nbr_cmd = 1;
-	if ((!(*exp)->exp))
-		return ;
+	// if ((!(*exp)->exp))
+	// 	return ;
 	if (!((*exp)))
 		return ;
 	if (!((*exp)))

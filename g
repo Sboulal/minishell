@@ -1,0 +1,16 @@
+Makefile
+ZZZZ
+a
+b
+executing
+expansion
+g
+headers
+laks
+lexer
+libft
+ls
+main.c
+main.o
+minishell
+parser

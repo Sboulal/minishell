@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/25 01:29:36 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 04:52:45 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,16 @@ int main(int ac, char *av[],char *env[])
       ft_putstr_fd(": No such file or directory\n", 2);
         return (0);
     }
+
+	if (*env)
+		      g_var.env = env;
+        if (!(*env) && !((exec->env)))
+			protect_cmd(&exec->env);
+	      else if (!(exec->env) && (*(g_var.env)))
+          creat_env(&exec->env);
+	      creat_exp(&exec->exp, exec->env);
+
+		  
   while(1)
   {
 	  sig();
@@ -136,19 +146,19 @@ int main(int ac, char *av[],char *env[])
 		continue;
 	}
 	ft_add_history(bas);
-    if (k == 0)
-    {
-        if (*env)
-		      g_var.env = env;
-        if (!(*env) && !((exec->env)))
-			protect_cmd(&exec->env);
-	      else if (!(exec->env) && (*(g_var.env)))
-          creat_env(&exec->env);
-	      creat_exp(&exec->exp, exec->env);
-         k = 1;
-    }
-	else
-		g_var.envp = exec->env;
+    // if (k == 0)
+    // {
+        // if (*env)
+		//       g_var.env = env;
+        // if (!(*env) && !((exec->env)))
+		// 	protect_cmd(&exec->env);
+	    //   else if (!(exec->env) && (*(g_var.env)))
+        //   creat_env(&exec->env);
+	    //   creat_exp(&exec->exp, exec->env);
+    //      k = 1;
+    // }
+	// else
+	// 	g_var.envp = exec->env;
     exec->cmd = parse(bas, exec->env);
 	if(g_var.heredoc_flag)
 	{

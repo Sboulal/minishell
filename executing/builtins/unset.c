@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 23:50:01 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 04:56:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	ft_delete(t_envp **list)
 	head = (*list)->next;
 	tmp = (*list)->next->next;
 	(*list)->next = tmp;
+	free(head->env);
+	free(head->value);
+	free(head->variable);
+	free(head);
 	free(head);
 	g_var.status = 0;
 }
@@ -34,6 +38,9 @@ void	ft_delete_export(t_export **list)
 	head = (*list)->next;
 	tmp = (*list)->next->next;
 	(*list)->next = tmp;
+	free(head->exp);
+	free(head->value);
+	free(head->variable);
 	free(head);
 	g_var.status = 0;
 }
@@ -64,8 +71,12 @@ void	unset_export(t_exec **exp, char **arg)
 			if (head &&  ft_strcmp(arg[i], head->variable) == 0)
 			{
 				(*exp)->exp = (*exp)->exp->next;
+				free(head->exp);
+				free(head->value);
+				free(head->variable);
 				free(head);
-				return ;
+				i++;
+				continue;
 			}
 			while (head->next && ft_strcmp(arg[i], head->next->variable))
 				head = head->next;
@@ -89,6 +100,8 @@ void	unset_env(t_exec **exp, char **arg)
 	if (!(*exp) && !(*exp)->env)
 		return ;
 	unset_export(exp, arg);
+	if ((*exp)->env)
+		return ;
 	while (arg[i])
 	{
 		num = check_unset_env((*exp)->cmd->arg[i]);
@@ -98,8 +111,12 @@ void	unset_env(t_exec **exp, char **arg)
 			if (head &&  ft_strcmp(arg[i], head->variable) == 0)
 			{
 				(*exp)->env = (*exp)->env->next;
+				free(head->env);
+				free(head->value);
+				free(head->variable);
 				free(head);
-				return ;
+				i++;
+				continue;
 			}
 			while (head->next && ft_strcmp(arg[i], head->next->variable))
 				head = head->next;
