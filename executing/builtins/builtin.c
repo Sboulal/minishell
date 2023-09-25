@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 08:10:44 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 00:32:30 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	buil_exec_pipe(t_exec **exp, t_mini *cmd)
 		&& ft_strcmp(cmd->cmd, "echo") != 0 && ft_strcmp(cmd->cmd, "pwd") != 0
 		&& ft_strcmp(cmd->cmd, "unset") != 0 && ft_strcmp(cmd->cmd, "cd") != 0
 		&& ft_strcmp(cmd->cmd, "export") != 0)
-		exec_pipe(exp, cmd);
+			exec_pipe(exp, cmd);
+			
 	else
 		builtins(exp, cmd);
 }

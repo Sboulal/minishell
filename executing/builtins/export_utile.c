@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 07:25:16 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 23:55:09 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	export(t_exec **exec)
 		add_to_export(exec);
 	g_var.status = 0;
 	if ((*exec)->nbr_cmd > 1)
-		exit(0);
+		exit(g_var.status);
 }
 
 int	check_error_export(char *cmd, int i)
@@ -100,7 +100,7 @@ int	check_export(char *cmd)
 		{
 			printf ("bash: export: '%s': not a valid identifier\n", cmd);
 			g_var.status = 127;
-			return (0);
+			return (g_var.status);
 		}
 		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(i != 0 && cmd[i + 1] && ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
 		{
@@ -108,7 +108,7 @@ int	check_export(char *cmd)
 			ft_putstr_fd(cmd, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_var.status = 127;
-			return (0);
+			return (g_var.status);
 		}
 		i++;
 	}
@@ -127,7 +127,7 @@ int	check_unset(char *cmd)
 			ft_putstr_fd(cmd, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_var.status = 127;
-			return (0);
+			return (g_var.status);
 		}
 		i++;
 	}
@@ -143,7 +143,7 @@ int	check_unset_env(char *cmd)
 		if (!(is_identifier(cmd[i])) && !ft_isdigit(cmd[i]))
 		{
 			g_var.status = 127;
-			return (0);
+			return (g_var.status);
 		}
 		i++;
 	}

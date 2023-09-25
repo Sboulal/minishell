@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 16:43:48 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 01:30:08 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,12 @@
 void	free_cmd(t_mini *head)
 {
 	t_mini	*tmp;
-	if(!head)
+
+	if (!head)
 		return ;
 	while (head)
 	{
+		free(head->cmd);
 		if (head->arg)
 			tabfree(head->arg);
 		tmp = head->next;
@@ -72,7 +74,7 @@ t_lexer	*free_cmds(t_mini *new, t_lexer *tokens)
 t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 {
 	t_mini	*new;
-	t_lexer *tmp;
+	t_lexer	*tmp;
 	int		status;
 
 	new = ft_calloc(sizeof(t_mini));
@@ -80,14 +82,12 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 	if (tokens->type == PIPE_LINE)
 		tokens = tokens->next;
 	status = (handle_heredocs(new, tokens, env) && handle_redirection(new, tokens, env));
-	if (!status)
+	if (status == -1)
 	{
 		close_fds(new);
 		g_var.status = 1;
 		return (free_cmds(new, tokens));
 	}
-	else
-		g_var.status = 0;
 	new = handle_cmd(new, tokens);
 	add(cmds, new);
 	tmp = next_pipe(tokens);

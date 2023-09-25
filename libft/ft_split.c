@@ -6,26 +6,25 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 17:45:51 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 10:42:46 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 00:39:59 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
 
-void	*tabfree(char **tab)
+void	tabfree(char **tab)
 {
 	size_t	j;
 
 	j = 0;
 	if(!tab)
-		return (NULL);
+		return ;
 	while (tab[j])
 	{
 		free(tab[j]);
 		j++;
 	}
 	free(tab);
-	return (NULL);
 }
 
 static int	words(char const *str, char c)

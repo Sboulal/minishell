@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal <saboulal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:18:11 by saboulal          #+#    #+#             */
-/*   Updated: 2022/11/03 21:40:46 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 23:16:05 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"libft.h"
+
+
+
+
 
 static int	ft_isspace(char s)
 {

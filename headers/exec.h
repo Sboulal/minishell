@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/21 22:52:25 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/25 00:03:06 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void		print_env(t_exec *exp);
 int			check_arg(char **args, int k, int nbr, int len);
 void		print_echo(char **arg, int nbr, t_exec *exp);
 void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd);
-void		exit_program(t_mini *cmd);
+void		exit_program(t_mini *cmd, t_exec *exp);
 void		unset_env(t_exec **exp, char **arg);
 char		**list_clean(char *cmd, int num);
 void		add_to_export(t_exec **exec);

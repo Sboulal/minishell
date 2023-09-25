@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 06:53:34 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 23:49:12 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,4 @@ void	print_env(t_exec *exp)
 		exp->env = exp->env->next;
 	}
 	g_var.status = 0;
-	exit(0);
 }

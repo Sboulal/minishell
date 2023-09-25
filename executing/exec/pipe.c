@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 04:53:31 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/24 23:50:09 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	buil_exec_pipe(exp, head);
 	// if (ft_strcmp(head->cmd, "exit") == 0)
-		exit(0);
+		exit(g_var.status);
 }
 void close_pipe(int **pip, int j)
 {
@@ -101,5 +101,15 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 		head = head->next;
 	}
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
+	int i;
+
+	i = 0;
+	while (i < (*exp)->nbr_cmd - 1)
+	{
+		free(pipfd[i]);
+		i++;
+	}
+	free(pipfd);
 	wait_pid(pid, (*exp));
+	free(pid);
 }

@@ -6,12 +6,12 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 16:42:48 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 00:44:05 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../headers/lexer.h"
-#include"../headers/exec.h"
+#include "../headers/lexer.h"
+#include "../headers/exec.h"
 
 char	*get_word(char *s, size_t *index)
 {
@@ -39,73 +39,52 @@ char	*get_word(char *s, size_t *index)
 	return (ft_substr(&s[i], 0, pos));
 }
 
-t_lexer *skip_op(char **string)
+t_lexer	*skip_op(char **string)
 {
-	t_lexer *tokens;
-	size_t i;
-	size_t j;
-	char *token;
-	
+	t_lexer	*tokens;
+	size_t	i;
+	size_t	j;
+	char	*token;
+
 	i = 0;
 	tokens = NULL;
 	while (string[i])
 	{
 		j = 0;
-		while(string[i][j])
+		while (string[i][j])
 		{
-			token = get_word(string[i],&j);
+			token = get_word(string[i], &j);
 			add_back(&tokens, token);
 			free(token);
 		}
 		i++;
 	}
-	return(tokens);
+	return (tokens);
 }
 
-void	*tabfree1(char **tab)
+t_mini	*parse(char *str, t_envp *env)
 {
-	size_t	j;
+	char	**string;
+	t_mini	*mini;
+	t_lexer	*lexer;
 
-	j = 0;
-	if(!tab)
-		return (NULL);
-	while (tab[j])
-	{
-		printf("strrr: %p\n", tab[j]);
-		free(tab[j]);
-		tab[j] = NULL;
-		j++;
-	}
-	free(tab);
-	tab = NULL;
-	return (NULL);
-}
-
-t_mini *parse(char *str, t_envp *env)
-{
-	char **string;
-	t_mini *mini;
-	t_lexer *lexer;
-
-	(void)env;
 	string = skip_vid(str);
-	if(string == NULL)
+	if (string == NULL)
 	{
-		ft_putstr_fd("$bash : syntax error\n",2);
-		return(NULL);
+		ft_putstr_fd("minishell : syntax error\n", 2);
+		tabfree(string);
+		return (NULL);
 	}
 	lexer = skip_op(string);
-	tabfree1(string);
-	if(!check_parse(lexer))
+	tabfree(string);
+	if (!check_parse(lexer))
 	{
-		ft_putstr_fd("$bash : syntax error\n",2);
+		free_tokens(lexer);
+		ft_putstr_fd("minishell : syntax error\n", 2);
 		return (NULL);
 	}
 	token_herdoc(lexer);
 	lexer = expand_lexer(lexer, env);
 	mini = convert_to_cmds(lexer, env);
-	free_tokens(lexer);
-	return(mini);
+	return (mini);
 }
-
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/22 02:31:34 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/09/25 00:02:38 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	builtins(t_exec **exp, t_mini *cmd)
 		g_var.status = 127;
 	}
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)
-		exit_program(cmd);
+		exit_program(cmd, *exp);
 	else if ((ft_strcmp(cmd->cmd, "echo") == 0))
 		print_in_echo(cmd->arg, cmd->nbr_arg);
 	else if ((ft_strcmp(cmd->cmd, "pwd") == 0))
@@ -84,7 +84,7 @@ void	builtins(t_exec **exp, t_mini *cmd)
 			printf("%s\n", s);
 		g_var.status = 0;
 		if ((*exp)->nbr_cmd > 1)
-			exit(0);
+			exit(g_var.status);
 	}
 	else if ((ft_strcmp(cmd->cmd, "unset") == 0 && cmd->nbr_arg != 0))
 		unset_env((exp), cmd->arg);

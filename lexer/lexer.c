@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:09:34 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 10:39:44 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:19:08 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,25 @@ int	position_of_operator(char *s)
 void	free_tokens(t_lexer *tokens)
 {	
 	t_lexer	*prev;
+	t_lexer	*head;
 
-	// prev = tokens;
-	// while (prev)
-	// {
-	// 	printf("token: <<%s>>\n", prev->token);
-	// 	prev = prev->next;
-	// }
+	head = tokens;
 	while (tokens)
 	{
 		prev = tokens;
-		// if ((prev->type != WORD  && prev->type != LIMITER))
-		// 	free(tokens->token);
-		tokens = tokens->next;
+		if (prev->token)
+		{
+			free(prev->token);
+			prev->token = NULL;
+		}
 		if (prev)
 		{
-			if (prev->token)
-			{
-				free(prev->token);
-				prev->token = NULL;
-			}
 			free(prev);
 			prev = NULL;
 		}
+		tokens = tokens->next;
 	}
+	head = NULL;
 }
 void	free_all(t_lexer *tokens)
 {

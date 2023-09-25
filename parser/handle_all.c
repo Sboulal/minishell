@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 16:56:32 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 19:51:12 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,23 @@
 void	ft_lstclear(t_list **lst)
 {
 	t_list	*tmp;
-	t_list 	*head;
 
-	if (!(*lst) )
+	if (!lst)
 		return ;
-	head = *lst;
-	while (head)
+	while (*lst)
 	{
-		tmp = head;
-		head = (head)->next;
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free(tmp->content);
+		tmp->content = NULL;
 		free(tmp);
+		tmp = NULL;
 	}
 }
 
 void	handle_pipes(t_mini *cmd, t_lexer *tokens)
 {
+
 	if (tokens->type == PIPE_LINE)
 		cmd->fd[0] = tokens->pipe[READ_END];
 	tokens = next_pipe(tokens);
@@ -65,7 +67,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		i;
 	int		j;
 	t_list	*list;
-	// t_list	*tmp;
+	t_list	*tmp;
 	int		in;
 	int		out;
 	t_lexer	*head;
@@ -89,7 +91,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		in = -4;
 		out = - 4;
 	}
-	// cmd = (t_mini *) malloc(sizeof(t_mini));
 	head = tokens;
 	i = 0;
 	// head = tokens;
@@ -101,6 +102,10 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		}
 		head = head->next;
 	}
+	tmp = list;
+	// list = list->next;
+	// if (!list)
+	// 	list = tmp;
 	t_list *list_head;
 	
 	if (list)
@@ -124,11 +129,11 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		}
 	}
 	cmd->nbr_arg = i;
-	cmd->arg = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!cmd->arg)
-		return (cmd);
 	if (list)
 	{
+		cmd->arg = (char **)malloc(sizeof(char *) * (i + 1));
+		if (!cmd->arg)
+			return (cmd);
 		list_head = list;
 		while (list_head)
 		{
@@ -140,12 +145,11 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	else
 		cmd->arg = NULL;
-	
 	if (!k)
 	{
 		cmd->fd[0] = in;
 		cmd->fd[1] = out;
 	}
-	ft_lstclear(&list);
+	ft_lstclear(&tmp);
 	return (cmd);
 }

@@ -1,0 +1,151 @@
+
+
+minishell$ exit aa 45
+exit
+minishell: exit: too many arguments
+minishell$ 
+
+9bel too many check the first arg
+
+----------
+
+minishell$ ls | exit
+
+kat3tik 1
+
+----------
+
+minishell$ exit -
+
+makhessoch y exiti
+
+-----------
+
+exit -0
+                  
+247
+
+khessa 0
+
+---------
+
+exit -- |or|  exit -efsdfds
+
+makhessoch y exiti
+
+-------
+
+minishell$ exit | exit
+
+makhessach tkhrrej
+
+------------
+
+
+
+<< a"" cat
+> h
+> f
+> a
+minishell(83342,0x115bcadc0) malloc: *** error for object 0x7fde758041f0: pointer being freed was not allocated
+minishell(83342,0x115bcadc0) malloc: *** set a breakpoint in malloc_error_break to debug
+[1]    83342 abort      ./minishell
+
+
+------
+
+
+minishell$ " 
+minishell : syntax error
+herre
+
+
+---------
+
+
+minishell$ $""
+minishell : $: command not found
+
+-----------
+
+minishell$ env a
+env: aNo such file or directory
+
+
+---------
+
+unset 
+
+(nzid ntisti)
+
+---------
+
+hadchi kaytla3 f env
+
+aa=ls -la"
+aaa=sss"
+
+----------
+
+export a='aa"aa'
+declare -x a="aa"a'a'"
+
+---------
+
+export a+======a
+env or export
+
+a+======a
+a=""
+declare -x a=""
+declare -x a+="=====a=====a=====a"
+
+-----------
+
+export a="test" kayeb9a wahed " flakahra
+
+-----------
+
+export a++=s
+bash: export: 'a++=s': not a valid identifier
+bash: export: 'a++=s': not a valid identifier
+bash: export: 'a++=s': not a valid identifier
+
+khessa mara wehda
+
+-----------
+
+minishell$ cd -
+minishell: cd: -: No such file or---- directory
+
+-------------
+
+cd (leaks)
+
+declare -x OLDPWD=="0����"
+declare -x PWD="/Users/saboulal/Desktop"
+
+
+---------
+
+minishell$ ls > a >> b > g    |or| cat < a < b (b makaynch)
+minishell: b: Permission denied
+minishell$ : Permission denied
+ls: g: No such file or directory
+b
+
+--------
+
+<< a << b
+> f
+> g
+> a
+minishell$ 
+
+
+----------
+
+minishell$ ls > $esfdsfds
+a               a.c             aa              b               saboulal
+
+3la l2a9l error

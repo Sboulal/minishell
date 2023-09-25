@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:42:48 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/21 16:43:39 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 23:51:03 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,12 @@ void	token_herdoc(t_lexer *lexer)
 	}
 }
 
-void	ft_exit(int status, char *msg)
-{
-	if (msg)
-	{
-		ft_putstr_fd(msg, 2);
-		ft_putstr_fd("\n", 2);
-	}
-	exit(status);
-}
+// void	ft_exit(int status, char *msg)
+// {
+// 	if (msg)
+// 	{
+// 		ft_putstr_fd(msg, 2);
+// 		ft_putstr_fd("\n", 2);
+// 	}
+// 	exit(status);
+// }

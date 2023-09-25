@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:45:16 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 10:32:40 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:19:52 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int next_quote(int i, char quote,char *str)
 	return(-1);
 }
 
-char *get_next_word(char *s,int *index)
+static char *get_next_word(char *s,int *index)
 {
 	int		i;
 	int		j;
@@ -41,18 +41,16 @@ char *get_next_word(char *s,int *index)
 			i = next_quote(i + 1, s[i], s);
 		i++;
 	}
-	word = malloc(i - j + 1);
+	word = ft_calloc(i - j + 1);
 	while(j < i)
 	{
 		word[k] = s[j];
 		k++;
 		j++;
 	}
-	word[k] = 0;
 	*index = i;
 	return(word);
 }
-
 
 int count_string(char *str)
 {
@@ -101,12 +99,5 @@ char **skip_vid(char *str)
 		i++;
 	}
 	res[i] = NULL;
-	// i = 0;
-	// while (res[i])
-	// {
-	// 	printf("re: <%s>\n", res[i]);
-	// 	i++;
-	// }
 	return(res);
-	
 }

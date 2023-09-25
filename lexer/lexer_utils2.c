@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:50:51 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 08:37:14 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/24 22:19:23 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,3 @@ char	*here_doc_name(void)
 	name = get_id(tty_name);
 	return (name);
 }
-
-
