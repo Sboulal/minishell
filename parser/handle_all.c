@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 19:51:12 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/25 05:28:10 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 			if (!tokens->next)
 				return (0);
 			status = redirect(cmd, tokens->token, (tokens->next)->token, env);
-			if (!status)
+			if (!status || status == -1)
 				return (status);
 			tokens = tokens->next;
 			tokens->type = FILE;
