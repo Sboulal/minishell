@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 23:49:12 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 t_envp	*list_env(char *env)
 {

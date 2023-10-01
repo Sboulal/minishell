@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 23:50:09 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 void	edit_shlvl(t_exec **exp)
 {

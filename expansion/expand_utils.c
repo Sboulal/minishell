@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/24 22:23:05 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../headers/lexer.h"
+#include"../includes/lexer.h"
 
 int	get_name_len(char *token, int i)
 {

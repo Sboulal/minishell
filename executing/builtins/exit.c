@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/25 00:10:07 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 static int	ft_at(const char *str)
 {

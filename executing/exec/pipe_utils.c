@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:51:30 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/25 00:31:35 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:16:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 void	close_file(int **pipfd, int nb_pip)
 {
@@ -32,7 +32,9 @@ void	wait_pid(pid_t *pid, t_exec *exp)
 
 	i = 0;
 	while (i < exp->nbr_cmd)
+	{
 		waitpid(pid[i++], &s, 0);
+	}
 	if (WIFEXITED(s))
 		g_var.status = WEXITSTATUS(s);
 	else if (WIFSIGNALED(s))

@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/25 04:38:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:59:41 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 // t_mini *ft_new_command(int i,char **str)
 // {
@@ -49,9 +49,9 @@ void	sort_list(t_export **exp)
 {
 	t_export	*head;
 	t_export	*tomp;
-	int			i;
+	// int			i;
 
-	i = 0;
+	// i = 0;
 	head = *exp;
 	while (head->next)
 	{

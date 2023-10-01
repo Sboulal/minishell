@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/25 00:03:06 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:18:01 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/errno.h>
-
+#include <sys/types.h>
+#include <sys/wait.h>
 typedef struct s_export
 {
 	char			*exp;

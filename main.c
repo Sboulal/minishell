@@ -6,14 +6,15 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/25 05:40:03 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/01 12:07:06 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "headers/lexer.h"
-#include "headers/exec.h"
+#include "includes/lexer.h"
+#include "includes/exec.h"
 
+t_global	g_var;
 static int is_isspace(char c)
 {
     return (c == ' ' || (c >= '\t' && c <= '\r'));
@@ -103,18 +104,18 @@ static void ft_add_history(char *bas)
 int main(int ac, char *av[],char *env[])
 {
   char *bas;
-  (void)env;
-  int i;
+//   `
+ 
   int k;
-  t_export *exp;
+//   t_export *exp;
   t_exec *exec;
 //   t_mini *tmp;
 
-  exp = NULL;
+//   exp = NULL;
   k = 0;
   // atexit(ft_leaks);
   exec = (t_exec *)ft_calloc(sizeof(t_exec));
-	i = 0;
+	
     if(ac != 1)
 
 	
@@ -146,19 +147,19 @@ int main(int ac, char *av[],char *env[])
 		continue;
 	}
 	ft_add_history(bas);
-    // if (k == 0)
-    // {
-        // if (*env)
-		//       g_var.env = env;
-        // if (!(*env) && !((exec->env)))
-		// 	protect_cmd(&exec->env);
-	    //   else if (!(exec->env) && (*(g_var.env)))
-        //   creat_env(&exec->env);
-	    //   creat_exp(&exec->exp, exec->env);
-    //      k = 1;
-    // }
-	// else
-	// 	g_var.envp = exec->env;
+    if (k == 0)
+    {
+        if (*env)
+		      g_var.env = env;
+        if (!(*env) && !((exec->env)))
+			protect_cmd(&exec->env);
+	      else if (!(exec->env) && (*(g_var.env)))
+          creat_env(&exec->env);
+	      creat_exp(&exec->exp, exec->env);
+         k = 1;
+    }
+	else
+		g_var.envp = exec->env;
     exec->cmd = parse(bas, exec->env);
 	if(g_var.heredoc_flag)
 	{
@@ -185,9 +186,15 @@ int main(int ac, char *av[],char *env[])
 		head = head->next;
 	}
     if (exec->cmd)
+	{
+		
         ft_lstclear_cmd(&exec->cmd);
+	}
 	if (bas)
+	{
+		
     	free(bas);
+	}
   }
   ft_lstclear_env(&exec->env);
   ft_lstclear_exp(&exec->exp);

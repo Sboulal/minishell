@@ -6,23 +6,27 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:43:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/24 07:50:08 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:11:36 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 t_export	*put_int_export(t_export *new, char *env, int num)
 {
+	// char	*tmp;
 	char	**str;
-	char	*tmp;
+	
 
 	str = list_clean(env, num);
 	new->variable = ft_strdup(str[0]);
+	
 	if (str[1])
 		new->value = ft_strdup(str[1]);
-	else 
-		tmp = ft_substr(str[0], ft_strlen(str[0]) - 1, ft_strlen(str[0]));
+	// else
+	// {
+	// 	tmp = ft_substr(str[0], ft_strlen(str[0]) - 1, ft_strlen(str[0]));
+	// }
 	if (ft_strchr(env, '='))
 	{
 		new->exp = ft_strjoin(str[0], "=");
@@ -41,9 +45,9 @@ t_export	*list_exp(char *env)
 {
 	t_export	*new;
 	int			num;
-	int			i;
+	// int			i;
 
-	i = 0;
+	// i = 0;
 	if (!env)
 		return (NULL);
 	new = (t_export *)malloc(sizeof(t_export));

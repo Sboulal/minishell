@@ -33,6 +33,8 @@
 #define WRITE_END 1
 #define FILE 5
 
+typedef struct s_glob	t_global;
+extern t_global			g_var;
 typedef struct s_envp
 {
 	char			*env;
@@ -41,15 +43,17 @@ typedef struct s_envp
 	struct s_envp	*next;
 }	t_envp;
 
-typedef struct s_glob
+struct s_glob
 {
     char **env;
 	t_envp *envp;
 	int heredoc_flag;
     int status;
-}t_glob;
+};
 
-t_glob g_var;
+
+
+
 // typedef enum e_token
 // {
 // 	 //end command 

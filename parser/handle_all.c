@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/25 05:28:10 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:59:24 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../headers/lexer.h"
+#include"../includes/lexer.h"
 
 void	ft_lstclear(t_list **lst)
 {
@@ -63,7 +63,7 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 
 t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 {
-	int		wc;
+	// int		wc;
 	int		i;
 	int		j;
 	t_list	*list;
@@ -72,7 +72,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		out;
 	t_lexer	*head;
 
-	wc = 0;
+	// wc = 0;
 	j = 0;
 	head = tokens;
 	list = NULL;

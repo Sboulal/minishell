@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/25 04:56:50 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:00:00 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 void	ft_delete(t_envp **list)
 {
@@ -23,7 +23,6 @@ void	ft_delete(t_envp **list)
 	free(head->env);
 	free(head->value);
 	free(head->variable);
-	free(head);
 	free(head);
 	g_var.status = 0;
 }

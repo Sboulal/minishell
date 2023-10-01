@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/25 00:02:38 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:34:33 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../headers/exec.h"
+#include "../../includes/exec.h"
 
 char	*get_env(t_envp *list_env)
 {
@@ -21,27 +21,27 @@ char	*get_env(t_envp *list_env)
 	return (list_env->value);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	unsigned char	*my_s1;
-	unsigned char	*my_s2;
-	size_t			i;
+// int	ft_strcmp(const char *s1, const char *s2)
+// {
+// 	unsigned char	*my_s1;
+// 	unsigned char	*my_s2;
+// 	size_t			i;
 
-	i = 0;
-	if (!s1)
-		return (-1);
-	if (!s2)
-		return ((int )s1[i]);
-	my_s1 = (unsigned char *)s1;
-	my_s2 = (unsigned char *)s2;
-	while ((my_s1[i] != '\0' || my_s2[i] != '\0'))
-	{
-		if (my_s1[i] != my_s2[i])
-			return (my_s1[i] - my_s2[i]);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	if (!s1)
+// 		return (-1);
+// 	if (!s2)
+// 		return ((int )s1[i]);
+// 	my_s1 = (unsigned char *)s1;
+// 	my_s2 = (unsigned char *)s2;
+// 	while ((my_s1[i] != '\0' || my_s2[i] != '\0'))
+// 	{
+// 		if (my_s1[i] != my_s2[i])
+// 			return (my_s1[i] - my_s2[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 void	sort_utile(t_export *head, t_export *tomp)
 {
