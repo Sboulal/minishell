@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/01 12:07:06 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:04:10 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,10 +172,9 @@ int main(int ac, char *av[],char *env[])
 		continue;
 	}
 	
-    if (exec->cmd && exec->cmd->fd[0] != -4 && exec->cmd->fd[1] != -4)
-	{
+   
         exec_cmd(&exec, env);
-	}
+
 	t_mini *head = exec->cmd;
 	while (head)
 	{

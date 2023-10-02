@@ -1,7 +1,6 @@
-Makefile
-ZZZZ
 a
 b
+bin
 executing
 expansion
 g
@@ -11,6 +10,9 @@ lexer
 libft
 ls
 main.c
-main.o
+Makefile
 minishell
+najat
 parser
+salma
+ZZZZ

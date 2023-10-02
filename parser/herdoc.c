@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:21:52 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env) // void
 
 void	ft_close(int fd)
 {
+	printf("salma");
 	if (close(fd) == -1)
 		perror("minishell$ ");
 }

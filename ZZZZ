@@ -127,7 +127,7 @@ declare -x PWD="/Users/saboulal/Desktop"
 
 
 ---------
-
+DONE ITS WORKING
 minishell$ ls > a >> b > g    |or| cat < a < b (b makaynch)
 minishell: b: Permission denied
 minishell$ : Permission denied
