@@ -27,14 +27,13 @@ void	close_file(int **pipfd, int nb_pip)
 
 void	wait_pid(pid_t *pid, t_exec *exp)
 {
-	int	i;
+	// int	i;
+	(void) exp;
 	int s;
 
-	i = 0;
-	while (i < exp->nbr_cmd)
-	{
-		waitpid(pid[i++], &s, 0);
-	}
+	// i = 0;
+	// while (i < exp->nbr_cmd)
+		waitpid(*pid, &s, 0);
 	if (WIFEXITED(s))
 		g_var.status = WEXITSTATUS(s);
 	else if (WIFSIGNALED(s))

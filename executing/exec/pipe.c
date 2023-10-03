@@ -114,5 +114,8 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 	}
 	free(pipfd);
 	wait_pid(pid, (*exp));
+	while (wait(NULL) != -1)
+		;
+	
 	free(pid);
 }

@@ -68,19 +68,19 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 	int i;
 
 	i = 0;
-		while (cmd->arg[0][i])
+	while (cmd->arg[0] && cmd->arg[0][i])
+	{
+		if (!ft_isdigit(cmd->arg[0][i]) && cmd->arg[0][i] != '+' && cmd->arg[0][i] != '-')
 		{
-			if (!ft_isdigit(cmd->arg[0][i]) && cmd->arg[0][i] != '+' && cmd->arg[0][i] != '-')
-			{
-				ft_putstr_fd("exit\n", 2);
-				g_var.status = 2;
-				ft_putstr_fd("minishell: exit: ", 2);
-				ft_putstr_fd(cmd->arg[0], 2);
-				ft_putstr_fd(": numeric argument required\n", 2);
-				exit(g_var.status);
-			}
-			i++;
+			ft_putstr_fd("exit\n", 2);
+			g_var.status = 2;
+			ft_putstr_fd("minishell: exit: ", 2);
+			ft_putstr_fd(cmd->arg[0], 2);
+			ft_putstr_fd(": numeric argument required\n", 2);
+			exit(g_var.status);
 		}
+		i++;
+	}
 	if (cmd->nbr_arg > 1)
 	{
 		ft_putstr_fd("exit\n", 2);
