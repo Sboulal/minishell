@@ -30,7 +30,7 @@ void	export(t_exec **exec)
 
 	if (!(*exec))
 	{
-		g_var.status = 127;
+		g_var.status = 1;
 		return ;
 	}
 	head = (*exec)->exp;
@@ -63,7 +63,7 @@ int	check_error_export(char *cmd, int i)
 				{
 					ft_putstr_fd("export: usage: export [-nf] [na", 2);
 					ft_putstr_fd("me[=value] ...] or export -p \n", 2);
-					g_var.status = 127;
+					g_var.status = 1;
 					return (0);
 				}
 				else if (cmd[i] == ')' || cmd[i] == '(')
@@ -72,7 +72,7 @@ int	check_error_export(char *cmd, int i)
 					ft_putstr_fd("unexpected token `", 2);
 					ft_putchar_fd(cmd[i], 2);
 					ft_putstr_fd("'\n", 2);
-					g_var.status = 127;
+					g_var.status = 1;
 					return (0);
 				}
 				else
@@ -80,7 +80,7 @@ int	check_error_export(char *cmd, int i)
 					ft_putstr_fd("minishell: export: `", 2);
 					ft_putstr_fd(cmd, 2);
 					ft_putstr_fd("': not a valid identifier\n", 2);
-					g_var.status = 127;
+					g_var.status = 1;
 					return (0);
 				}
 			}
@@ -100,7 +100,7 @@ int	check_before_equal(char *cmd)
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(cmd, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
-			g_var.status = 127;
+			g_var.status = 1;
 			return (0);
 		}
 		i++;
@@ -122,7 +122,7 @@ int	check_export(char *cmd)
 		else if (cmd[i] == '+')
 		{
 			printf ("bash: export: '%s': not a valid identifier\n", cmd);
-			g_var.status = 127;
+			g_var.status = 1;
 			return (0);
 		}
 		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(i != 0 && cmd[i + 1] && ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
@@ -130,7 +130,7 @@ int	check_export(char *cmd)
 			ft_putstr_fd("minishell: export: `", 2);
 			ft_putstr_fd(cmd, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
-			g_var.status = 127;
+			g_var.status = 1;
 			return (0);
 		}
 		i++;
@@ -145,14 +145,14 @@ int	check_unset(char *cmd)
 	i = 1;
 	if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 	{
-		g_var.status = 127;
+		g_var.status = 1;
 		return (0);
 	}
 	while (cmd[i])
 	{
 		if (!(is_identifier(cmd[i])))
 		{
-			g_var.status = 127;
+			g_var.status = 1;
 			return (0);
 		}
 		i++;
@@ -166,14 +166,14 @@ int	check_unset_env(char *cmd)
 	i = 1;
 	if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 	{
-		g_var.status = 127;
+		g_var.status = 1;
 		return (0);
 	}
 	while (cmd[i])
 	{
 		if (!(is_identifier(cmd[i])))
 		{
-			g_var.status = 127;
+			g_var.status = 1;
 			return (0);
 		}
 		i++;

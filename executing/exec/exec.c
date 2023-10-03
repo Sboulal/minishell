@@ -58,7 +58,7 @@ void check_permision(t_mini *cmd)
 	{
 		ft_putstr_fd("minishell : ",2);
 		ft_putstr_fd(cmd->cmd,2);
-		ft_putstr_fd(": is a directory\n",2);
+		ft_putstr_fd(": Is a directory\n",2);
 		g_var.status = 126;
 		exit(g_var.status);
 	}
