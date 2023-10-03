@@ -72,8 +72,8 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 	{
 		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		g_var.status = 1;
-		return ;
+		g_var.status = 2;
+		exit(g_var.status);
 	}
 	if (cmd->nbr_arg == 0)
 	{
@@ -118,5 +118,8 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 	}
 	g_var.status = ft_atoi(cmd->arg[0]);
 	if (exp->nbr_cmd == 1)
+	{
+		ft_putstr_fd("exit\n", 2);
 		exit(g_var.status);
+	}
 }

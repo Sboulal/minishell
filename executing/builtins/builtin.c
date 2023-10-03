@@ -137,6 +137,7 @@ void	exec_cmd(t_exec **exp, char **env)
 	t_mini *head;
 	int i;
 	i = 0;
+
 	(void)env;
 	sig_cmd();
 	if (!(*exp)->cmd)
@@ -160,7 +161,7 @@ void	exec_cmd(t_exec **exp, char **env)
 	if (!((*exp)))
 		return ;
 	if (((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "cd") == 0) || ((*exp)->nbr_cmd == 1 && ((*exp)->cmd->nbr_arg > 0)
-		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || (ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
+		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
 		builtins(exp, (*exp)->cmd);
 	else
 		use_pipe(exp, (*exp)->cmd);
