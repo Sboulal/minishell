@@ -54,7 +54,7 @@ void check_permision(t_mini *cmd)
 	
 	if (!cmd)
 		return ;
-	if (stat(cmd->cmd, &sb) == -1 && (access(cmd->cmd, X_OK) == 0) && S_ISREG(sb.st_mode))
+	if (stat(cmd->cmd, &sb) == 0 && (access(cmd->cmd, X_OK) == 0) && !S_ISREG(sb.st_mode))
 	{
 		ft_putstr_fd("minishell : ",2);
 		ft_putstr_fd(cmd->cmd,2);
