@@ -73,7 +73,7 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 		if (!ft_isdigit(cmd->arg[0][i]) && cmd->arg[0][i] != '+' && cmd->arg[0][i] != '-')
 		{
 			ft_putstr_fd("exit\n", 2);
-			g_var.status = 255;
+			g_var.status = 2;
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(cmd->arg[0], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
@@ -85,7 +85,7 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 	{
 		ft_putstr_fd("exit\n", 2);
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		g_var.status = 255;
+		g_var.status = 1;
 		exit(g_var.status);
 	}
 	if (cmd->nbr_arg == 0)
@@ -99,11 +99,12 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 		// g_var.status = ft_me_atoi(cmd->arg[0]);
 		if (g_var.status < 0)
 		{
-			ft_putstr_fd("exit\n", 2);
+			// ft_putstr_fd("exit\n", 2);
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(cmd->arg[0], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
 			g_var.status = 255;
+			return ;
 		}
 	// 	// else
 	// 	// {
