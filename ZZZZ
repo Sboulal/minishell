@@ -160,10 +160,6 @@ double export
 minishell signal aug shevl
 
 minishell$ export +fsd _hanane=00 44sddsf x=+beatir
-minishell$ unset x
-minishell(14408,0x110e25dc0) malloc: *** error for object 0x7f9f106044b0: pointer being freed was not allocated
-minishell(14408,0x110e25dc0) malloc: *** set a breakpoint in malloc_error_break to debug
-
 
 minishell$ exit dfbghg
 exit
@@ -171,8 +167,3 @@ minishell: exit: dfbghg: numeric argument required
 minishell$ echo $?
 2
 minishell$  should be 255
-
-minishell$ $PWD
-minishell : /Users/saboulal/Desktop/minisalat: command not found
-minishell$ ""
-str = 

@@ -93,7 +93,6 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 		str = ft_strjoin(str, to_string(token[i]));
 		i++;
 	}
-	printf	("str = %s\n", str);
 	return (str);
 }
 
