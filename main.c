@@ -126,13 +126,13 @@ int main(int ac, char *av[],char *env[])
         return (0);
     }
 
-	if (*env)
-		      g_var.env = env;
-        if (!(*env) && !((exec->env)))
-			protect_cmd(&exec->env);
-	      else if (!(exec->env) && (*(g_var.env)))
-          creat_env(&exec->env);
-	      creat_exp(&exec->exp, exec->env);
+	// if (*env)
+	// 	      g_var.env = env;
+    //     if (!(*env) && !((exec->env)))
+	// 		protect_cmd(&exec->env);
+	//       else if (!(exec->env) && (*(g_var.env)))
+    //       creat_env(&exec->env);
+	//       creat_exp(&exec->exp, exec->env);
 
 		  
   while(1)

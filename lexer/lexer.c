@@ -42,9 +42,7 @@ int	position_of_operator(char *s)
 void	free_tokens(t_lexer *tokens)
 {	
 	t_lexer	*prev;
-	t_lexer	*head;
 
-	head = tokens;
 	while (tokens)
 	{
 		prev = tokens;
@@ -60,7 +58,6 @@ void	free_tokens(t_lexer *tokens)
 		}
 		tokens = tokens->next;
 	}
-	head = NULL;
 }
 void	free_all(t_lexer *tokens)
 {

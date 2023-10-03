@@ -87,6 +87,7 @@ void	add_back_exp(t_export **lst, t_export *new)
 
 void	creat_exp(t_export **exp, t_envp *env)
 {
+	t_export	*head;
 	if (!env)
 	{
 		g_var.status = 127;
@@ -94,7 +95,8 @@ void	creat_exp(t_export **exp, t_envp *env)
 	}
 	while (env)
 	{
-		add_back_exp(exp, list_exp(env->env));
+		head = list_exp(env->env);
+		add_back_exp(exp, head);
 		env = env->next;
 	}
 }
