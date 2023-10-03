@@ -114,9 +114,9 @@ int	check_export(char *cmd)
 	i = 0;
 	if (check_error_export(cmd, i) == 0)
 		return (0);
-	while (cmd[i + 1])
+	while (cmd[i] && cmd[i] != '=')
 	{
-		if (cmd[i] == '+' && cmd[i + 1] == '=')
+		if (cmd[i + 1]  && cmd[i] == '+' && cmd[i + 1] == '=')
 			return (2);
 
 		else if (cmd[i] == '+')
