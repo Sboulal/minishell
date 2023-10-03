@@ -68,9 +68,9 @@ void	builtins(t_exec **exp, t_mini *cmd)
 		print_env(*exp);
 	else if (ft_strcmp(cmd->cmd, "env") == 0)
 	{
-		ft_putstr_fd("env: ", 2);
+		ft_putstr_fd("env: '", 2);
 		ft_putstr_fd(cmd->arg[0], 2);
-		ft_putstr_fd("No such file or directory\n", 2);
+		ft_putstr_fd("' No such file or directory\n", 2);
 		g_var.status = 127;
 	}
 	else if (ft_strcmp(cmd->cmd, "exit") == 0)

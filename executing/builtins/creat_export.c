@@ -16,7 +16,6 @@ t_export	*put_int_export(t_export *new, char *env, int num)
 {
 	// char	*tmp;
 	char	**str;
-	
 
 	str = list_clean(env, num);
 	new->variable = ft_strdup(str[0]);

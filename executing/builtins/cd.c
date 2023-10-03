@@ -133,11 +133,11 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 		change_pwd(&head, exp);
 		return ;
 	}
-	else if (chdir(args[0]) == -1)
+	else if (chdir(args[0]) == -1 && ft_strcmp(args[0], "-"))
 	{
 		ft_putstr_fd("minishell: cd: ", 2);
 		ft_putstr_fd(args[0], 2);
-		ft_putstr_fd(": No such file or---- directory\n", 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
 		g_var.status = 1;
 	}
 	change_pwd(&head, exp);
