@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:43:46 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ t_mini	*parse(char *str, t_envp *env)
 	string = skip_vid(str);
 	if (string == NULL)
 	{
+		g_var.status = 258;
 		ft_putstr_fd("minishell : syntax error\n", 2);
 		tabfree(string);
 		return (NULL);
@@ -79,6 +80,7 @@ t_mini	*parse(char *str, t_envp *env)
 	tabfree(string);
 	if (!check_parse(lexer))
 	{
+		g_var.status = 258;
 		free_tokens(lexer);
 		ft_putstr_fd("minishell : syntax error\n", 2);
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:22:51 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ char	*trim_quotes(char *token, int quotes_len)
 	return (trimed_token);
 }
 
+// this function removes the outer quotes of the passed string , 
+// by marking the quotes that needs to be removed by -1
+// and passing the token string to the trim quotes function
 char	*quotes_removal(char *token)
 {
 	int		i;
@@ -63,6 +66,8 @@ char	*quotes_removal(char *token)
 	return (trim_quotes(token, quotes_len));
 }
 
+// we will loop the linked list and remove empty strings that resulted from 
+// an unkown variable expansion .
 t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 {
 	while (tokens)
@@ -107,6 +112,7 @@ char *remove_quote(char *str)
 	{
 		if(str[i] == '"')
 		{
+			// i++;
 			j = i;
 			while (str[j] && str[j] == '"')
 				j++;
@@ -114,7 +120,8 @@ char *remove_quote(char *str)
 			while (str[j] && str[j] != '"')
 				j++;
 			sr = ft_substr(str, i, j - i);
-			src = ft_strjoin3(src, sr);
+			src = ft_strjoin(src, sr);
+					
 			i = j;
 		}
 		else if(str[i] == '\'')
@@ -126,7 +133,8 @@ char *remove_quote(char *str)
 			while (str[j] && str[j] != '\'')
 				j++;
 			sr = ft_substr(str, i, j - i);
-			src = ft_strjoin3(src, sr);
+			src = ft_strjoin(src, sr);
+					
 			i = j;
 		}
 		else
@@ -135,17 +143,22 @@ char *remove_quote(char *str)
 			while (str[j] && (str[j] != '\'' && str[j] != '"'))
 				j++;
 			sr = ft_substr(str, i, j);
-			src = ft_strjoin3(src, sr);
+			src = ft_strjoin(src, sr);
 			i = i + (j - i);
 		}
 		if (!str[i])
 			break;
 		i++;
 	}
-	free(str);
 	return (src);
 }
 
+//in the expansion part we only have to handle paramter expansion ($) and quotes
+//removal and we will implement these expansions in the same order of the 
+//bash cad variable expansion , word spliting => after word spliting we shall 
+// remove
+// unquoted  empty strings that did result from a variable expension ,
+// then quotes removal
 t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
 {
 	t_lexer	*token;
@@ -156,19 +169,13 @@ t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
 	{
 		if (token->type == WORD)
 		{
-			token->token = get_name(token->token,env);
 			token = word_spliting(token);
+			token->token = get_name(token->token,env);
 		}
 		token = token->next;
 	}
 	token = tokens;
 	tokens = remove_empty_tokens(token, token, NULL);
 	head = tokens;
-	while (tokens)
-	{
-		if (tokens->type == WORD && tokens->token)
-			tokens->token = remove_quote(tokens->token);
-		tokens = tokens->next;
-	}
 	return (head);
 }

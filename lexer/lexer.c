@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:09:34 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/28 20:59:04 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:45:46 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	position_of_operator(char *s)
 void	free_tokens(t_lexer *tokens)
 {	
 	t_lexer	*prev;
-	// t_lexer	*head;
+	t_lexer	*head;
 
-	// head = tokens;
+	head = tokens;
 	while (tokens)
 	{
 		prev = tokens;
@@ -60,7 +60,7 @@ void	free_tokens(t_lexer *tokens)
 		}
 		tokens = tokens->next;
 	}
-	// head = NULL;
+	head = NULL;
 }
 void	free_all(t_lexer *tokens)
 {

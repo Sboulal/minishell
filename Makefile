@@ -1,18 +1,12 @@
-CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -I includes 
-RM			= rm -rf
-MKDIR		= mkdir -p
-USERS		= $(USER)
-
-OS              =       $(shell uname -s)
-ifeq ($(OS),Linux)
-	LINK 		= -lreadline
-else
-	COMP        = -L/goinfre/$(USERS)/.brew/opt/readline/lib
-	LINK 		= -I/goinfre/$(USERS)/.brew/opt/readline/include
-endif
-
-SRCS = 	main.c\
+NAME = minishell
+CC = cc
+libft = libft/libft.a
+USER = $(shell whoami)
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include #-g -fsanitize=address
+RLFLAGES = -lreadline -lhistory -L/Users/$(USER)/.brew/opt/readline/lib
+#L = -L/Users/saboulal/.brew/opt/readline/lib
+#I = -I/Users/saboulal/.brew/opt/readline/include
+SRC = 	main.c\
 		lexer/lexer_util.c\
 		lexer/lexer.c\
 		lexer/checks.c\
@@ -43,72 +37,25 @@ SRCS = 	main.c\
 		executing/exec/pipe.c\
 		executing/exec/pipe_utils.c\
 		executing/signal.c\
-		libft/ft_atoi.c \
-        libft/ft_bzero.c \
-        libft/ft_calloc.c \
-        libft/ft_isalnum.c \
-        libft/ft_contains.c \
-        libft/ft_isalpha.c \
-        libft/ft_isascii.c \
-        libft/ft_isdigit.c \
-        libft/ft_isprint.c \
-        libft/ft_itoa.c \
-        libft/ft_memchr.c \
-        libft/ft_memcmp.c \
-        libft/ft_memcpy.c \
-        libft/ft_memmove.c \
-        libft/ft_memset.c \
-        libft/ft_putchar_fd.c \
-        libft/ft_putendl_fd.c \
-        libft/ft_putnbr_fd.c \
-        libft/ft_putstr_fd.c \
-        libft/ft_split.c \
-        libft/ft_strchr.c \
-        libft/ft_strdup.c \
-        libft/ft_striteri.c \
-        libft/ft_strjoin.c \
-        libft/ft_strjoin_sep.c \
-        libft/ft_strlcat.c \
-        libft/ft_strlcpy.c \
-        libft/ft_strlen.c \
-        libft/ft_strmapi.c \
-        libft/ft_strncmp.c \
-        libft/ft_strcmp.c \
-        libft/ft_strnstr.c \
-        libft/ft_strrchr.c \
-        libft/ft_strtrim.c \
-        libft/ft_substr.c \
-        libft/ft_tolower.c \
-        libft/ft_toupper.c \
-        libft/ft_lstadd_back.c \
-        libft/ft_lstnew.c \
-        libft/ft_lstsize.c \
-        libft/ft_lstlast.c \
-        libft/ft_lstadd_front.c \
+		
+OBJCTS = $(SRC:.c=.o)
+all : $(NAME)
+$(NAME) : $(OBJCTS) $(libft)
+		$(CC) $(CFLAGS) $(RLFLAGES) $^ -o $@  -lreadline 
 
-BIN_DIR		= bin/
+%.o: %.c headers/lexer.h headers/exec.h
+	$(CC) $(CFLAGS) -c $< -o $@
 
-OBJS		= $(SRCS:%.c=$(BIN_DIR)%.o)
-OBJS_DIRS	= $(dir $(OBJS))
-
-INCLUDES	= includes/exec.h includes/lexer.h 
-
-NAME		= minishell
-
-
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	@$(CC) $(OBJS) -o $(NAME) $(LINK)
-
-$(BIN_DIR)%.o: %.c $(INCLUDES)
-	@$(MKDIR) $(OBJS_DIRS)
-	$(CC) $(COMP) $(CFLAGS)  -c $< -o $@ 
-
+$(libft) :
+	make -C libft
+	
 clean:
-	@$(RM) $(BIN_DIR)
+	rm -f $(OBJCTS)
+	make -C libft clean 
 
 fclean: clean
-	@$(RM) $(NAME)
+	 rm -f $(NAME) $(libft)
 
 re: fclean all
+
+.PHONY: fclean clean all re
