@@ -171,8 +171,8 @@ int main(int ac, char *av[],char *env[])
 		  g_var.status = 1;
 		continue;
 	}
-    // exec_cmd(&exec, env);
-
+	if (exec && exec->cmd && exec->cmd->cmd)
+    	exec_cmd(&exec, env);
 	t_mini *head = exec->cmd;
 	while (head)
 	{

@@ -42,8 +42,9 @@ int	position_of_operator(char *s)
 void	free_tokens(t_lexer *tokens)
 {	
 	t_lexer	*prev;
-   if(!tokens)
-	return ;
+
+   	if (!tokens)
+		return ;
 	while (tokens)
 	{
 		prev = tokens;
