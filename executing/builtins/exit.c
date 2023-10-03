@@ -65,6 +65,9 @@ int	ft_me_atoi(const char *str)
 }
 void	exit_program(t_mini *cmd, t_exec *exp)
 {
+	int i;
+
+	i = 0;
 	if (cmd->nbr_arg > 1)
 	{
 		ft_putstr_fd("exit\n", 2);
@@ -80,8 +83,7 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 	}
 	if (cmd->nbr_arg == 1)
 	{
-		g_var.status = ft_me_atoi(cmd->arg[0]);
-		printf("%d\n", g_var.status );
+		// g_var.status = ft_me_atoi(cmd->arg[0]);
 		if (g_var.status < 0)
 		{
 			ft_putstr_fd("exit\n", 2);
@@ -90,32 +92,45 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 			ft_putstr_fd(": numeric argument required\n", 2);
 			g_var.status = 255;
 		}
-		if (g_var.status > INT_MAX || g_var.status < INT_MIN)
+	// 	// else
+	// 	// {
+	// 	// 	while (cmd->arg[0][i])
+	// 	// 	{
+	// 	// 		if (ft_isdigit(cmd->arg[0][i]) && (cmd->arg[0][i] == '-'|| cmd->arg[0][i] == '+'))
+	// 	// 			i++;
+	// 	// 		else
+	// 	// 		{
+	// 	// 			ft_putstr_fd("exit\n", 2);
+	// 	// 			g_var.status = 255;
+	// 	// 			ft_putstr_fd("minishell: exit: ", 2);
+	// 	// 			ft_putstr_fd(cmd->arg[0], 2);
+	// 	// 			ft_putstr_fd(": numeric argument required\n", 2);
+	// 	// 			exit(g_var.status);
+	// 	// 		}
+	// 	// 	}
+	// 	// }
+	}
+	if (g_var.status > INT_MAX || g_var.status < INT_MIN)
 		{
 			ft_putstr_fd("exit\n", 2);
 			g_var.status = 255;
 			exit(g_var.status);
 		}
-		// else
-		// {
-		// 	while (cmd->arg[0][i])
-		// 	{
-		// 		if (ft_isdigit(cmd->arg[0][i]) && (cmd->arg[0][i] == '-'|| cmd->arg[0][i] == '+'))
-		// 			i++;
-		// 		else
-		// 		{
-		// 			ft_putstr_fd("exit\n", 2);
-		// 			g_var.status = 255;
-		// 			ft_putstr_fd("minishell: exit: ", 2);
-		// 			ft_putstr_fd(cmd->arg[0], 2);
-		// 			ft_putstr_fd(": numeric argument required\n", 2);
-		// 			exit(g_var.status);
-		// 		}
-		// 	}
-		// }
-	}
+		while (cmd->arg[0][i])
+		{
+			if (!ft_isdigit(cmd->arg[0][i]) && cmd->arg[0][i] != '+' && cmd->arg[0][i] != '-')
+			{
+				ft_putstr_fd("exit\n", 2);
+				g_var.status = 255;
+				ft_putstr_fd("minishell: exit: ", 2);
+				ft_putstr_fd(cmd->arg[0], 2);
+				ft_putstr_fd(": numeric argument required\n", 2);
+				exit(g_var.status);
+			}
+			i++;
+		}
 	g_var.status = ft_atoi(cmd->arg[0]);
-	if (exp->nbr_cmd == 1)
+	if (exp->nbr_cmd == 1 )
 	{
 		ft_putstr_fd("exit\n", 2);
 		exit(g_var.status);
