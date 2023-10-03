@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/02 12:28:39 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/03 21:18:33 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	ft_open(char *path, int flags, int mode)
 	int	fd;
 
 	fd = open(path, flags, mode);
-	if (fd == -4)
+	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
 		perror(path);

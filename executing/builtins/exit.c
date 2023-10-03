@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/03 13:45:13 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/03 20:10:30 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(cmd->arg[0], 2);
 			ft_putstr_fd(": numeric argument required\n", 2);
-			g_var.status = 2;
+			g_var.status = 255;
 		}
 	// 	// else
 	// 	// {
