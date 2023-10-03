@@ -78,7 +78,6 @@ void	buil_exec_pipe(t_exec **exp, t_mini *cmd)
 		&& ft_strcmp(cmd->cmd, "unset") != 0 && ft_strcmp(cmd->cmd, "cd") != 0
 		&& ft_strcmp(cmd->cmd, "export") != 0)
 			exec_pipe(exp, cmd);
-			
 	else
 		builtins(exp, cmd);
 }

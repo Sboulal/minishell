@@ -35,10 +35,11 @@ void	edit_shlvl(t_exec **exp)
 	}
 }
 
-int	error_fork(pid_t pid)
+int	error_fork(pid_t pid, int **pipfd, int nbr_cmd)
 {
 	if (pid < 0)
 	{
+		close_file(pipfd, nbr_cmd - 1);
 		perror("fork");
 		return (-1);
 	}
@@ -90,10 +91,12 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 		return ;
 	pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
 	pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
+	if (!pipfd)
+		return ;
 	while (head)
 	{
 		pid[j] = fork();
-		if (error_fork(pid[j]) < 0)
+		if (error_fork(pid[j], pipfd, (*exp)->nbr_cmd) < 0)
 			return ;
 		else if (pid[j] == 0)
 			norm_pipe(head, pipfd, exp, j);

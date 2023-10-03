@@ -47,7 +47,7 @@ int is_identifier(char c)
 {
 	if (!c)
 		return (0);
-	if (isalnum(c) || c == '_')
+	if (ft_isalnum(c) || c == '_')
 		return (1);
 	return (0);
 }
@@ -96,10 +96,10 @@ void	unset_env(t_exec **exp, char **arg)
 	t_envp	*head;
 
 	i = 0;
-	if (!(*exp) && !(*exp)->env)
+	if (!(*exp) && !(*exp)->exp)
 		return ;
 	unset_export(exp, arg);
-	if ((*exp)->env)
+	if (!(*exp)->env)
 		return ;
 	while (arg[i])
 	{

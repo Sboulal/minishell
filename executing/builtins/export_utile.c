@@ -43,12 +43,10 @@ void	export(t_exec **exec)
 			printf("declare -x %s\n", head->exp);
 			head = head->next;
 		}
+		g_var.status = 0;
 	}
 	else
-	{
 		add_to_export(exec);
-	}
-	g_var.status = 0;
 	if ((*exec)->nbr_cmd > 1)
 		exit(g_var.status);
 }
@@ -65,6 +63,7 @@ int	check_error_export(char *cmd, int i)
 				{
 					ft_putstr_fd("export: usage: export [-nf] [na", 2);
 					ft_putstr_fd("me[=value] ...] or export -p \n", 2);
+					g_var.status = 127;
 					return (0);
 				}
 				else if (cmd[i] == ')' || cmd[i] == '(')
@@ -73,6 +72,7 @@ int	check_error_export(char *cmd, int i)
 					ft_putstr_fd("unexpected token `", 2);
 					ft_putchar_fd(cmd[i], 2);
 					ft_putstr_fd("'\n", 2);
+					g_var.status = 127;
 					return (0);
 				}
 				else
@@ -80,6 +80,7 @@ int	check_error_export(char *cmd, int i)
 					ft_putstr_fd("minishell: export: `", 2);
 					ft_putstr_fd(cmd, 2);
 					ft_putstr_fd("': not a valid identifier\n", 2);
+					g_var.status = 127;
 					return (0);
 				}
 			}
@@ -87,7 +88,25 @@ int	check_error_export(char *cmd, int i)
 	}
 	return (1);
 }
+int	check_before_equal(char *cmd)
+{
+	int i;
 
+	i = 0;
+	while (cmd[i] && cmd[i] != '=')
+	{
+		if (!is_identifier(cmd[i]) && cmd[i] != '+')
+		{
+			ft_putstr_fd("minishell: export: `", 2);
+			ft_putstr_fd(cmd, 2);
+			ft_putstr_fd("': not a valid identifier\n", 2);
+			g_var.status = 127;
+			return (0);
+		}
+		i++;
+	}
+	return (1);
+}
 int	check_export(char *cmd)
 {
 	int	i;
@@ -99,11 +118,12 @@ int	check_export(char *cmd)
 	{
 		if (cmd[i] == '+' && cmd[i + 1] == '=')
 			return (2);
+
 		else if (cmd[i] == '+')
 		{
 			printf ("bash: export: '%s': not a valid identifier\n", cmd);
 			g_var.status = 127;
-			return (g_var.status);
+			return (0);
 		}
 		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(i != 0 && cmd[i + 1] && ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
 		{
@@ -111,26 +131,29 @@ int	check_export(char *cmd)
 			ft_putstr_fd(cmd, 2);
 			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_var.status = 127;
-			return (g_var.status);
+			return (0);
 		}
 		i++;
 	}
+	if (!check_before_equal(cmd))
+		return (0);
 	return (1);
 }
 int	check_unset(char *cmd)
-{
-	int	i;
+{int	i;
 
-	i = 0;
+	i = 1;
+	if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
+	{
+		g_var.status = 127;
+		return (0);
+	}
 	while (cmd[i])
 	{
-		if (!(is_identifier(cmd[i])) || ft_isdigit(cmd[i]))
+		if (!(is_identifier(cmd[i])))
 		{
-			ft_putstr_fd("minishell: unset: `", 2);
-			ft_putstr_fd(cmd, 2);
-			ft_putstr_fd("': not a valid identifier\n", 2);
 			g_var.status = 127;
-			return (g_var.status);
+			return (0);
 		}
 		i++;
 	}
@@ -140,13 +163,18 @@ int	check_unset_env(char *cmd)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
+	if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
+	{
+		g_var.status = 127;
+		return (0);
+	}
 	while (cmd[i])
 	{
-		if (!(is_identifier(cmd[i])) && !ft_isdigit(cmd[i]))
+		if (!(is_identifier(cmd[i])))
 		{
 			g_var.status = 127;
-			return (g_var.status);
+			return (0);
 		}
 		i++;
 	}
@@ -186,7 +214,6 @@ char	**list_clean(char *cmd, int num)
 {
 	char	**str;
 	char	**src;
-	// char *tmp;
 	char *tmp1;
 	int 	i;
 
@@ -198,7 +225,7 @@ char	**list_clean(char *cmd, int num)
 	{
 		tmp1 = str[0];
 		src = my_split_word(tmp1, '+');
-		str[0] = ft_strdup(tmp1);
+		str[0] = ft_strdup(src[0]);
 		while(src[i])
 			free(src[i++]);
 		free(tmp1);
