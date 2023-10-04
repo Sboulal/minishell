@@ -14,7 +14,7 @@ minishell$ cd $PWD
 minishell$ echo $?
 0
 
- minishell$  cd $PWD hi
+minishell$  cd $PWD hi
 minishell$ echo $?
 0
 

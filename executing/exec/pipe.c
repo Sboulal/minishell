@@ -31,7 +31,7 @@ void	edit_shlvl(t_exec **exp)
 		head->value = ft_itoa(nb);
 		str = ft_strjoin(head->variable, "=");
 		head->env = ft_strdup(ft_strjoin(str, head->value));
-		// edit_in_string(exp, head);
+		edit_in_string(exp, head);
 	}
 }
 
