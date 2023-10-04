@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 17:46:32 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:56:42 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,6 +157,7 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 			cmd->fd[1] = -4;
 			ft_putstr_fd(file,2);
 			perror(" ");
+			g_var.status = 1;
 			return(0);
 		}
 		check_and_redirect(&cmd->fd[1], fd);
@@ -171,6 +172,7 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 			cmd->fd[1] = -4;
 			 ft_putstr_fd(file,2);
 			perror(" ");
+			g_var.status = 1;
 			return(0);
 		}
 		check_and_redirect(&cmd->fd[1], fd);
@@ -185,6 +187,7 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 			cmd->fd[0] = -4;
 			ft_putstr_fd(file,2);
 			perror(" ");
+			g_var.status = 1;
 			return (0);
 			
 		}
