@@ -30,28 +30,14 @@
 # include <sys/errno.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-typedef struct s_export
-{
-	char			*exp;
-	char			*variable;
-	char			*value;
-	struct s_export	*next;
-}	t_export;
 
-typedef struct s_exec
-{
-	t_export	*exp;
-	t_mini		*cmd;
-	int			nbr_cmd;
-	t_envp		*env;
-}t_exec;
 
 t_export	*ft_lst_exp(t_export *exp);
 t_export	*list_exp(char *env);
 t_envp		*list_env(char *env);
 t_envp		*ft_lst(t_envp *lst);
 void		add_back_env(t_envp **lst, t_envp *new);
-void		creat_env(t_envp **lst);
+void		creat_env(t_exec **lst);
 void		print_env(t_exec *exp);
 int			check_arg(char **args, int k, int nbr, int len);
 void		print_echo(char **arg, int nbr, t_exec *exp);
@@ -81,7 +67,7 @@ void		change_olde_pwd(t_envp **list, char *old);
 int			sig_cmd(void);
 void		edit_shlvl(t_exec **exp);
 void		close_pipe(int **pip, int j);
-void		edit_in_string(t_envp *env);
+void		edit_in_string(t_exec **exp, t_envp *env);
 void		sort_utile(t_export *head, t_export *tomp);
 void		close_file(int **pipfd, int nb_pip);
 int			**incial_pipe(int nb_pip, t_exec *exp);
@@ -89,8 +75,8 @@ void		wait_pid(pid_t *pid, t_exec *exp);
 char		*get_env(t_envp *list_env);
 void		print_error_nor(char *str);
 void		print_error_norr(char *str, int i);
-void	protect_cmd(t_envp **env);
-void	add_back_envstring(t_envp *env);
+void	protect_cmd(t_exec **env);
+void	add_back_envstring(t_envp *env, t_exec **exp);
 int	check_unset(char *cmd);
 int	check_unset_env(char *cmd);
 void	ft_delete(t_envp **head);

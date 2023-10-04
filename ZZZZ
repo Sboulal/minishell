@@ -167,3 +167,7 @@ minishell: exit: dfbghg: numeric argument required
 minishell$ echo $?
 2
 minishell$  should be 255
+-----------------------
+minishell: ./outfiles/outfile01: No such file or directory
+minishell$ ++++++: No such file or directory
+./outfiles/outfile01 bye ./test_files/invalid_permission

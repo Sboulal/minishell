@@ -92,7 +92,7 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	pt = exec_chec_join(str[i], path, cmd, exp);
 	if (!pt)
 		return ;
-	g_var.status = execve(*pt, pt, g_var.env);
+	g_var.status = execve(*pt, pt, (*exp)->env_string);
 	ft_putstr_fd("minishell : ",2);
 	ft_putstr_fd(cmd->cmd,2);
 	ft_putstr_fd(": command not found\n",2);

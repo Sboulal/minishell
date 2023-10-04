@@ -104,6 +104,7 @@ static void ft_add_history(char *bas)
 int main(int ac, char *av[],char *env[])
 {
   char *bas;
+  t_mini *head;
 //   `
  
   int k;
@@ -117,24 +118,12 @@ int main(int ac, char *av[],char *env[])
   exec = (t_exec *)ft_calloc(sizeof(t_exec));
 	
     if(ac != 1)
-
-	
     {
       ft_putstr_fd("minishell: ", 2);
 	    ft_putstr_fd(av[1], 2);
       ft_putstr_fd(": No such file or directory\n", 2);
         return (0);
-    }
-
-	// if (*env)
-	// 	      g_var.env = env;
-    //     if (!(*env) && !((exec->env)))
-	// 		protect_cmd(&exec->env);
-	//       else if (!(exec->env) && (*(g_var.env)))
-    //       creat_env(&exec->env);
-	//       creat_exp(&exec->exp, exec->env);
-
-		  
+    }	  
   while(1)
   {
 	  sig();
@@ -150,16 +139,14 @@ int main(int ac, char *av[],char *env[])
     if (k == 0)
     {
         if (*env)
-		      g_var.env = env;
+		      exec->env_string = env;
         if (!(*env) && !((exec->env)))
-			protect_cmd(&exec->env);
-	      else if (!(exec->env) && (*(g_var.env)))
-          creat_env(&exec->env);
-	      creat_exp(&exec->exp, exec->env);
+			protect_cmd(&exec);
+	    else if (!(exec->env) && (*(exec->env_string)))
+        	creat_env(&exec);
+	    creat_exp(&exec->exp, exec->env);
          k = 1;
     }
-	else
-		g_var.envp = exec->env;
     exec->cmd = parse(bas, exec->env);
 	if(g_var.heredoc_flag)
 	{
@@ -173,7 +160,7 @@ int main(int ac, char *av[],char *env[])
 	}
 	if (exec && exec->cmd && exec->cmd->cmd)
     	exec_cmd(&exec, env);
-	t_mini *head = exec->cmd;
+	head = exec->cmd;
 	while (head)
 	{
 		if (head->fd[READ_END] > 2)

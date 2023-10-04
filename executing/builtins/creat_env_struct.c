@@ -65,19 +65,19 @@ void	add_back_env(t_envp **lst, t_envp *new)
 	ft_lst(*lst)->next = new;
 }
 
-void	creat_env(t_envp **lst)
+void	creat_env(t_exec **lst)
 {
 	int	i;
 
 	i = 0;
-	if (!g_var.env[i])
+	if (!(*lst)->env_string[i])
 	{
 		g_var.status = 127;
 		return ;
 	}
-	while (g_var.env[i])
+	while ((*lst)->env_string[i])
 	{
-		add_back_env(lst, list_env(g_var.env[i]));
+		add_back_env(&(*lst)->env, list_env((*lst)->env_string[i]));
 		i++;
 	}
 }

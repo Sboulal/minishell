@@ -12,15 +12,15 @@
 
 #include "../../includes/exec.h"
 
-void	edit_in_string(t_envp *env)
+void	edit_in_string(t_exec **exp, t_envp *env)
 {
 	int	i;
 
 	i = 0;
-	while (g_var.env[i] && ft_strncmp(g_var.env[i], "SHLVL=", 6) != 0)
+	while ((*exp)->env_string[i] && ft_strncmp((*exp)->env_string[i], "SHLVL=", 6) != 0)
 		i++;
-	if (g_var.env[i])
-		g_var.env[i] = ft_strdup(env->env);
+	if ((*exp)->env_string[i])
+		(*exp)->env_string[i] = ft_strdup(env->env);
 }
 
 void	export(t_exec **exec)

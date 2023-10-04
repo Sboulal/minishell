@@ -129,7 +129,7 @@ void	unset_env(t_exec **exp, char **arg)
 		}
 		i++;
 	}
-	add_back_envstring((*exp)->env);
+	add_back_envstring((*exp)->env, exp);
 	g_var.status = 0;
 	if ((*exp)->nbr_cmd > 1)
 		exit(g_var.status);

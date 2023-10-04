@@ -82,7 +82,7 @@ void	buil_exec_pipe(t_exec **exp, t_mini *cmd)
 		builtins(exp, cmd);
 }
 
-void	protect_cmd(t_envp **env)
+void	protect_cmd(t_exec **exp)
 {
 	char	str[PATH_MAX];
 	char	**string;
@@ -91,31 +91,31 @@ void	protect_cmd(t_envp **env)
 
 	getcwd(str, PATH_MAX);
 	string = ft_split(str, '/');
-	g_var.env = (char **)malloc(sizeof(char *) * 5);
+	(*exp)->env_string = (char **)malloc(sizeof(char *) * 5);
 	str1 = ft_strjoin("PATH=/Users/", string[1]);
 	str1 = ft_strjoin2(str1, "/.brew/bin:/usr/local/bin:/usr/bin:");
 	str1 = ft_strjoin2(str1, ":/bin:/usr/sbin:/sbin:/usr/local/munki:");
 	str1 = ft_strjoin2(str1, "/Library/Apple/usr/bin:/Users/");
 	str1 = ft_strjoin2(str1, string[1]);
 	str1 = ft_strjoin2(str1, "/.brew/bin");
-	add_back_env(env, list_env(str1));
-	g_var.env[0] = ft_strdup(str1);
+	add_back_env(&(*exp)->env, list_env(str1));
+	(*exp)->env_string[0] = ft_strdup(str1);
 	free(str1);
 	tmp = ft_strjoin("PWD=", str);
-	add_back_env(env, list_env(tmp));
-	g_var.env[1] = ft_strdup(tmp);
+	add_back_env(&(*exp)->env, list_env(tmp));
+	(*exp)->env_string[1] = ft_strdup(tmp);
 	free(tmp);
 	tmp = ft_strjoin("HOME=/Users/", string[1]);
-	add_back_env(env, list_env(tmp));
-	g_var.env[2] = ft_strdup(tmp);
+	add_back_env(&(*exp)->env, list_env(tmp));
+	(*exp)->env_string[2] = ft_strdup(tmp);
 	free(tmp);
-	add_back_env(env, list_env("SHLVL=1"));
-	g_var.env[3] = ft_strdup("SHLVL=1");
+	add_back_env(&(*exp)->env, list_env("SHLVL=1"));
+	(*exp)->env_string[3] = ft_strdup("SHLVL=1");
 	tmp = ft_strjoin("_=", "/usr/bin/env");
-	add_back_env(env, list_env(tmp));
-	g_var.env[4] = ft_strdup(("_=/usr/bin/env"));
+	add_back_env(&(*exp)->env, list_env(tmp));
+	(*exp)->env_string[4] = ft_strdup(("_=/usr/bin/env"));
 	free(tmp);
-	g_var.env[5] = NULL;
+	(*exp)->env_string[5] = NULL;
 	tabfree(string);
 }
 
