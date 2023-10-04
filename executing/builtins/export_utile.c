@@ -150,7 +150,7 @@ int	check_unset(char *cmd)
 	}
 	while (cmd[i])
 	{
-		if (!(is_identifier(cmd[i])))
+		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 		{
 			g_var.status = 1;
 			return (0);
@@ -171,7 +171,7 @@ int	check_unset_env(char *cmd)
 	}
 	while (cmd[i])
 	{
-		if (!(is_identifier(cmd[i])))
+		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 		{
 			g_var.status = 1;
 			return (0);

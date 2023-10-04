@@ -35,7 +35,7 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 		env->variable = head->variable;
 		env->value = head->value;
 		env->env = head->exp;
-		edit_in_string(exec, env);
+		// edit_in_string(exec, env);
 	}
 }
 
