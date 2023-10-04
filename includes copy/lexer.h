@@ -57,6 +57,16 @@ typedef struct s_lexer
 	struct s_lexer *next;
 }t_lexer;
 
+// typedef struct s_redir
+// {
+// 	t_token			tok;
+// 	char			*file;
+// 	bool			flg;
+// 	int				fd;
+// 	struct s_redir	*lchild;
+// 	struct s_redir	*rchild;
+// }t_redir;
+
 typedef struct s_mini
 {
    char *cmd; // command "ls"

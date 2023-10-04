@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/03 21:18:33 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/04 15:44:07 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,8 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 		if (fd == -1)
 		{
 			cmd->fd[1] = -4;
-			perror("minishell$ ++++++");
+			// perror("minishell$ ");
+			
 			return (0);
 		}
 		check_and_redirect(&cmd->fd[1], fd);
@@ -168,8 +169,8 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 		if (fd == -1)
 		{
 			cmd->fd[1] = -4;
-			perror("minishell$ ++++++++");
-			exit(0);
+			// perror("minishell$ ");
+			return (0);
 		}
 		check_and_redirect(&cmd->fd[1], fd);
 	}
@@ -182,7 +183,7 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 		if (fd == -1)
 		{
 			cmd->fd[0] = -4;
-			// perror("minishell$++++++ ");
+			// perror("minishell$ ");
 			return (0);
 		}
 		check_and_redirect(&cmd->fd[0], fd);

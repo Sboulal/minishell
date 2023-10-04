@@ -37,10 +37,11 @@ SRC = 	main.c\
 		executing/exec/pipe.c\
 		executing/exec/pipe_utils.c\
 		executing/signal.c\
+
 		
 OBJCTS = $(SRC:.c=.o)
 all : $(NAME)
-$(NAME) : $(OBJCTS) $(libft)
+$(NAME) : $(OBJCTS) $(libft) 
 		$(CC) $(CFLAGS) $(RLFLAGES) $^ -o $@  -lreadline 
 
 %.o: %.c includes/lexer.h includes/exec.h
