@@ -43,7 +43,7 @@ all : $(NAME)
 $(NAME) : $(OBJCTS) $(libft)
 		$(CC) $(CFLAGS) $(RLFLAGES) $^ -o $@  -lreadline 
 
-%.o: %.c headers/lexer.h headers/exec.h
+%.o: %.c includes/lexer.h includes/exec.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(libft) :
