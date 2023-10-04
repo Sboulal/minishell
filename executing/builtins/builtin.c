@@ -156,10 +156,10 @@ void	exec_cmd(t_exec **exp, char **env)
 		(*exp)->nbr_cmd = 1;
 	// if ((!(*exp)->exp))
 	// 	return ;
-	if (!((*exp)))
-		return ;
-	if (!((*exp)))
-		return ;
+	// if (!((*exp)))
+	// 	return ;
+	// if (!((*exp)))
+	// 	return ;
 	if (((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "cd") == 0) || ((*exp)->nbr_cmd == 1 && ((*exp)->cmd->nbr_arg > 0)
 		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0)) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "exit") == 0) || ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
 		builtins(exp, (*exp)->cmd);
