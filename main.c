@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 17:52:46 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:33:54 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int main(int ac, char *av[],char *env[])
     }	  
   while(1)
   {
-	// init to 0
 	  sig();
     bas = readline("minishell$ ");
 	if(bas == 0)
@@ -148,9 +147,10 @@ int main(int ac, char *av[],char *env[])
 	    creat_exp(&exec->exp, exec->env);
          k = 1;
     }
+	
     exec->cmd = parse(bas, exec->env);
-	if (exec->cmd->x == 1)
-		continue;
+	if(exec->cmd->x == 1)
+	   	continue;
 	if(g_var.heredoc_flag)
 	{
 		if (exec->cmd)
