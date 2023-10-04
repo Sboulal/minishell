@@ -22,6 +22,7 @@
 #include"../libft/libft.h"
 #include<fcntl.h>
 #include<signal.h>
+#include <string.h>
 #define WORD -1
 #define	PIPE_LINE  0
 #define	REDIRECTION 1
@@ -70,6 +71,7 @@ typedef struct s_lexer
 typedef struct s_mini
 {
    char *cmd; // command "ls"
+   	int x;
     char **arg; // argument of command "-la"
     int nbr_arg; // number of command "2"
    	int	fd[2];

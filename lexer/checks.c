@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 15:44:07 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/04 17:46:32 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int	ft_open(char *path, int flags, int mode)
 	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		perror(path);
+		// perror(path);
 	}
 	return (fd);
 }
@@ -146,45 +146,47 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 {
 	int	fd;
 	(void)env;
+
+	cmd->x = 0;
 	if (!ft_strcmp(type, ">>"))
 	{
-		if (test_file(file))
-			return (0);
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 		{
+			cmd->x = 1;
 			cmd->fd[1] = -4;
-			// perror("minishell$ ");
-			
-			return (0);
+			ft_putstr_fd(file,2);
+			perror(" ");
+			return(0);
 		}
 		check_and_redirect(&cmd->fd[1], fd);
 	}
 
 	if (!ft_strcmp(type, ">"))
 	{
-		if (test_file(file))
-			return (0);
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd == -1)
 		{
+			cmd->x = 1;
 			cmd->fd[1] = -4;
-			// perror("minishell$ ");
-			return (0);
+			 ft_putstr_fd(file,2);
+			perror(" ");
+			return(0);
 		}
 		check_and_redirect(&cmd->fd[1], fd);
 	}
 
 	if (!ft_strcmp(type, "<"))
 	{
-		if (test_file(file))
-			return (0);
 		fd = ft_open(file,  O_RDONLY , 0644);
 		if (fd == -1)
 		{
+			cmd->x = 1;
 			cmd->fd[0] = -4;
-			// perror("minishell$ ");
+			ft_putstr_fd(file,2);
+			perror(" ");
 			return (0);
+			
 		}
 		check_and_redirect(&cmd->fd[0], fd);
 	}

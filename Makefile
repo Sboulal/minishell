@@ -37,8 +37,7 @@ SRC = 	main.c\
 		executing/exec/pipe.c\
 		executing/exec/pipe_utils.c\
 		executing/signal.c\
-
-		
+	
 OBJCTS = $(SRC:.c=.o)
 all : $(NAME)
 $(NAME) : $(OBJCTS) $(libft) 

@@ -12,6 +12,8 @@
         "locale": "c",
         "memory": "c",
         "tuple": "c",
-        "utility": "c"
+        "utility": "c",
+        "string": "c",
+        "iosfwd": "c"
     }
 }
