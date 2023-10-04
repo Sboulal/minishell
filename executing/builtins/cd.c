@@ -120,13 +120,13 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 
 	head = *list_env;
 	// return 0 if success
-	if (cmd->nbr_arg != 1)
-	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(": too many arguments\n", 2);
-		g_var.status = 1;
-		return ;
-	}
+	// if (cmd->nbr_arg != 1)
+	// {
+	// 	ft_putstr_fd("minishell: cd: ", 2);
+	// 	ft_putstr_fd(": too many arguments\n", 2);
+	// 	g_var.status = 1;
+	// 	return ;
+	// }
 	if (cmd->nbr_arg == 0)
 	{
 		c = get_env(head);

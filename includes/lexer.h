@@ -45,19 +45,10 @@ typedef struct s_envp
 
 struct s_glob
 {
-    // char **env;
-	// t_envp *envp;
 	int heredoc_flag;
     int status;
 };
 
-
-
-
-// typedef enum e_token
-// {
-// 	 //end command 
-// }t_token;
 typedef struct s_lexer
 {
 	char 	*token;
