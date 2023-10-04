@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 18:18:43 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:44:06 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 			cmd->fd[0] = -4;
 			ft_putstr_fd(file,2);
 			perror(" ");
-			g_var.status = 0;
+			g_var.status = 1;
 			return (0);
 			
 		}
