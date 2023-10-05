@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/05 21:56:53 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:15:12 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	change_olde_pwd_exp(t_export **list, char *old)
 	head = head->next;
 	if (head)
 	{
-		if (head->value)
-			ft_free(&head->value);
+		// if (head->value)
+		// 	ft_free(&head->value);
 		free((head)->exp);
 		head->value = old;
 		head->exp = ft_strjoin("OLDPWD=", "=");
@@ -60,8 +60,8 @@ void	change_pwd_exp(t_export **list)
 	head = head->next;
 	if (head)
 	{
-		if (head->value)
-			ft_free(&head->value);
+		// if (head->value)
+		// 	ft_free(&head->value);
 		free((head)->exp);
 		head->value = str;
 		head->exp = ft_strjoin("PWD", "=");
@@ -99,10 +99,13 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	head = head->next;
 	if (head)
 	{
-		if (head->value)
+		if (head->value && *str)
+		{
+			printf("%s \n", head->value);
 			ft_free(&head->value);
+			(head)->value = str;
+		}
 		free((head)->env);
-		(head)->value = str;
 		(head)->env = ft_strjoin("PWD=", str);
 		return ;
 	}
@@ -123,8 +126,8 @@ void	change_olde_pwd(t_envp **list, char *old)
 	head = head->next;
 	if (head)
 	{
-		if (head->value)
-			ft_free(&head->value);
+		// if (head->value)
+		// 	ft_free(&head->value);
 		free((head)->env);
 		(head)->value = str;
 		(head)->env = ft_strjoin("OLDPWD=", old);
