@@ -26,6 +26,7 @@ void	handle_signal(int sig)
 
 int	sig(void)
 {
+	rl_catch_signals = 0;
 	if ((signal(SIGINT, handle_signal) == SIG_ERR))
 	{
 		g_var.status = 1;
