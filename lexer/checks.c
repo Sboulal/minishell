@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 20:45:37 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 12:48:19 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
 		}
 		check_and_redirect(&cmd->fd[0], fd);
 	}
+
 	return (1);
 }
 
