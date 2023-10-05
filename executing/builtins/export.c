@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/05 20:48:43 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 22:00:43 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,24 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 	if (!(*exec))
 		return ;
 	env = (*exec)->env;
-	free(head->variable);
-	head->variable = str[0];
-	free(head->value);
+	head->variable = ft_strdup(str[0]);
 	if (num == 2)
-		head->value = ft_strjoin(head->value, str[1]);
+		head->value = ft_strjoin2(head->value, str[1]);
 	else
 		head->value = str[1];
 	free(head->exp);
 	head->exp = ft_strjoin(str[0], "=");
-	head->exp = ft_strjoin(head->exp, "\"");
-	head->exp = ft_strjoin(head->exp, head->value);
-	head->exp = ft_strjoin(head->exp, "\"");
+	head->exp = ft_strjoin2(head->exp, "\"");
+	head->exp = ft_strjoin2(head->exp, head->value);
+	head->exp = ft_strjoin2(head->exp, "\"");
 	while (env->next && ft_strcmp(env->variable, str[0]) != 0)
 		env = env->next;
+	tabfree(str);
 	if (env)
 	{
 		free(env->variable);
 		free(env->value);
-		free(env->env);
+		free(env->env); 
 		env->variable = head->variable;
 		env->value = head->value;
 		env->env = head->exp;
@@ -141,6 +140,7 @@ void	edit_add(t_exec **exec, int i, int num)
 	}
 	free(str[0]);
 	free(str[1]);
+	free(str);
 }
 
 void	add_to_export(t_exec **exec)

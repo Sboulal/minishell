@@ -6,12 +6,17 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/05 20:38:23 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 21:56:53 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
+void ft_free(char **ptr)
+{
+	free(*ptr);
+	*ptr = NULL;
+}
 void	change_olde_pwd_exp(t_export **list, char *old)
 {
 	t_export	*head;
@@ -26,7 +31,8 @@ void	change_olde_pwd_exp(t_export **list, char *old)
 	head = head->next;
 	if (head)
 	{
-		free(head->value);
+		if (head->value)
+			ft_free(&head->value);
 		free((head)->exp);
 		head->value = old;
 		head->exp = ft_strjoin("OLDPWD=", "=");
@@ -54,7 +60,8 @@ void	change_pwd_exp(t_export **list)
 	head = head->next;
 	if (head)
 	{
-		free(head->value);
+		if (head->value)
+			ft_free(&head->value);
 		free((head)->exp);
 		head->value = str;
 		head->exp = ft_strjoin("PWD", "=");
@@ -92,7 +99,8 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	head = head->next;
 	if (head)
 	{
-		free(head->value);
+		if (head->value)
+			ft_free(&head->value);
 		free((head)->env);
 		(head)->value = str;
 		(head)->env = ft_strjoin("PWD=", str);
@@ -115,13 +123,16 @@ void	change_olde_pwd(t_envp **list, char *old)
 	head = head->next;
 	if (head)
 	{
-		free(head->value);
+		if (head->value)
+			ft_free(&head->value);
 		free((head)->env);
 		(head)->value = str;
 		(head)->env = ft_strjoin("OLDPWD=", old);
 		return ;
 	}
 }
+
+
 void	cd_derc_err(char **args)
 {
 	ft_putstr_fd("minishell: cd: ", 2);
