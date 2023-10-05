@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:49:44 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/05 16:58:21 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 17:13:10 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int	is_env_name(char c)
 
 int	handle_heredocs(t_mini *cmd, t_lexer *tokens, t_envp *env) 
 {
-	int	status;
+	
 	
 	while (tokens && tokens->type != PIPE_LINE)
 	{
 		if (tokens->type == HERE_DOC)
 		{
 			tokens = tokens->next;
-			status = handle_heredoc(cmd, tokens->token, here_doc_name(), env);
+			 handle_heredoc(cmd, tokens->token, here_doc_name(), env);
 		}
 		else
 			tokens = tokens->next;
