@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:49:44 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/03 20:55:00 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 16:58:21 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	handle_heredocs(t_mini *cmd, t_lexer *tokens, t_envp *env)
 		{
 			tokens = tokens->next;
 			status = handle_heredoc(cmd, tokens->token, here_doc_name(), env);
-			if (status)
-				return (status);
 		}
 		else
 			tokens = tokens->next;
