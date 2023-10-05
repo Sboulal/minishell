@@ -43,7 +43,7 @@ char	**exec_chec_join(char *str, char *path, t_mini *cmd, t_exec **exp)
 	char	**pt;
 
 	if (str)
-		pt = execve_join((*exp), path, cmd); //need check
+		pt = execve_join((*exp), path, cmd);
 	else
 		pt = execve_join((*exp), cmd->cmd, cmd);
 	return (pt);
@@ -64,15 +64,41 @@ void check_permision(t_mini *cmd)
 	}
 	
 }
-void	exec_pipe(t_exec **exp, t_mini *cmd)
+
+char	**find_cmd(char *path, t_exec **exp, t_mini *cmd)
 {
-	int		i;
-	t_envp	*head;
+	int	i;
 	char	**str;
 	char	**pt;
-	char	*path;
 
 	i = 0;
+	if (!path)
+	{
+		ft_putstr_fd("minishell : ",2);
+		ft_putstr_fd(cmd->cmd,2);
+		ft_putstr_fd(": command not found\n",2);
+		g_var.status = 127;
+		exit(g_var.status);
+	}
+	str = ft_split(path, ':');
+	while (str[i])
+	{
+		path = ft_strjoin(str[i], "/");
+		path = ft_strjoin2(path, cmd->cmd);
+		if (!access(path, F_OK | X_OK))
+			break ;
+		i++;
+	}
+	pt = exec_chec_join(str[i], path, cmd, exp);
+	tabfree(str);
+	return (pt);
+}
+void	exec_pipe(t_exec **exp, t_mini *cmd)
+{
+	t_envp	*head;
+	char	*path;
+	char	**pt;
+
 	if (!(*exp) || !(cmd))
 		return ;
 	head = (*exp)->env;
@@ -80,16 +106,7 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	while (head && ft_strcmp(head->variable, "PATH") != 0)
 		head = head->next;
 	path = head->env;
-	str = ft_split(path, ':');
-	while (str[i])
-	{
-		path = ft_strjoin(str[i], "/");
-		path = ft_strjoin(path, cmd->cmd);
-		if (!access(path, F_OK | X_OK))
-			break ;
-		i++;
-	}
-	pt = exec_chec_join(str[i], path, cmd, exp);
+	pt = find_cmd(path, exp, cmd);
 	if (!pt)
 		return ;
 	g_var.status = execve(*pt, pt, (*exp)->env_string);
@@ -98,5 +115,4 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	ft_putstr_fd(": command not found\n",2);
 	g_var.status = 127;
 	exit(g_var.status);
-	// perror("execve");
 }
