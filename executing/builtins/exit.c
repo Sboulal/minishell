@@ -63,7 +63,7 @@ void	exit_norm(t_mini *cmd)
 	i = 0;
 	while (cmd->arg && cmd->arg[0] && cmd->arg[0][i])
 	{
-		if (!ft_isdigit(cmd->arg[0][i]) && cmd->arg[0][i] != '+' && cmd->arg[0][i] != '-')
+		if (!ft_isdigit(cmd->arg[0][i]) && ((cmd->arg[0][i] == '+' && !ft_isdigit(cmd->arg[0][i + 1])) || (cmd->arg[0][i] == '-' && !ft_isdigit(cmd->arg[0][i + 1]))))
 		{
 			ft_putstr_fd("exit\n", 2);
 			g_var.status = 255;
@@ -108,6 +108,11 @@ int	protect_exit(t_mini *cmd, t_exec *exp)
 
 void	exit_program(t_mini *cmd, t_exec *exp)
 {
+	if (cmd->nbr_arg == 0)
+	{
+		ft_putstr_fd("exit\n", 2);
+		exit(g_var.status);
+	} 
 	exit_norm(cmd);
 	g_var.status = ft_atoi_exit(cmd->arg[0]);
 	if (g_var.status == -1 && ft_strcmp(ft_itoa(g_var.status), cmd->arg[0]))
