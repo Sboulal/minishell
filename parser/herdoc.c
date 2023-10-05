@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 20:17:02 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 18:46:04 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env) // void
 		joined_line = ft_strjoin2(line, "\n");
 		if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
 			return ( -1);
-		// free(joined_line);
+		free(joined_line);
 		line = NULL;
 	}
 			close(fd[0]);
