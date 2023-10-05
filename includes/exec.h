@@ -82,5 +82,6 @@ int	check_unset_env(char *cmd);
 void	ft_delete(t_envp **head);
 void	ft_delete_export(t_export **head);
 void check_permision(t_mini *cmd);
+void	get_pwd(t_exec **exp);
 
 #endif

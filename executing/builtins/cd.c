@@ -60,7 +60,12 @@ void	change_pwd_exp(t_export **list)
 		return ;
 	}
 }
-
+void	change_pwd_dir(void)
+{
+	ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent",2);
+	ft_putstr_fd(":directories: No such file or directory\n",2);
+	g_var.status = 126;
+}
 void	change_pwd(t_envp **list, t_exec **exp)
 {
 	char	str[PATH_MAX];
@@ -76,11 +81,7 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	change_olde_pwd(list, (head)->next->value);
 	src = getcwd(str, PATH_MAX);
 	if (!src && errno == ENOENT)
-	{
-		ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent",2);
-		ft_putstr_fd(":directories: No such file or directory\n",2);
-		g_var.status = 126;
-	}
+	change_pwd_dir();
 	if (!(head->next))
 		return ;
 	head = head->next;
@@ -112,21 +113,19 @@ void	change_olde_pwd(t_envp **list, char *old)
 		return ;
 	}
 }
+void	cd_derc_err(char **args)
+{
+	ft_putstr_fd("minishell: cd: ", 2);
+	ft_putstr_fd(args[0], 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
+	g_var.status = 1;
+}
 void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 {
 	t_envp	*head;
-	// struct stat sb;
 	char	*c;
 
 	head = *list_env;
-	// return 0 if success
-	// if (cmd->nbr_arg != 1)
-	// {
-	// 	ft_putstr_fd("minishell: cd: ", 2);
-	// 	ft_putstr_fd(": too many arguments\n", 2);
-	// 	g_var.status = 1;
-	// 	return ;
-	// }
 	if (cmd->nbr_arg == 0)
 	{
 		c = get_env(head);
@@ -141,10 +140,7 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 	}
 	else if (chdir(args[0]) == -1 && ft_strcmp(args[0], "-"))
 	{
-		ft_putstr_fd("minishell: cd: ", 2);
-		ft_putstr_fd(args[0], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-		g_var.status = 1;
+		cd_derc_err(args);
 		return ;
 	}
 	change_pwd(&head, exp);

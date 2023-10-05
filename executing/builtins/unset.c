@@ -88,7 +88,39 @@ void	unset_export(t_exec **exp, char **arg)
 		i++;
 	}
 }
-
+void free_unset(t_exec **exp, t_envp *head)
+{
+	(*exp)->env = (*exp)->env->next;
+	free(head->env);
+	free(head->value);
+	free(head->variable);
+	free(head);
+}
+void	unset_env_norm(char **arg, t_exec **exp, int i, int num, t_envp *head)
+{
+	while (arg[i])
+	{
+		num = check_unset_env((*exp)->cmd->arg[i]);
+		if (num)
+		{
+			head = (*exp)->env;
+			if (head &&  ft_strcmp(arg[i], head->variable) == 0)
+			{
+				free_unset(exp, head);
+				i++;
+				continue;
+			}
+			while (head->next && ft_strcmp(arg[i], head->next->variable))
+				head = head->next;
+			if (head->next
+				&& ft_strcmp(arg[i], head->next->variable) == 0)
+					ft_delete(&head);
+			else
+				g_var.status = 127;
+		}
+		i++;
+	}
+}
 void	unset_env(t_exec **exp, char **arg)
 {
 	int		i;
@@ -101,34 +133,9 @@ void	unset_env(t_exec **exp, char **arg)
 	unset_export(exp, arg);
 	if (!(*exp)->env)
 		return ;
-	while (arg[i])
-	{
-		num = check_unset_env((*exp)->cmd->arg[i]);
-		if (num)
-		{
-			head = (*exp)->env;
-			if (head &&  ft_strcmp(arg[i], head->variable) == 0)
-			{
-				(*exp)->env = (*exp)->env->next;
-				free(head->env);
-				free(head->value);
-				free(head->variable);
-				free(head);
-				i++;
-				continue;
-			}
-			while (head->next && ft_strcmp(arg[i], head->next->variable))
-				head = head->next;
-			if (head->next
-				&& ft_strcmp(arg[i], head->next->variable) == 0)
-				{
-					ft_delete(&head);
-				}
-			else
-				g_var.status = 127;
-		}
-		i++;
-	}
+	num = 0;
+	head = NULL;
+	unset_env_norm(arg, exp, i, num, head);
 	add_back_envstring((*exp)->env, exp);
 	g_var.status = 0;
 	if ((*exp)->nbr_cmd > 1)

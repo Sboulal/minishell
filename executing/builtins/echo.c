@@ -23,73 +23,6 @@ int	check_echo_arg(int k, int i, char **args)
 	return (0);
 }
 
-// int	check_arg(char **args, int k, int nbr, int len)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (!(*args))
-// 		return (0);
-// 	while (args[k][i])
-// 	{
-// 		if (!check_echo_arg(k, i, args))
-// 			len++;
-// 		if (check_echo_arg(k, i, args))
-// 		{
-// 			i = 0;
-// 			while (args[k][i])
-// 			{
-// 				if (args[k][i] != '\'' && args[k][i] != '\"')
-// 					printf("%c", args[k][i++]);
-// 			}
-// 			len = print_in_echo(args, k, nbr, len);
-// 			return (print_in_echo(args, k, nbr, len));
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
-// void	print_echo(char **arg, int nbr, t_exec *exp)
-// {
-// 	int	i;
-// 	int	len;
-
-// 	i = 0;
-// 	len = 1;
-
-// 	if (!(*arg) || !arg)
-// 		return ;
-// 	while (arg[i])
-// 	{
-// 		len = check_arg(arg, i, nbr, len);
-// 		if (len)
-// 		{
-// 			if (len == 1)
-// 				printf("\n");
-// 			if (exp->nbr_cmd > 1)
-// 				exit(0);
-// 			return ;
-// 		}
-// 		else
-// 			i++;
-// 	}
-// 	g_var.status = 0;
-// 	exit (0);
-// }
-// int	check_arg(char **arg)
-// {
-// 	int j;
-
-// 	j = 0;
-// 	k = 0;
-// 	while (arg[i][j])
-// 	{
-// 		if ((arg[i][j] == 'n' && arg[i][0] == '-') || (arg[i][j] == 'n' && arg[i - 1][j] == 'n') )
-// 			k++;
-// 		j++;
-// 	}
-// }
 int	check_firs_arg(char **arg, int i)
 {
 	int j;
@@ -113,14 +46,50 @@ int	check_firs_arg(char **arg, int i)
 	}
 	return (k);
 }
-void	print_in_echo(char **arg, int n)
+void	print_norm(char **arg)
 {
-	int i;
-	int len; 
-	int lent;
+	int	i;
+	int	lent;
+	int	len;
+	int	d;
+
+	i = 1;
+	while (arg[i])
+	{
+		len = check_firs_arg(arg, i);
+		lent = ft_strlen(arg[i]);
+		lent = lent - 1;
+		if (len == lent)
+			i++;
+		else
+			break;
+	}
+	d = i;
+	while (arg[i])
+	{
+		if (i != d)
+			printf(" ");
+		printf("%s",arg[i]);
+		i++;
+	}
+}
+void	normal_print(char **arg)
+{
+	int	i;
 
 	i = 0;
-	int d;
+	while (arg[i])
+	{
+		if (i != 0 || !arg[i])
+			printf(" ");
+		printf("%s",arg[i++]);
+	}
+	printf("\n");
+}
+void	print_in_echo(char **arg, int n)
+{
+	int len; 
+	int lent;
 
 	if (n == 0)
 	{
@@ -131,38 +100,8 @@ void	print_in_echo(char **arg, int n)
 	lent = ft_strlen(arg[0]);
 	lent = lent - 1;
 	if (len < lent || len > lent || len == 0)
-	{
-		while (arg[i])
-		{
-			if (i != 0 || !arg[i])
-				printf(" ");
-			printf("%s",arg[i]);
-			i++;
-		}
-		printf("\n");
-	}
+		normal_print(arg);
 	else
-	{
-		i = 1;
-		while (arg[i])
-		{
-			len = check_firs_arg(arg, i);
-			lent = ft_strlen(arg[i]);
-			lent = lent - 1;
-			if (len == lent)
-				i++;
-			else
-				break;
-		}
-		d = i;
-		while (arg[i])
-		{
-			if (i != d)
-				printf(" ");
-			printf("%s",arg[i]);
-			i++;
-		}
-	}
+		print_norm(arg);
 	exit(0);
 }
-
