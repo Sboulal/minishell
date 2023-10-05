@@ -68,6 +68,8 @@ t_mini	*parse(char *str, t_envp *env)
 	t_mini	*mini;
 	t_lexer	*lexer;
 
+	// (void)env;
+	// mini = NULL;
 	string = skip_vid(str);
 	if (string == NULL)
 	{
@@ -87,7 +89,7 @@ t_mini	*parse(char *str, t_envp *env)
 	}
 	token_herdoc(lexer);
 	lexer = expand_lexer(lexer, env);
+	// free_tokens(lexer);
 	mini = convert_to_cmds(lexer, env);
-	
 	return (mini);
 }

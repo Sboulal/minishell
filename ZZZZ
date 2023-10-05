@@ -1,3 +1,0 @@
-
-minishell$ exit
-[1]    34244 segmentation fault  ./minishell

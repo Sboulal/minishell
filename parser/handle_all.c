@@ -99,7 +99,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	{
 		if (head && head->type == WORD && head->type != LIMITER)
 		{
-			ft_lstadd_back(&list, ft_lstnew(head->token));	
+			ft_lstadd_back(&list, ft_lstnew(head->token));
 		}
 		head = head->next;
 	}

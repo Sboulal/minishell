@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/05 16:52:43 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:17:02 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	handle_heredoc_suite(t_mini *cmd, char *limiter, char *file, int fd)
 {
 	close(fd);
 	(void)limiter;
-	//free(limiter);
 	fd = open(file, O_RDONLY, 0);
 	if (fd == -1)
 		return (0);
@@ -64,6 +63,7 @@ void	ft_dup2(int oldfd, int newfd)
 	sa_sigint.sa_handler = &change_flag;
 	sigaction(SIGINT, &sa_sigint, NULL);
 }
+
 int close_her(void)
 {
 	int fd;
@@ -76,45 +76,53 @@ int close_her(void)
 	}
 	return (close(fd), 1);
 }
-int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
+
+int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env) // void
 {
-	int        expand_mode;
-    char    *line;
-    char    *joined_line;
-    int        fd[2];
-	
-	(void)file;
-    if (ft_pipe(fd))
-		return (1);
-    while (1)
-    {
-		printf("fdg\n");
+	int		expand_mode;
+	char	*line;
+	char	*joined_line;
+	int		fd[2];
+
+	free(file);
+	if (ft_pipe(fd))
+		return (-1);
+	while (1)
+	{
 		sigint_heredoc();
-        line = readline("> ");
+		line = readline("> ");
 		if(!close_her())
 			break;
-        if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
-        {
-            free(line);
+		if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
+		{
+			if (line)
+				free(line);
 			cmd->fd[0] = fd[0];
-			return(close(fd[1]), fd[0]);
-        }
-        expand_mode = is_expand(&limiter);
-        if (expand_mode &&line)
-            line = heredoc_expansion(line, env);
-        joined_line = ft_strjoin(line, "\n");
-        if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
-            return (free(line), -1);
-        free(joined_line);
-        line = NULL;
-    }
-    return (close(fd[1]), fd[0]);
+			close(fd[1]);
+			return(1);
+		}
+		expand_mode = is_expand(&limiter);
+		if (expand_mode &&line)
+		    line = heredoc_expansion(line, env);
+		joined_line = ft_strjoin2(line, "\n");
+		if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
+			return ( -1);
+		// free(joined_line);
+		line = NULL;
+	}
+			close(fd[0]);
+			close(fd[1]);
+	
+	return (1); // remove
 }
+
 void	ft_close(int fd)
 {
+
 	if (close(fd) == -1)
-		ft_putstr_fd("error",2);
+		perror("minishell$ ");
 }
+
 int	replace_before_name_here(char *new_token, char *token)
 {
 	int	i;
@@ -194,7 +202,8 @@ char	*heredoc_expansion(char *line, t_envp *env)
 	new_line = replace_name_value_here(line, name, value);
 	if (*(name + 1) == '?')
 		free(value);
+	if (value)
+		free(value);
 	free(name);
 	return (heredoc_expansion(new_line, env));
 }
-

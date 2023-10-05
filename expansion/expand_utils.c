@@ -49,7 +49,6 @@ char *to_string(char c)
 
 char	*get_name_quot(char *token ,t_envp *env) // get value
 {
-	(void)env;
 	int	i;
 
 	i = 0;
@@ -61,13 +60,13 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 	{
 		if (token[i] == '$' && token[i + 1] == '?')
 		{
-			str = ft_strjoin(str, (ft_itoa(g_var.status)));
+			str = ft_strjoin3(str, (ft_itoa(g_var.status)));
 			i += 2;
 			continue;
 		}
 		if (token[i] == '$' && token[i + 1] == '\0')
 		{
-			str = ft_strjoin(str, "$");
+			str = ft_strjoin2(str, "$");
 			i++;
 			continue;
 		}
@@ -75,10 +74,10 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 		{	i++;
 			if (!(ft_isalpha(token[i]) || token[i] == '_' ))
 			{
-				str = ft_strjoin(str, "$");
+				str = ft_strjoin2(str, "$");
 				if (token[i] == '\0')
 					break;
-				str = ft_strjoin(str, to_string(token[i++]));
+				str = ft_strjoin3(str, to_string(token[i++]));
 				continue;
 			}
 			k = i;
@@ -86,11 +85,12 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 				i++;
 			key = ft_substr(token, k, i - k);
 			val = get_env_value(key, env);
+			free(key);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin(str, val);
+				str = ft_strjoin3(str, val);
 			continue;
 		}
-		str = ft_strjoin(str, to_string(token[i]));
+		str = ft_strjoin3(str, to_string(token[i]));
 		i++;
 	}
 	return (str);
@@ -112,13 +112,13 @@ char	*get_name(char *token ,t_envp *env) // get value
 	{
 		if (token[i] == '$' && token[i + 1] == '?')
 		{
-			str = ft_strjoin(str, (ft_itoa(g_var.status)));
+			str = ft_strjoin3(str, (ft_itoa(g_var.status)));
 			i += 2;
 			continue;
 		}
 		if (token[i] == '$' && token[i + 1] == '\0')
 		{
-			str = ft_strjoin(str, "$");
+			str = ft_strjoin2(str, "$");
 			i++;
 			continue;
 		}
@@ -130,7 +130,7 @@ char	*get_name(char *token ,t_envp *env) // get value
 			while (k < i)
 			{
 				if (token[k] && token[k] != '\'')
-					str = ft_strjoin(str, to_string(token[k]));
+					str = ft_strjoin3(str, to_string(token[k]));
 				k++;
 			}
 			i++;
@@ -143,7 +143,8 @@ char	*get_name(char *token ,t_envp *env) // get value
 			key = ft_substr(token, k + 1, i - k - 1);
 			char *s;
 			s = get_name_quot(key, env);
-			str = ft_strjoin(str, s);
+			free(key);
+			str = ft_strjoin3(str, s);
 			i++;
 			continue;
 		}
@@ -152,10 +153,10 @@ char	*get_name(char *token ,t_envp *env) // get value
 			i++;
 			if (!(ft_isalpha(token[i]) || token[i] == '_' ))
 			{
-				str = ft_strjoin(str, "$");
+				str = ft_strjoin2(str, "$");
 				if (token[i] == '\0')
 					break;
-				str = ft_strjoin(str, to_string(token[i++]));
+				str = ft_strjoin3(str, to_string(token[i++]));
 				continue;
 			}
 			k = i;
@@ -163,13 +164,15 @@ char	*get_name(char *token ,t_envp *env) // get value
 				i++;
 			key = ft_substr(token, k, i - k);
 			val = get_env_value(key, env);
+			free(key);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin(str, val);
+				str = ft_strjoin3(str, val);
 			continue;
 		}
-		str = ft_strjoin(str, to_string(token[i]));
+		str = ft_strjoin3(str, to_string(token[i]));
 		i++;
 	}
+	free(token);
 	return (str);
 }
 
@@ -242,10 +245,10 @@ char	*get_env_value(char *name,t_envp *env)
 		if (!ft_strcmp(tmp->variable, name))
 		{
 			if (tmp->value)
-				return (tmp->value);
-			return ("");
+				return (ft_strdup(tmp->value));
+			return (ft_strdup(""));
 		}
 		tmp = tmp->next;
 	}
-	return ("");
+	return (ft_strdup(""));
 }

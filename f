@@ -1,20 +1,14 @@
 Makefile
-ZZZZ
-a
 bin
 executing
 expansion
-g
-hshs
+f
 includes
-laks
 lexer
 libft
-ls
 main.c
 main.o
 minishell
-najat
-o1
+minishell_tester
+minishell_tester 4.04.36 PM
 parser
-salma
