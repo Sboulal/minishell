@@ -87,7 +87,7 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	head = head->next;
 	if (head)
 	{
-		(head)->value = str;
+		(head)->value = ft_strdup(str);
 		(head)->env = ft_strjoin("PWD=", str);
 		return ;
 	}

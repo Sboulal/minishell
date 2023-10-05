@@ -19,17 +19,18 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 	if (!(*exec))
 		return ;
 	env = (*exec)->env;
-	head->variable = str[0];
+	head->variable = ft_strdup(str[0]);
 	if (num == 2)
-		head->value = ft_strjoin(head->value, str[1]);
+		head->value = ft_strjoin2(head->value, str[1]);
 	else
 		head->value = str[1];
 	head->exp = ft_strjoin(str[0], "=");
-	head->exp = ft_strjoin(head->exp, "\"");
-	head->exp = ft_strjoin(head->exp, head->value);
-	head->exp = ft_strjoin(head->exp, "\"");
+	head->exp = ft_strjoin2(head->exp, "\"");
+	head->exp = ft_strjoin2(head->exp, head->value);
+	head->exp = ft_strjoin2(head->exp, "\"");
 	while (env->next && ft_strcmp(env->variable, str[0]) != 0)
 		env = env->next;
+	tabfree(str);
 	if (env)
 	{
 		env->variable = head->variable;
