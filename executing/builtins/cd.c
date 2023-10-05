@@ -81,7 +81,7 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	change_olde_pwd(list, (head)->next->value);
 	src = getcwd(str, PATH_MAX);
 	if (!src && errno == ENOENT)
-	change_pwd_dir();
+		change_pwd_dir();
 	if (!(head->next))
 		return ;
 	head = head->next;
@@ -136,6 +136,8 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 			g_var.status = 1;
 		}
 		change_pwd(&head, exp);
+		if (c)
+			free(c);
 		return ;
 	}
 	else if (chdir(args[0]) == -1 && ft_strcmp(args[0], "-"))

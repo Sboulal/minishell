@@ -26,20 +26,6 @@ void	ft_lstclear_cmd(t_mini **lst)
 
 	if (!lst)
 		return ;
-	// tmp = *lst;
-	// while (tmp)
-	// {
-	// 	i = 0;
-	// 	if (tmp->arg)
-	// 	{
-	// 		while (tmp->arg[i])
-	// 		{
-	// 			free(tmp->arg[i])
-	// 			i++;
-	// 		}
-	// 	}
-	// 	tmp = tmp->next;
-	// }
 	while (*lst)
 	{
 		tmp = *lst;

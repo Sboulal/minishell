@@ -44,9 +44,7 @@ t_export	*list_exp(char *env)
 {
 	t_export	*new;
 	int			num;
-	// int			i;
-
-	// i = 0;
+	
 	if (!env)
 		return (NULL);
 	new = (t_export *)malloc(sizeof(t_export));

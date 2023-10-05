@@ -77,6 +77,24 @@ void close_pipe(int **pip, int j)
 		i++;
 	}
 }
+void	norm_parent(int **pipfd, t_exec **exp, pid_t *pid)
+{
+	int	j;
+
+	j = 0;
+	close_file(pipfd, (*exp)->nbr_cmd - 1);
+	j = 0;
+	while (j < (*exp)->nbr_cmd - 1)
+	{
+		free(pipfd[j]);
+		j++;
+	}
+	free(pipfd);
+	wait_pid(pid, (*exp));
+	while (wait(NULL) != -1)
+		;
+	free(pid);
+}
 void	use_pipe(t_exec **exp, t_mini *cmd)
 {
 	pid_t	*pid;
@@ -86,7 +104,6 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 
 	head = cmd;
 	j = 0;
-	
 	if (!*exp || !cmd)
 		return ;
 	pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
@@ -103,19 +120,5 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 		j++;
 		head = head->next;
 	}
-	close_file(pipfd, (*exp)->nbr_cmd - 1);
-	int i;
-
-	i = 0;
-	while (i < (*exp)->nbr_cmd - 1)
-	{
-		free(pipfd[i]);
-		i++;
-	}
-	free(pipfd);
-	wait_pid(pid, (*exp));
-	while (wait(NULL) != -1)
-		;
-	
-	free(pid);
+	norm_parent(pipfd, exp, pid);
 }
