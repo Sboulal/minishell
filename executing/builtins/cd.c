@@ -28,9 +28,9 @@ void	change_olde_pwd_exp(t_export **list, char *old)
 	{
 		head->value = old;
 		head->exp = ft_strjoin("OLDPWD=", "=");
-		head->exp = ft_strjoin(head->exp, "\"");
-		head->exp = ft_strjoin(head->exp, head->value);
-		head->exp = ft_strjoin(head->exp, "\"");
+		head->exp = ft_strjoin2(head->exp, "\"");
+		head->exp = ft_strjoin2(head->exp, head->value);
+		head->exp = ft_strjoin2(head->exp, "\"");
 		return ;
 	}
 }
@@ -54,9 +54,9 @@ void	change_pwd_exp(t_export **list)
 	{
 		head->value = str;
 		head->exp = ft_strjoin("PWD", "=");
-		head->exp = ft_strjoin(head->exp, "\"");
-		head->exp = ft_strjoin(head->exp, head->value);
-		head->exp = ft_strjoin(head->exp, "\"");
+		head->exp = ft_strjoin2(head->exp, "\"");
+		head->exp = ft_strjoin2(head->exp, head->value);
+		head->exp = ft_strjoin2(head->exp, "\"");
 		return ;
 	}
 }
