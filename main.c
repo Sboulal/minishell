@@ -153,10 +153,13 @@ int main(int ac, char *av[],char *env[])
     }	  
   while(1)
   {
-	  sig();
+	sig();
     bas = readline("minishell$ ");
 	if(bas == 0)
-		break;
+	{
+		printf("exit\n");
+		exit(0);
+	}
 	int w = 0;
 	while(isspace(bas[w]) && bas[w])
 	{
