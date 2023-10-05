@@ -63,7 +63,7 @@ void	exit_norm(t_mini *cmd)
 	i = 0;
 	while (cmd->arg && cmd->arg[0] && cmd->arg[0][i])
 	{
-		if (!ft_isdigit(cmd->arg[0][i]) && ((cmd->arg[0][i] == '+' && !ft_isdigit(cmd->arg[0][i + 1])) || (cmd->arg[0][i] == '-' && !ft_isdigit(cmd->arg[0][i + 1]))))
+		if ((!ft_isdigit(cmd->arg[0][i]) && ((cmd->arg[0][i] == '+' && !ft_isdigit(cmd->arg[0][i + 1])) || (cmd->arg[0][i] == '-' && !ft_isdigit(cmd->arg[0][i + 1])))) || (!ft_isdigit(cmd->arg[0][i]) && cmd->arg[0][i] != '+' && cmd->arg[0][i] != '-'))
 		{
 			ft_putstr_fd("exit\n", 2);
 			g_var.status = 255;
