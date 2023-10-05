@@ -21,18 +21,18 @@ int	is_env_name(char c)
 
 int	handle_heredocs(t_mini *cmd, t_lexer *tokens, t_envp *env) 
 {
-	int	status;
+	
 	
 	while (tokens && tokens->type != PIPE_LINE)
 	{
 		if (tokens->type == HERE_DOC)
 		{
 			tokens = tokens->next;
-			status = handle_heredoc(cmd, tokens->token, here_doc_name(), env);
-	
+			 handle_heredoc(cmd, tokens->token, here_doc_name(), env);
 		}
 		else
 			tokens = tokens->next;
 	}
 	return (1); // remove
 }
+
