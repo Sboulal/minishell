@@ -101,6 +101,33 @@ static void ft_add_history(char *bas)
 // {
 //     system("leaks minishell");
 // }
+int	cmt_string(char **env)
+{
+	int	i;
+
+	i = 0;
+	if (!(*env))
+		return (i);
+	while (env[i])
+		i++;
+	return (i);
+}
+char	**creat_string_env(char **env)
+{
+	int	i;
+	char	**env_string;
+
+	i = cmt_string(env);
+	env_string = (char **)malloc(sizeof(char *) * (i + 1));
+	i = 0;
+	while (env[i])
+	{
+		env_string[i] = ft_strdup(env[i]);
+		i++;
+	}
+	env_string[i] = NULL;
+	return (env_string);
+}
 int main(int ac, char *av[],char *env[])
 {
   char *bas;
@@ -149,7 +176,7 @@ int main(int ac, char *av[],char *env[])
     if (k == 0)
     {
         if (*env)
-		      exec->env_string = env;
+			exec->env_string = creat_string_env(env);
         if (!(*env) && !((exec->env)))
 			protect_cmd(&exec);
 	    else if (!(exec->env) && (*(exec->env_string)))
@@ -184,19 +211,14 @@ int main(int ac, char *av[],char *env[])
 		head = head->next;
 	}
     if (exec->cmd)
-	{
-		
-        ft_lstclear_cmd(&exec->cmd);
-	}
+		ft_lstclear_cmd(&exec->cmd);
 	if (bas)
-	{
-		
-    	free(bas);
-	}
+		free(bas);
   }
-  ft_lstclear_env(&exec->env);
-  ft_lstclear_exp(&exec->exp);
-  free(exec);
+	tabfree(exec->env_string);
+	ft_lstclear_env(&exec->env);
+	ft_lstclear_exp(&exec->exp);
+	free(exec);
    return (0);  
 }
 
