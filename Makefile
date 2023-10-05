@@ -2,8 +2,8 @@ NAME = minishell
 CC = cc
 libft = libft/libft.a
 USER = $(shell whoami)
-CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include #-g -fsanitize=address
-RLFLAGES = -lreadline -lhistory -L/Users/$(USER)/.brew/opt/readline/lib
+CFLAGS = -Wall -Wextra -Werror -I/Users/$(USER)/.brew/opt/readline/include #-g 
+RLFLAGES = -lreadline -lhistory -L/Users/$(USER)/.brew/opt/readline/lib #-fsanitize=leak -llsan
 #L = -L/Users/saboulal/.brew/opt/readline/lib
 #I = -I/Users/saboulal/.brew/opt/readline/include
 SRC = 	main.c\

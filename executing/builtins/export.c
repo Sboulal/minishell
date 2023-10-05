@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/05 20:48:43 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 	if (!(*exec))
 		return ;
 	env = (*exec)->env;
+	free(head->variable);
 	head->variable = str[0];
+	free(head->value);
 	if (num == 2)
 		head->value = ft_strjoin(head->value, str[1]);
 	else
 		head->value = str[1];
+	free(head->exp);
 	head->exp = ft_strjoin(str[0], "=");
 	head->exp = ft_strjoin(head->exp, "\"");
 	head->exp = ft_strjoin(head->exp, head->value);
@@ -32,6 +35,9 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 		env = env->next;
 	if (env)
 	{
+		free(env->variable);
+		free(env->value);
+		free(env->env);
 		env->variable = head->variable;
 		env->value = head->value;
 		env->env = head->exp;
@@ -133,6 +139,8 @@ void	edit_add(t_exec **exec, int i, int num)
 		if (ft_strchr((*exec)->cmd->arg[i], '='))
 			edit_in_g_variable(exec, str, head, num);
 	}
+	free(str[0]);
+	free(str[1]);
 }
 
 void	add_to_export(t_exec **exec)
