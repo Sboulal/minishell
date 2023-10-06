@@ -12,6 +12,17 @@
 
 #include "../../includes/exec.h"
 
+int protect_list_env(t_envp *new, char *env)
+{
+	if (!new)
+		return (1);
+	if (!(ft_strchr(env, '=')))
+	{
+		free(new);
+		return (1);
+	}
+	return (0);
+}
 t_envp	*list_env(char *env)
 {
 	t_envp	*new;
@@ -21,13 +32,8 @@ t_envp	*list_env(char *env)
 	if (!env)
 		return (NULL);
 	new = (t_envp *) malloc(sizeof(t_envp));
-	if (!new)
+	if (protect_list_env(new, env))
 		return (NULL);
-	if (!(ft_strchr(env, '=')))
-	{
-		free(new);
-		return (NULL);
-	}
 	num = check_export(env);
 	if (num)
 	{
@@ -52,7 +58,7 @@ t_envp	*ft_lst(t_envp *lst)
 
 void	add_back_env(t_envp **lst, t_envp *new)
 {
-	if (!lst || !new) // zid F AKHRA
+	if (!lst || !new) 
 		return ;
 	if (*lst == 0)
 	{

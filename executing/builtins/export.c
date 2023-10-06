@@ -11,7 +11,25 @@
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
-
+void	edit_in_g_variable_norm(t_export *head, char **str)
+{
+	free(head->exp);
+	head->exp = ft_strjoin(str[0], "=");
+	head->exp = ft_strjoin2(head->exp, "\"");
+	head->exp = ft_strjoin2(head->exp, head->value);
+	head->exp = ft_strjoin2(head->exp, "\"");
+}
+void	edit_in_g_variable_norm_env(t_export *head, t_exec **exec, t_envp *env)
+{
+	free(env->variable);
+	free(env->value);
+	free(env->env);
+	env->variable = ft_strdup(head->variable);
+	env->value = ft_strdup(head->value);
+	env->env = ft_strjoin(env->variable, "=");
+	env->env = ft_strjoin2(env->env, env->value);
+	edit_in_string(exec, env);
+}
 void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 {
 	t_envp	*env;
@@ -28,26 +46,11 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 		free(head->value);
 		head->value = ft_strdup(str[1]);
 	}
-	free(head->exp);
-	head->exp = ft_strjoin(str[0], "=");
-	head->exp = ft_strjoin2(head->exp, "\"");
-	head->exp = ft_strjoin2(head->exp, head->value);
-	head->exp = ft_strjoin2(head->exp, "\"");
+	edit_in_g_variable_norm(head, str);
 	while (env->next && ft_strcmp(env->variable, str[0]) != 0)
 		env = env->next;
-	// tabfree(str);
 	if (env)
-	{
-		free(env->variable);
-		free(env->value);
-		free(env->env); // (export (free)=x)
-		env->variable = ft_strdup(head->variable);
-		env->value = ft_strdup(head->value);
-		env->env = ft_strjoin(env->variable, "=");
-		env->env = ft_strjoin2(env->env, env->value);
-		edit_in_string(exec, env);
-	}
-	// printf("str = %p\n", str);
+		edit_in_g_variable_norm_env(head, exec, env);
 }
 
 int	check_argument_export(char *str)

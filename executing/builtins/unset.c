@@ -51,7 +51,24 @@ int is_identifier(char c)
 		return (1);
 	return (0);
 }
-
+int	unset_export_norm(t_export *head, t_exec **exp, int i)
+{
+	(*exp)->exp = (*exp)->exp->next;
+	free(head->exp);
+	free(head->value);
+	free(head->variable);
+	free(head);
+	i++;
+	return (i);
+}
+void	delete_export_norm(t_export *head,char *arg)
+{
+	if (head->next
+		&& ft_strcmp(arg, head->next->variable) == 0)
+		ft_delete_export(&head);
+	else
+		g_var.status = 127;
+}
 void	unset_export(t_exec **exp, char **arg)
 {
 	t_export	*head;
@@ -69,21 +86,12 @@ void	unset_export(t_exec **exp, char **arg)
 			head = (*exp)->exp;
 			if (head &&  ft_strcmp(arg[i], head->variable) == 0)
 			{
-				(*exp)->exp = (*exp)->exp->next;
-				free(head->exp);
-				free(head->value);
-				free(head->variable);
-				free(head);
-				i++;
+				i = unset_export_norm(head, exp, i);
 				continue;
 			}
 			while (head->next && ft_strcmp(arg[i], head->next->variable))
 				head = head->next;
-			if (head->next
-				&& ft_strcmp(arg[i], head->next->variable) == 0)
-				ft_delete_export(&head);
-			else
-				g_var.status = 127;
+			delete_export_norm(head, arg[i]);
 		}
 		i++;
 	}

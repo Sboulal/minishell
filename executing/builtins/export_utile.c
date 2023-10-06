@@ -134,11 +134,11 @@ int	check_export(char *cmd)
 			return (2);
 		else if (cmd[i] == '+')
 		{
-			printf ("bash: export: '%s': not a valid identifier\n", cmd);
-			g_var.status = 1;
+			check_export_err(cmd);
 			return (0);
 		}
-		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(i != 0 && cmd[i + 1] && ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
+		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_') && (!(i != 0 && cmd[i + 1]
+		&& ft_isalpha(cmd[i - 1]) && cmd[i] == '+' && cmd[i + 1])))
 		{
 			check_export_err(cmd);
 			return (0);
