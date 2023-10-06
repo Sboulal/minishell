@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/03 17:22:51 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 05:05:32 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,28 @@ char	*quotes_removal(char *token)
 // an unkown variable expansion .
 t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 {
+	
 	while (tokens)
 	{
 		if (*(tokens->token) == 0)
 		{
-			if (prev == NULL)
+			if (prev == NULL && !tokens->next)
 			{
 				head = tokens->next;
 				free_token_word(tokens, tokens->token);
 				tokens = head;
 			}
-			else
+			else if (!tokens->next)
 			{
 				prev->next = tokens->next;
 				free_token_word(tokens, tokens->token);
+				tokens = prev->next;
+			}
+			else
+			{
+				tokens->token = NULL;
+				
+				prev = tokens;
 				tokens = prev->next;
 			}
 		}
@@ -92,6 +100,7 @@ t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 			prev = tokens;
 			tokens = tokens->next;
 		}
+		
 	}
 	return (head);
 }
@@ -175,6 +184,8 @@ t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
 		token = token->next;
 	}
 	token = tokens;
+	// head = tokens;
+	
 	tokens = remove_empty_tokens(token, token, NULL);
 	head = tokens;
 	return (head);

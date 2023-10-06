@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 20:33:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 04:12:49 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	head = tokens;
 	i = 0;
 	// head = tokens;
-	while (head && head->type != PIPE_LINE)
+	while ((head) && head->type != PIPE_LINE)
 	{
 		if (head && head->type == WORD && head->type != LIMITER)
 		{

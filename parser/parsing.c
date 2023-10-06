@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 20:27:13 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 04:12:10 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ t_mini	*parse(char *str, t_envp *env)
 	char	**string;
 	t_mini	*mini;
 	t_lexer	*lexer;
+	int i;
+	t_lexer	*head;
 
 	// (void)env;
 	// mini = NULL;
@@ -88,6 +90,13 @@ t_mini	*parse(char *str, t_envp *env)
 		return (NULL);
 	}
 	token_herdoc(lexer);
+	head = lexer;
+	i = 0;
+	while (head)
+	{
+		i++;
+		head = head->next;
+	}
 	lexer = expand_lexer(lexer, env);
 	// free_tokens(lexer);
 	mini = convert_to_cmds(lexer, env);
