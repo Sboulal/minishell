@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:43:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/28 21:11:36 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:07:09 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	add_back_exp(t_export **lst, t_export *new)
 
 void	creat_exp(t_export **exp, t_envp *env)
 {
-	t_export	*head;
+	// t_export	*head;
 	if (!env)
 	{
 		g_var.status = 127;
@@ -93,8 +93,8 @@ void	creat_exp(t_export **exp, t_envp *env)
 	}
 	while (env)
 	{
-		head = list_exp(env->env);
-		add_back_exp(exp, head);
+		// head = list_exp(env->env);
+		add_back_exp(exp, list_exp(env->env));
 		env = env->next;
 	}
 }

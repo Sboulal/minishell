@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/05 21:30:24 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:22:00 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	edit_in_string(t_exec **exp, t_envp *env)
 	while ((*exp)->env_string[i] && ft_strncmp((*exp)->env_string[i], "SHLVL=", 6) != 0)
 		i++;
 	if ((*exp)->env_string[i])
+	{
+		free((*exp)->env_string[i]);
 		(*exp)->env_string[i] = ft_strdup(env->env);
+	}
 }
 
 void	export(t_exec **exec)
@@ -214,6 +217,7 @@ char **my_split_word(char *cmd, char c)
 	str[1] = NULL;
 	return (str);
 }
+
 char	**list_clean(char *cmd, int num)
 {
 	char	**str;

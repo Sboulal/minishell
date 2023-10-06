@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/05 22:15:12 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 00:53:56 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	change_olde_pwd_exp(t_export **list, char *old)
 	if (head)
 	{
 		// if (head->value)
-		// 	ft_free(&head->value);
+			ft_free(&head->value);
 		free((head)->exp);
-		head->value = old;
+		head->value = ft_strdup(old);
 		head->exp = ft_strjoin("OLDPWD=", "=");
 		head->exp = ft_strjoin2(head->exp, "\"");
 		head->exp = ft_strjoin2(head->exp, head->value);
@@ -61,9 +61,9 @@ void	change_pwd_exp(t_export **list)
 	if (head)
 	{
 		// if (head->value)
-		// 	ft_free(&head->value);
+			ft_free(&head->value);
 		free((head)->exp);
-		head->value = str;
+		head->value = ft_strdup(str);
 		head->exp = ft_strjoin("PWD", "=");
 		head->exp = ft_strjoin2(head->exp, "\"");
 		head->exp = ft_strjoin2(head->exp, head->value);
@@ -93,7 +93,10 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	change_olde_pwd(list, (head)->next->value);
 	src = getcwd(str, PATH_MAX);
 	if (!src && errno == ENOENT)
+	{
+		
 		change_pwd_dir();
+	}
 	if (!(head->next))
 		return ;
 	head = head->next;
@@ -101,9 +104,8 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	{
 		if (head->value && *str)
 		{
-			printf("%s \n", head->value);
 			ft_free(&head->value);
-			(head)->value = str;
+			(head)->value = ft_strdup(str);
 		}
 		free((head)->env);
 		(head)->env = ft_strjoin("PWD=", str);
@@ -127,9 +129,9 @@ void	change_olde_pwd(t_envp **list, char *old)
 	if (head)
 	{
 		// if (head->value)
-		// 	ft_free(&head->value);
+			ft_free(&head->value);
 		free((head)->env);
-		(head)->value = str;
+		(head)->value = ft_strdup(str);
 		(head)->env = ft_strjoin("OLDPWD=", old);
 		return ;
 	}

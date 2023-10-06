@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/05 19:55:29 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:13:48 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,29 +116,80 @@ char	**creat_string_env(char **env)
 	env_string[i] = NULL;
 	return (env_string);
 }
-int main(int ac, char *av[],char *env[])
+int check_line(int ac,char **av)
 {
-  char *bas;
-  t_mini *head;
-//   `
- 
-  int k;
-//   t_export *exp;
-  t_exec *exec;
-//   t_mini *tmp;
-
-//   exp = NULL;
-  k = 0;
-  // atexit(ft_leaks);
-  exec = (t_exec *)ft_calloc(sizeof(t_exec));
-	
-    if(ac != 1)
+	if(ac != 1)
     {
       ft_putstr_fd("minishell: ", 2);
 	    ft_putstr_fd(av[1], 2);
       ft_putstr_fd(": No such file or directory\n", 2);
         return (0);
-    }	  
+    }	
+    return (1);  
+}
+int check_env(t_exec *exec,char **env, int *k)
+{
+	if (*k == 0)
+    {
+        if (*env)
+			exec->env_string = creat_string_env(env);
+        if (!(*env) && !((exec->env)))
+			protect_cmd(&exec);
+	    else if (!(exec->env) && (*(exec->env_string)))
+        	creat_env(&exec);
+	    creat_exp(&exec->exp, exec->env);
+         *k = 1;
+    }
+	return (0);
+}
+int exec_part(t_exec *exec,char **env)
+{
+	if (exec && exec->cmd && exec->cmd->cmd)
+    	exec_cmd(&exec, env);
+	return (0);
+}
+
+int check_fd( t_mini *head)
+{
+	while (head)
+	{
+		if (head->fd[READ_END] > 2)
+			close(head->fd[READ_END]);
+		if (head->fd[WRITE_END] > 2)
+			close(head->fd[WRITE_END]);
+		head = head->next;
+	}
+	return (0);
+}
+
+int ft_read(char *line)
+{
+	int w;
+	
+	line = readline("minishell$ ");
+	if(line == 0)
+	{
+		printf("exit\n");
+		exit(0);
+	}
+	w = 0;
+	while(is_isspace(line[w]) && line[w])
+		w++;
+	return (0);
+}
+
+int main(int ac, char *av[],char *env[])
+{
+  char *bas;
+  t_mini *head;
+  t_exec *exec;
+  int k;
+  int w;
+
+  w = 0;
+  k = 0;
+  exec = (t_exec *)ft_calloc(sizeof(t_exec));
+	check_line(ac,av);	  
   while(1)
   {
 	  sig();
@@ -148,11 +199,10 @@ int main(int ac, char *av[],char *env[])
 		printf("exit\n");
 		exit(0);
 	}
-	int w = 0;
+	w = 0;
 	while(is_isspace(bas[w]) && bas[w])
-	{
 		w++;
-	}
+	// ft_read(bas);
 	if (bas[w] == '\0')
 	{
 		free(bas);
@@ -164,21 +214,18 @@ int main(int ac, char *av[],char *env[])
 		continue;
 	}
 	ft_add_history(bas);
-    if (k == 0)
-    {
-        if (*env)
-			exec->env_string = creat_string_env(env);
-        if (!(*env) && !((exec->env)))
-			protect_cmd(&exec);
-	    else if (!(exec->env) && (*(exec->env_string)))
-        	creat_env(&exec);
-	    creat_exp(&exec->exp, exec->env);
-         k = 1;
-    }
+	check_env(exec,env, &k);
+	exec->cmd = parse(bas, exec->env);
+	if(exec->cmd)
+	{
+		if(exec->cmd->x == 1)
+		{
+			free_cmd(exec->cmd);
+			free(bas);
+			continue;
+		}
+	} 
 	
-    exec->cmd = parse(bas, exec->env);
-	// if(exec->cmd->x == 1)
-	// 	continue;
 	if(g_var.heredoc_flag)
 	{
 		
@@ -190,25 +237,13 @@ int main(int ac, char *av[],char *env[])
 		  g_var.status = 1;
 		continue;
 	}
-	if (exec && exec->cmd && exec->cmd->cmd)
-    	exec_cmd(&exec, env);
+	exec_part(exec,env);
 	head = exec->cmd;
-	while (head)
-	{
-		if (head->fd[READ_END] > 2)
-			close(head->fd[READ_END]);
-		if (head->fd[WRITE_END] > 2)
-			close(head->fd[WRITE_END]);
-		head = head->next;
-	}
+	check_fd(head);
   if (exec->cmd)
-	{
     ft_lstclear_cmd(&exec->cmd);
-	}
-	if (bas)
-	{
+  if (bas)
     	free(bas);
-	}
   }
   tabfree(exec->env_string);
   ft_lstclear_env(&exec->env);
@@ -216,4 +251,5 @@ int main(int ac, char *av[],char *env[])
   free(exec);
    return (0);  
 }
+
 
