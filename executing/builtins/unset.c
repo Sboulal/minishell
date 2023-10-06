@@ -128,7 +128,7 @@ void	unset_env(t_exec **exp, char **arg)
 	t_envp	*head;
 
 	i = 0;
-	if (!(*exp) && !(*exp)->exp)
+	if (!(*exp) || !(*exp)->exp)
 		return ;
 	unset_export(exp, arg);
 	if (!(*exp)->env)

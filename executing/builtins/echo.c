@@ -59,7 +59,7 @@ void	print_norm(char **arg)
 		len = check_firs_arg(arg, i);
 		lent = ft_strlen(arg[i]);
 		lent = lent - 1;
-		if (len == lent)
+		if (len == lent && ft_strlen(arg[i]) != 1)
 			i++;
 		else
 			break;
@@ -99,6 +99,8 @@ void	print_in_echo(char **arg, int n)
 	len = check_firs_arg(arg, 0);
 	lent = ft_strlen(arg[0]);
 	lent = lent - 1;
+	// if (lent == 0)
+	// 	printf("%c\n", arg[0][0]);
 	if (len < lent || len > lent || len == 0)
 		normal_print(arg);
 	else

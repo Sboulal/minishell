@@ -106,7 +106,10 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	check_permision(cmd);
 	while (head && ft_strcmp(head->variable, "PATH") != 0)
 		head = head->next;
-	path = head->env;
+	if (head)
+		path = head->env;
+	else
+		path = NULL;
 	pt = find_cmd(path, exp, cmd);
 	if (!pt && cmd->cmd)
 		return ;

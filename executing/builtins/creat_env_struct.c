@@ -16,12 +16,10 @@ t_envp	*list_env(char *env)
 {
 	t_envp	*new;
 	int		num;
-	int		i;
 	char	**str;
 
 	if (!env)
 		return (NULL);
-	i = 0;
 	new = (t_envp *) malloc(sizeof(t_envp));
 	if (!new)
 		return (NULL);

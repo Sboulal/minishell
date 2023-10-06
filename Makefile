@@ -43,10 +43,10 @@ all : $(NAME)
 $(NAME) : $(OBJCTS) $(libft) 
 		$(CC) $(CFLAGS) $(RLFLAGES) $^ -o $@  -lreadline 
 
-%.o: %.c includes/lexer.h includes/exec.h
+%.o: %.c includes/lexer.h includes/exec.h libft/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(libft) :
+$(libft) : libft/libft.h
 	make -C libft
 	
 clean:
