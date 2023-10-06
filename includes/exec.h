@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/04 15:49:50 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 22:04:15 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void		print_error_nor(char *str);
 void		print_error_norr(char *str, int i);
 void	protect_cmd(t_exec **env);
 void	add_back_envstring(t_envp *env, t_exec **exp);
+int	ft_strcmp1(const char *s1, const char *s2);
 int	check_unset(char *cmd);
 int	check_unset_env(char *cmd);
 void	ft_delete(t_envp **head);

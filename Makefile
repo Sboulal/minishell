@@ -24,6 +24,7 @@ SRC = 	main.c\
 		parser/need_this_func.c\
 		executing/builtins/cd.c\
 		executing/builtins/builtin.c\
+		executing/builtins/builtin_utils.c\
 		executing/builtins/echo.c\
 		executing/builtins/env.c\
 		executing/builtins/exit.c\
