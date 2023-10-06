@@ -90,7 +90,6 @@ char	**find_cmd(char *path, t_exec **exp, t_mini *cmd)
 		i++;
 	}
 	pt = exec_chec_join(str[i], path, cmd, exp);
-
 	tabfree(str);
 	return (pt);
 }

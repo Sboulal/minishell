@@ -34,12 +34,10 @@ void	wait_pid(pid_t *pid, t_exec *exp)
 	i = 0;
 	while (i < exp->nbr_cmd)
 		waitpid(pid[i++], &s, 0);
-	// printf("%d\n",g_var.status);
 	if (WIFEXITED(s))
 		g_var.status = WEXITSTATUS(s);
 	else if (WIFSIGNALED(s))
 		g_var.status = 128 + WTERMSIG(s);
-	// printf("%d\n",g_var.status);
 }
 
 int	**incial_pipe(int nb_pip, t_exec *exp)

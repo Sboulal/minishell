@@ -67,8 +67,7 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 		close(head->fd[WRITE_END]);
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	buil_exec_pipe(exp, head);
-	// if (ft_strcmp(head->cmd, "exit") == 0)
-		exit(g_var.status);
+	exit(g_var.status);
 }
 void close_pipe(int **pip, int j)
 {
@@ -100,6 +99,19 @@ void	norm_parent(int **pipfd, t_exec **exp, pid_t *pid)
 		;
 	free(pid);
 }
+int	insiall_malloc(pid_t **pid, int ***pipfd, t_exec **exp)
+{
+	*pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
+	if (!(*pid))
+		return (1);
+	*pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
+	if (!(*pipfd))
+	{
+		free(*pid);
+		return (1);
+	}
+	return (0);
+}
 void	use_pipe(t_exec **exp, t_mini *cmd)
 {
 	pid_t	*pid;
@@ -111,13 +123,8 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 	j = 0;
 	if (!*exp || !cmd)
 		return ;
-	pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
-	pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
-	if (!pipfd)
-	{
-		free(pid);
+	if (insiall_malloc(&pid, &pipfd, exp))
 		return ;
-	}
 	while (head)
 	{
 		pid[j] = fork();
