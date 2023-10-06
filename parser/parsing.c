@@ -61,17 +61,11 @@ t_lexer	*skip_op(char **string)
 	}
 	return (tokens);
 }
-
-t_mini	*parse(char *str, t_envp *env)
+t_lexer	*parse_norm(char *str)
 {
 	char	**string;
-	t_mini	*mini;
 	t_lexer	*lexer;
-	int i;
-	t_lexer	*head;
 
-	// (void)env;
-	// mini = NULL;
 	string = skip_vid(str);
 	if (string == NULL)
 	{
@@ -82,6 +76,16 @@ t_mini	*parse(char *str, t_envp *env)
 	}
 	lexer = skip_op(string);
 	tabfree(string);
+	return (lexer);
+}
+t_mini	*parse(char *str, t_envp *env)
+{
+	t_mini	*mini;
+	t_lexer	*lexer;
+	int i;
+	t_lexer	*head;
+
+	lexer = parse_norm(str);
 	if (!check_parse(lexer))
 	{
 		g_var.status = 258;
@@ -98,7 +102,6 @@ t_mini	*parse(char *str, t_envp *env)
 		head = head->next;
 	}
 	lexer = expand_lexer(lexer, env);
-	// free_tokens(lexer);
 	mini = convert_to_cmds(lexer, env);
 	return (mini);
 }

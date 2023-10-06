@@ -46,60 +46,93 @@ char *to_string(char c)
 
 	return s;
 }
+int	expand_exit(char *token, int *i, char **str)
+{
+	if (token[*i] == '$' && token[(*i) + 1] == '?')
+	{
+		*str = ft_strjoin3(*str, (ft_itoa(g_var.status)));
+		(*i) += 2;
+		return (1);
+	}
+	return (0);
+}
+int	expand_exit_null(char *token, int *i, char **str)
+{
+	if (token[*i] == '$' && token[(*i) + 1] == '\0')
+	{
+		*str = ft_strjoin2(*str, "$");
+		(*i)++;
+		return (1);
+	}
+	return (0);
+}
+int	expand_do_nor(char *token, int **i, char **str)
+{
+	if (!(ft_isalpha(token[**i]) || token[**i] == '_' ))
+	{
+		*str = ft_strjoin2(*str, "$");
+		if (token[**i] == '\0')
+			return (2);
+		*str = ft_strjoin3(*str, to_string(token[(**i)++]));
+		return (0);
+	}
+	return (1);
+}
+int	expand_do(char *token, int *i, char **str, t_envp *env)
+{
+	int k;
+	char *key;
+	char *val;
 
+	if (token[*i] == '$')
+	{
+		(*i)++;
+		if (expand_do_nor(token, &i, str) == 0)
+			return (0);
+		if (expand_do_nor(token, &i, str) == 2)
+			return (2);
+		// if (!(ft_isalpha(token[*i]) || token[*i] == '_' ))
+		// {
+		// 	*str = ft_strjoin2(*str, "$");
+		// 	if (token[*i] == '\0')
+		// 		return (2);
+		// 	*str = ft_strjoin3(*str, to_string(token[(*i)++]));
+		// 	return (0);
+		// }
+		k = *i;
+		while (is_identifier(token[*i]))
+			(*i)++;
+		key = ft_substr(token, k, (*i) - k);
+		val = get_env_value(key, env);
+		free(key);
+		if (ft_strlen(val) != 0)
+			*str = ft_strjoin2(*str, val);
+		free(val);
+		return (0);
+	}
+	return (1);
+}
 char	*get_name_quot(char *token ,t_envp *env) // get value
 {
 	int	i;
 
 	i = 0;
 	char *str = ft_strdup("");
-	int k;
-	char *key;
-	char *val;
 	while (token[i])
 	{
-		if (token[i] == '$' && token[i + 1] == '?')
-		{
-			str = ft_strjoin3(str, (ft_itoa(g_var.status)));
-			i += 2;
+		if (expand_exit(token, &i, &str))
 			continue;
-		}
-		if (token[i] == '$' && token[i + 1] == '\0')
-		{
-			str = ft_strjoin2(str, "$");
-			i++;
+		if (expand_exit_null(token, &i, &str))
 			continue;
-		}
-		if (token[i] == '$')
-		{	i++;
-			if (!(ft_isalpha(token[i]) || token[i] == '_' ))
-			{
-				str = ft_strjoin2(str, "$");
-				if (token[i] == '\0')
-				{
-
-					break;
-				}
-				str = ft_strjoin3(str, to_string(token[i++]));
-				continue;
-			}
-			k = i;
-			while (is_identifier(token[i]))
-				i++;
-			key = ft_substr(token, k, i - k);
-			val = get_env_value(key, env);
-			free(key);
-			if (ft_strlen(val) != 0)
-				str = ft_strjoin2(str, val);
-			free(val);
+		if (!expand_do(token, &i, &str, env))
 			continue;
-		}
+		else if (expand_do(token, &i, &str, env) == 2)
+			break;
 		str = ft_strjoin3(str, to_string(token[i]));
 		i++;
 	}
 	return (str);
 }
-
 char	*get_name(char *token ,t_envp *env) // get value
 {
 	(void)env;

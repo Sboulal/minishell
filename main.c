@@ -149,7 +149,7 @@ int exec_part(t_exec *exec,char **env)
 	return (0);
 }
 
-int check_fd( t_mini *head)
+void check_fd( t_mini *head, t_exec *exec, char *bas)
 {
 	while (head)
 	{
@@ -159,7 +159,10 @@ int check_fd( t_mini *head)
 			close(head->fd[WRITE_END]);
 		head = head->next;
 	}
-	return (0);
+	if (exec->cmd)
+    	ft_lstclear_cmd(&exec->cmd);
+  	if (bas)
+    	free(bas);
 }
 
 int ft_read(char *line)
@@ -177,23 +180,18 @@ int ft_read(char *line)
 		w++;
 	return (0);
 }
-
-int main(int ac, char *av[],char *env[])
+void	clear_end(t_exec *exec)
 {
-  char *bas;
-  t_mini *head;
-  t_exec *exec;
-  int k;
-  int w;
+	tabfree(exec->env_string);
+	ft_lstclear_env(&exec->env);
+	ft_lstclear_exp(&exec->exp);
+	free(exec);
+}
+int	control_line(char *bas, t_exec **exec, char **env, int *k)
+{
+	int	w;
 
-  w = 0;
-  k = 0;
-  exec = (t_exec *)ft_calloc(sizeof(t_exec));
-	check_line(ac,av);	  
-  while(1)
-  {
-	  sig();
-    bas = readline("minishell$ ");
+	w = 0;
 	if(bas == 0)
 	{
 		printf("exit\n");
@@ -202,54 +200,58 @@ int main(int ac, char *av[],char *env[])
 	w = 0;
 	while(is_isspace(bas[w]) && bas[w])
 		w++;
-	// ft_read(bas);
-	if (bas[w] == '\0')
+	if (bas[w] == '\0' || ft_strlen(bas) == 0)
 	{
 		free(bas);
-		continue;
-	}
-	if (ft_strlen(bas) == 0)
-	{
-		free(bas);
-		continue;
+		return (1);
 	}
 	ft_add_history(bas);
-	check_env(exec,env, &k);
-	exec->cmd = parse(bas, exec->env);
-	// if(exec->cmd)
-	// {
-	// 	if(exec->cmd->x == 1)
-	// 	{
-	// 		free_cmd(exec->cmd);
-	// 		free(bas);
-	// 		continue;
-	// 	}
-	// } 
-	
-	if(g_var.heredoc_flag)
+	check_env((*exec), env, k);
+	(*exec)->cmd = parse(bas, (*exec)->env);
+	return (0);
+}
+void	herdoc_norm(t_exec *exec, char *bas)
+{
+	if (exec->cmd)
+		free_cmd(exec->cmd);
+	free(bas);
+	close(g_var.heredoc_flag);
+	g_var.heredoc_flag = 0;
+	g_var.status = 1;
+}
+int main(int ac, char *av[],char *env[])
+{
+  char *bas;
+  t_mini *head;
+  t_exec *exec;
+  int k;
+
+  k = 0;
+  exec = (t_exec *)ft_calloc(sizeof(t_exec));
+	check_line(ac,av);	  
+	while(1)
 	{
-		
-		if (exec->cmd)
-			free_cmd(exec->cmd);
-		  free(bas);
-		  close(g_var.heredoc_flag);
-		  g_var.heredoc_flag = 0;
-		  g_var.status = 1;
-		continue;
+		sig();
+    	bas = readline("minishell$ ");
+		if (control_line(bas, &exec, env, &k))
+			continue;
+		if(g_var.heredoc_flag)
+		{
+			// herdoc_norm(exec, bas);
+			if (exec->cmd)
+				free_cmd(exec->cmd);
+			  free(bas);
+			  close(g_var.heredoc_flag);
+			  g_var.heredoc_flag = 0;
+			  g_var.status = 1;
+			continue;
+		}
+		exec_part(exec,env);
+		head = exec->cmd;
+		check_fd(head, exec, bas);
 	}
-	exec_part(exec,env);
-	head = exec->cmd;
-	check_fd(head);
-  if (exec->cmd)
-    ft_lstclear_cmd(&exec->cmd);
-  if (bas)
-    	free(bas);
-  }
-  tabfree(exec->env_string);
-  ft_lstclear_env(&exec->env);
-  ft_lstclear_exp(&exec->exp);
-  free(exec);
-   return (0);  
+	clear_end(exec);
+	return (0);  
 }
 
 
