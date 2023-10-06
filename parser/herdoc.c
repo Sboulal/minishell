@@ -77,12 +77,34 @@ int	close_her(void)
 	}
 	return (close(fd), 1);
 }
+int	handle_heredoc_nor(char *line, char *limiter, t_mini *cmd, int *fd)
+{
+	if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
+	{
+		if (line)
+			free(line);
+		cmd->fd[0] = fd[0];
+		close(fd[1]);
+		return (1);
+	}
+	return (0);
+}
+int	handle_nor(char **line, int *fd)
+{
+	char	*joined_line;
 
+	joined_line = ft_strjoin2(*line, "\n");
+	if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
+		return (-1);
+	free(joined_line);
+	*line = NULL;
+	return (0);
+}
 int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 {
 	int		expand_mode;
 	char	*line;
-	char	*joined_line;
+	// char	*joined_line;
 	int		fd[2];
 
 	free(file);
@@ -94,26 +116,16 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 		line = readline("> ");
 		if (!close_her())
 			break ;
-		if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
-		{
-			if (line)
-				free(line);
-			cmd->fd[0] = fd[0];
-			close(fd[1]);
+		if (handle_heredoc_nor(line, limiter, cmd, fd))
 			return (1);
-		}
 		expand_mode = is_expand(&limiter);
 		if (expand_mode && line)
 			line = heredoc_expansion(line, env);
-		joined_line = ft_strjoin2(line, "\n");
-		if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
+		if (handle_nor(&line, fd) == -1)
 			return (-1);
-		free(joined_line);
-		line = NULL;
 	}
 	close(fd[0]);
-	close(fd[1]);
-	return (1);
+	return (close(fd[1]), 1);
 }
 
 void	ft_close(int fd)
