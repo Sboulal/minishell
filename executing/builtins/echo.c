@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 22:26:57 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	check_echo_arg(int k, int i, char **args)
 
 int	check_firs_arg(char **arg, int i)
 {
-	int j;
-	int k;
+	int	j;
+	int	k;
 
 	j = 1;
 	k = 0;
@@ -46,6 +46,7 @@ int	check_firs_arg(char **arg, int i)
 	}
 	return (k);
 }
+
 void	print_norm(char **arg)
 {
 	int	i;
@@ -62,17 +63,18 @@ void	print_norm(char **arg)
 		if (len == lent && ft_strlen(arg[i]) != 1)
 			i++;
 		else
-			break;
+			break ;
 	}
 	d = i;
 	while (arg[i])
 	{
 		if (i != d)
 			printf(" ");
-		printf("%s",arg[i]);
+		printf("%s", arg[i]);
 		i++;
 	}
 }
+
 void	normal_print(char **arg)
 {
 	int	i;
@@ -82,14 +84,15 @@ void	normal_print(char **arg)
 	{
 		if (i != 0 || !arg[i])
 			printf(" ");
-		printf("%s",arg[i++]);
+		printf("%s", arg[i++]);
 	}
 	printf("\n");
 }
+
 void	print_in_echo(char **arg, int n)
 {
-	int len; 
-	int lent;
+	int	len; 
+	int	lent;
 
 	if (n == 0)
 	{
@@ -99,8 +102,6 @@ void	print_in_echo(char **arg, int n)
 	len = check_firs_arg(arg, 0);
 	lent = ft_strlen(arg[0]);
 	lent = lent - 1;
-	// if (lent == 0)
-	// 	printf("%c\n", arg[0][0]);
 	if (len < lent || len > lent || len == 0)
 		normal_print(arg);
 	else

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 22:04:15 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 23:34:51 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ void		exit_program(t_mini *cmd, t_exec *exp);
 void		unset_env(t_exec **exp, char **arg);
 char		**list_clean(char *cmd, int num);
 void		add_to_export(t_exec **exec);
+void	ft_free(char **ptr);
+void	change_pwd_exp(t_export **list);
+void	cd_derc_err(char **args);
+void	change_pwd(t_envp **list, t_exec **exp);
 // int			ft_strcmp(const char *s1, const char *s2);
 void		export(t_exec **exec);
 void		sort_list(t_export **exp);
@@ -84,5 +88,17 @@ void	ft_delete(t_envp **head);
 void	ft_delete_export(t_export **head);
 void check_permision(t_mini *cmd);
 void	get_pwd(t_exec **exp);
-
+int	protect_exit(t_mini *cmd, t_exec *exp);
+void	check_export_err(char *cmd);
+int	check_before_equal(char *cmd);
+int	check_error_export_norr(char *cmd, int i);
+void	edit_add_more(t_exec **exec, int i);
+void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num);
+int	cpt_env(t_envp *head);
+int	error_fork(pid_t pid, int **pipfd, int nbr_cmd);
+void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j);
+void	norm_parent(int **pipfd, t_exec **exp, pid_t *pid);
+void	unset_export(t_exec **exp, char **arg);
+int	unset_export_norm(t_export *head, t_exec **exp, int i);
+void	delete_export_norm(t_export *head, char *arg);
 #endif

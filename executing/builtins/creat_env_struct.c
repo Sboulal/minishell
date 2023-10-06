@@ -6,13 +6,13 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 08:09:54 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 22:21:49 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-int protect_list_env(t_envp *new, char *env)
+int	protect_list_env(t_envp *new, char *env)
 {
 	if (!new)
 		return (1);
@@ -23,6 +23,7 @@ int protect_list_env(t_envp *new, char *env)
 	}
 	return (0);
 }
+
 t_envp	*list_env(char *env)
 {
 	t_envp	*new;
@@ -83,23 +84,4 @@ void	creat_env(t_exec **lst)
 		add_back_env(&(*lst)->env, list_env((*lst)->env_string[i]));
 		i++;
 	}
-}
-
-void	print_env(t_exec *exp)
-{
-	int	i;
-
-	i = 0;
-	if (!exp->env)
-	{
-		g_var.status = 127;
-		return ;
-	}
-	while (exp->env)
-	{
-		printf("%s\n", exp->env->env);
-		i++;
-		exp->env = exp->env->next;
-	}
-	g_var.status = 0;
 }

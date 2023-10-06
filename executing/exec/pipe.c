@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 03:03:25 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 23:29:04 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	edit_shlvl(t_exec **exp)
 	{
 		nb = ft_atoi(head->value) + 1;
 		if (nb == 1000)
-			nb = 1;	
+			nb = 1;
 		head->value = ft_itoa(nb);
 		str = ft_strjoin(head->variable, "=");
 		head->env = ft_strdup(ft_strjoin(str, head->value));
@@ -69,9 +69,10 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 	buil_exec_pipe(exp, head);
 	exit(g_var.status);
 }
-void close_pipe(int **pip, int j)
+
+void	close_pipe(int **pip, int j)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < j)
@@ -81,6 +82,7 @@ void close_pipe(int **pip, int j)
 		i++;
 	}
 }
+
 void	norm_parent(int **pipfd, t_exec **exp, pid_t *pid)
 {
 	int	j;
@@ -98,42 +100,4 @@ void	norm_parent(int **pipfd, t_exec **exp, pid_t *pid)
 	while (wait(NULL) != -1)
 		;
 	free(pid);
-}
-int	insiall_malloc(pid_t **pid, int ***pipfd, t_exec **exp)
-{
-	*pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
-	if (!(*pid))
-		return (1);
-	*pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
-	if (!(*pipfd))
-	{
-		free(*pid);
-		return (1);
-	}
-	return (0);
-}
-void	use_pipe(t_exec **exp, t_mini *cmd)
-{
-	pid_t	*pid;
-	int		**pipfd;
-	int		j;
-	t_mini	*head;
-
-	head = cmd;
-	j = 0;
-	if (!*exp || !cmd)
-		return ;
-	if (insiall_malloc(&pid, &pipfd, exp))
-		return ;
-	while (head)
-	{
-		pid[j] = fork();
-		if (error_fork(pid[j], pipfd, (*exp)->nbr_cmd) < 0)
-			return ;
-		else if (pid[j] == 0)
-			norm_pipe(head, pipfd, exp, j);
-		j++;
-		head = head->next;
-	}
-	norm_parent(pipfd, exp, pid);
 }

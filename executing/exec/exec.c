@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 04:52:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 23:25:34 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,35 +48,36 @@ char	**exec_chec_join(char *str, char *path, t_mini *cmd, t_exec **exp)
 		pt = execve_join((*exp), cmd->cmd, cmd);
 	return (pt);
 }
-void check_permision(t_mini *cmd)
+
+void	check_permision(t_mini *cmd)
 {
-	struct stat sb;
-	
+	struct stat	sb;
+
 	if (!cmd)
 		return ;
-	if (stat(cmd->cmd, &sb) == 0 && (access(cmd->cmd, X_OK) == 0) && !S_ISREG(sb.st_mode))
+	if (stat(cmd->cmd, &sb) == 0 
+		&& (access(cmd->cmd, X_OK) == 0) && !S_ISREG(sb.st_mode))
 	{
-		ft_putstr_fd("minishell : ",2);
-		ft_putstr_fd(cmd->cmd,2);
-		ft_putstr_fd(": is a directory\n",2);
+		ft_putstr_fd("minishell : ", 2);
+		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd(": is a directory\n", 2);
 		g_var.status = 126;
 		exit(g_var.status);
 	}
-	
 }
 
 char	**find_cmd(char *path, t_exec **exp, t_mini *cmd)
 {
-	int	i;
 	char	**str;
 	char	**pt;
+	int		i;
 
 	i = 0;
 	if (!path)
 	{
-		ft_putstr_fd("minishell : ",2);
-		ft_putstr_fd(cmd->cmd,2);
-		ft_putstr_fd(": command not found\n",2);
+		ft_putstr_fd("minishell : ", 2);
+		ft_putstr_fd(cmd->cmd, 2);
+		ft_putstr_fd(": command not found\n", 2);
 		g_var.status = 127;
 		exit(g_var.status);
 	}
@@ -93,6 +94,7 @@ char	**find_cmd(char *path, t_exec **exp, t_mini *cmd)
 	tabfree(str);
 	return (pt);
 }
+
 void	exec_pipe(t_exec **exp, t_mini *cmd)
 {
 	t_envp	*head;
@@ -113,9 +115,9 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	if (!pt && cmd->cmd)
 		return ;
 	g_var.status = execve(*pt, pt, (*exp)->env_string);
-	ft_putstr_fd("minishell : ",2);
-	ft_putstr_fd(cmd->cmd,2);
-	ft_putstr_fd(": command not found\n",2);
+	ft_putstr_fd("minishell : ", 2);
+	ft_putstr_fd(cmd->cmd, 2);
+	ft_putstr_fd(": command not found\n", 2);
 	g_var.status = 127;
 	exit(g_var.status);
 }

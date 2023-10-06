@@ -6,11 +6,12 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 07:50:37 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 22:58:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
 void	edit_in_g_variable_norm(t_export *head, char **str)
 {
 	free(head->exp);
@@ -19,6 +20,7 @@ void	edit_in_g_variable_norm(t_export *head, char **str)
 	head->exp = ft_strjoin2(head->exp, head->value);
 	head->exp = ft_strjoin2(head->exp, "\"");
 }
+
 void	edit_in_g_variable_norm_env(t_export *head, t_exec **exec, t_envp *env)
 {
 	free(env->variable);
@@ -30,6 +32,7 @@ void	edit_in_g_variable_norm_env(t_export *head, t_exec **exec, t_envp *env)
 	env->env = ft_strjoin2(env->env, env->value);
 	edit_in_string(exec, env);
 }
+
 void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 {
 	t_envp	*env;
@@ -80,6 +83,7 @@ int	check_argument_export(char *str)
 	}
 	return (0);
 }
+
 int	cpt_env(t_envp *head)
 {
 	int	i;
@@ -93,80 +97,4 @@ int	cpt_env(t_envp *head)
 		i++;
 	}
 	return (i);
-}
-void	add_back_envstring(t_envp *env, t_exec **exp)
-{
-	t_envp	*head;
-	int		i;
-
-	if (!env)
-	{
-		tabfree((*exp)->env_string);
-		(*exp)->env_string = NULL;
-		return;
-	}
-	i = cpt_env(env);
-	tabfree((*exp)->env_string);
-	(*exp)->env_string = (char **)malloc(sizeof(char *) * (i + 1));
-	if (!(*exp)->env_string)
-		return ;
-	i = 0;
-	head = env;
-	while (head)
-	{
-		if (head->env)
-			(*exp)->env_string[i++] = ft_strdup(head->env);
-		head = head->next;
-	}
-	(*exp)->env_string[i] = NULL;
-}
-void edit_add_more(t_exec **exec, int i)
-{
-	t_export *exp;
-	t_envp *env;
-	
-	exp = list_exp((*exec)->cmd->arg[i]);
-	env = list_env((*exec)->cmd->arg[i]);
-
-	add_back_exp(&(*exec)->exp, exp);
-	add_back_env(&(*exec)->env, env);
-	add_back_envstring((*exec)->env, exec);
-}
-void	edit_add(t_exec **exec, int i, int num)
-{
-	t_export	*head;
-	char		**str;
-
-	head = (*exec)->exp;
-	if (!head)
-	{
-		edit_add_more(exec, i);
-		return ;
-	}
-	str = list_clean((*exec)->cmd->arg[i], num);
-	while (head->next && (ft_strcmp(head->variable, str[0]) != 0))
-		head = head->next;
-	if (!head->next && (ft_strcmp(head->variable, str[0]) != 0))
-		edit_add_more(exec, i);
-	else
-	{
-		if (ft_strchr((*exec)->cmd->arg[i], '='))
-			edit_in_g_variable(exec, str, head, num);
-	}
-	tabfree(str);
-}
-
-void	add_to_export(t_exec **exec)
-{
-	int	i;
-	int	num;
-
-	i = 0;
-	while ((*exec)->cmd->arg[i])
-	{
-		num = check_export((*exec)->cmd->arg[i]);
-		if (num)
-			edit_add(exec, i, num);
-		i++;
-	}
 }

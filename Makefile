@@ -23,17 +23,23 @@ SRC = 	main.c\
 		parser/handle_all.c\
 		parser/need_this_func.c\
 		executing/builtins/cd.c\
+		executing/builtins/cd_util.c\
 		executing/builtins/builtin.c\
 		executing/builtins/builtin_utils.c\
 		executing/builtins/echo.c\
 		executing/builtins/env.c\
 		executing/builtins/exit.c\
 		executing/builtins/export.c\
+		executing/builtins/export_utile.c\
+		executing/builtins/export_utils_2.c\
+		executing/builtins/export_util_3.c\
 		executing/builtins/pwd.c\
 		executing/builtins/unset.c\
+		executing/builtins/unset_util.c\
 		executing/builtins/creat_env_struct.c\
 		executing/builtins/export_utile.c\
 		executing/builtins/creat_export.c\
+		executing/builtins/export_norm.c\
 		executing/exec/exec.c\
 		executing/exec/pipe.c\
 		executing/exec/pipe_utils.c\

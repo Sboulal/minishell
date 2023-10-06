@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:16 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/28 21:34:33 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 22:32:39 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,15 @@ void	builtins(t_exec **exp, t_mini *cmd)
 		cd_derc(cmd->arg, &(*exp)->env, exp, cmd);
 	else if ((ft_strcmp(cmd->cmd, "export") == 0))
 		export(exp);
+}
+
+int	protect_exit(t_mini *cmd, t_exec *exp)
+{
+	if (cmd->nbr_arg == 0)
+	{
+		if (exp->nbr_cmd == 1)
+			printf("exit\n");
+		exit(g_var.status);
+	}
+	return (0);
 }
