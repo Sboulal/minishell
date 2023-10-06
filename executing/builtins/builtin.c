@@ -6,11 +6,34 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/28 20:59:41 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 03:18:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
+
+
+int	ft_strcmp1(const char *s1, const char *s2)
+{
+	unsigned char	*my_s1;
+	unsigned char	*my_s2;
+	size_t			i;
+
+	if (!s1 || !s2)
+		return (5);
+
+	i = 0;
+	my_s1 = (unsigned char *)s1;
+	my_s2 = (unsigned char *)s2;
+	while ((my_s1[i] != '\0' || my_s2[i] != '\0'))
+	{
+		if (my_s1[i] != my_s2[i])
+			return (my_s1[i] - my_s2[i]);
+		i++;
+	}
+	return (0);
+}
+
 
 void	sort_list(t_export **exp)
 {
@@ -34,15 +57,28 @@ void	sort_list(t_export **exp)
 
 void	buil_exec_pipe(t_exec **exp, t_mini *cmd)
 {
-	if (!cmd)
-		return ;
-	if (ft_strcmp(cmd->cmd, "./minishell") == 0)
+	// if (!cmd)
+	// 	return ;
+	
+
+
+	if (ft_strcmp1(cmd->cmd, "./minishell") == 0)
+	{
+
 		edit_shlvl(exp);
-	if ((ft_strcmp(cmd->cmd, "env") != 0) && ft_strcmp(cmd->cmd, "exit") != 0
+	}
+
+			
+
+	if (!cmd->cmd || ((ft_strcmp(cmd->cmd, "env") != 0) && ft_strcmp(cmd->cmd, "exit") != 0
 		&& ft_strcmp(cmd->cmd, "echo") != 0 && ft_strcmp(cmd->cmd, "pwd") != 0
 		&& ft_strcmp(cmd->cmd, "unset") != 0 && ft_strcmp(cmd->cmd, "cd") != 0
-		&& ft_strcmp(cmd->cmd, "export") != 0)
+		&& ft_strcmp(cmd->cmd, "export") != 0))
+		{
+
+			
 			exec_pipe(exp, cmd);
+		}	
 	else
 		builtins(exp, cmd);
 }

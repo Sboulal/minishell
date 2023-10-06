@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 00:58:40 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 03:23:55 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ char	**find_cmd(char *path, t_exec **exp, t_mini *cmd)
 		i++;
 	}
 	pt = exec_chec_join(str[i], path, cmd, exp);
+
 	tabfree(str);
 	return (pt);
 }
@@ -99,7 +100,7 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	char	*path;
 	char	**pt;
 
-	if (!(*exp) || !(cmd))
+	if (!(*exp))
 		return ;
 	head = (*exp)->env;
 	check_permision(cmd);
@@ -107,8 +108,14 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 		head = head->next;
 	path = head->env;
 	pt = find_cmd(path, exp, cmd);
-	if (!pt)
+	if (!pt && cmd->cmd)
 		return ;
+	if (!cmd->cmd)
+		ft_putstr_fd("NULL\n", 2);
+	else
+		ft_putstr_fd("cmd\n", 2);
+		
+		
 	g_var.status = execve(*pt, pt, (*exp)->env_string);
 	ft_putstr_fd("minishell : ",2);
 	ft_putstr_fd(cmd->cmd,2);

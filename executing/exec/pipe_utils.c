@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:51:30 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/28 21:16:50 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 03:26:43 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int	**incial_pipe(int nb_pip, t_exec *exp)
 		if (return_result < 0)
 		{
 			close_pipe(pipfd, i);
+			i = 0;
+			while (i < exp->nbr_cmd - 1)
+				free(pipfd[i++]);
+			free(pipfd);
 			perror("pipe");
 			return (NULL);
 		}

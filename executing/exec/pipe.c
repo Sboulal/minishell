@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 01:31:04 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 03:03:25 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ void	use_pipe(t_exec **exp, t_mini *cmd)
 	pid = (pid_t *)malloc((sizeof(pid_t) * ((*exp)->nbr_cmd + 1)));
 	pipfd = incial_pipe((*exp)->nbr_cmd - 1, (*exp));
 	if (!pipfd)
+	{
+		free(pid);
 		return ;
+	}
 	while (head)
 	{
 		pid[j] = fork();

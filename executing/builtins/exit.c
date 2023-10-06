@@ -6,17 +6,17 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/03 20:10:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 02:37:55 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-static int	ft_at(const char *str, int sgn)
+static long long	ft_at(const char *str, int sgn)
 {
-	long	i;
-	long	res;
-	long	rv;
+	long long	i;
+	long long	res;
+	long long	rv;
 
 	i = 0;
 	res = 0;
@@ -24,8 +24,10 @@ static int	ft_at(const char *str, int sgn)
 	{
 		rv = res;
 		res = (res * 10) + (str[i] - '0');
+		// printf("rv = |%lld|, res = |%lld|\n ", rv, res / 10);
 		if (res / 10 != rv)
 		{
+			// printf("HA ANAAA\n");
 			if (sgn == -1)
 				return (1);
 			return (-1);
@@ -35,11 +37,11 @@ static int	ft_at(const char *str, int sgn)
 	return (res);
 }
 
-int	ft_atoi_exit(const char *str)
+long long	ft_atoi_exit(const char *str)
 {
-	long	i;
-	long	sgn;
-	long	res;
+	long long	i;
+	long long	sgn;
+	long long	res;
 
 	i = 0;
 	sgn = 1;
@@ -65,7 +67,7 @@ void	exit_norm(t_mini *cmd)
 	{
 		if ((!ft_isdigit(cmd->arg[0][i]) && ((cmd->arg[0][i] == '+' && !ft_isdigit(cmd->arg[0][i + 1])) || (cmd->arg[0][i] == '-' && !ft_isdigit(cmd->arg[0][i + 1])))) || (!ft_isdigit(cmd->arg[0][i]) && cmd->arg[0][i] != '+' && cmd->arg[0][i] != '-'))
 		{
-			ft_putstr_fd("exit\n", 2);
+			printf("exit\n");
 			g_var.status = 255;
 			ft_putstr_fd("minishell: exit: ", 2);
 			ft_putstr_fd(cmd->arg[0], 2);
@@ -76,7 +78,7 @@ void	exit_norm(t_mini *cmd)
 	}
 	if (cmd->nbr_arg > 1)
 	{
-		ft_putstr_fd("exit\n", 2);
+		printf("exit\n");
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
 		g_var.status = 1;
 		exit(g_var.status);
@@ -89,7 +91,7 @@ int	protect_exit(t_mini *cmd, t_exec *exp)
 	if (cmd->nbr_arg == 0)
 	{
 		if (exp->nbr_cmd == 1)
-			ft_putstr_fd("exit\n", 2);
+			printf("exit\n");
 		exit(g_var.status);
 	}
 	// if (cmd->nbr_arg == 1)
@@ -108,27 +110,29 @@ int	protect_exit(t_mini *cmd, t_exec *exp)
 
 void	exit_program(t_mini *cmd, t_exec *exp)
 {
+	long long catch;
 	if (cmd->nbr_arg == 0)
 	{
-		ft_putstr_fd("exit\n", 2);
+		printf("exit\n");
 		exit(g_var.status);
 	} 
 	exit_norm(cmd);
-	g_var.status = ft_atoi_exit(cmd->arg[0]);
-	if (g_var.status == -1 && ft_strcmp(ft_itoa(g_var.status), cmd->arg[0]))
+	catch = ft_atoi_exit(cmd->arg[0]);
+	if (catch == -1 && ft_strcmp(ft_itoa(catch), cmd->arg[0]))
 	{
-		ft_putstr_fd("exit\n", 2);
+		printf("exit\n");
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(cmd->arg[0], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 		g_var.status = 255;
 		exit(g_var.status);
 	}
+	g_var.status = (int)catch;
 	if (protect_exit(cmd, exp))
 		return ;
 	if (exp->nbr_cmd == 1)
 	{
-		ft_putstr_fd("exit\n", 2);
+		printf("exit\n");
 		exit(g_var.status);
 	}
 }

@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal <saboulal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:47:16 by saboulal          #+#    #+#             */
-/*   Updated: 2022/11/03 21:28:36 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 03:12:26 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include"libft.h"
+
 
 void	ft_putstr_fd(char *s, int fd)
 {
