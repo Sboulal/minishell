@@ -14,6 +14,7 @@ SRC = 	main.c\
 		lexer/linked_list2.c\
 		lexer/lexer_utils2.c\
 		expansion/expand.c\
+		expansion/expand_util_2.c\
 		expansion/expand_utils.c\
 		parser/parsing.c\
 		parser/chekcs_words.c\

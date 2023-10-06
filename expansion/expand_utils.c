@@ -6,18 +6,17 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 21:30:13 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 00:45:21 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/lexer.h"
+#include "../includes/lexer.h"
 
 int	get_name_len(char *token, int i)
 {
 	int	name_len;
 
 	name_len = 1;
-
 	if (token[i + 1] == '?')
 		return (-1);
 	if (!(ft_toupper(token[i + 1]) || ft_tolower(token[i + 1])
@@ -32,15 +31,16 @@ int	get_name_len(char *token, int i)
 	return (name_len);
 }
 
-char *to_string(char c)
+char	*to_string(char c)
 {
-	char *s;
+	char	*s;
+
 	s = malloc(2);
 	s[0] = c;
 	s[1] = '\0';
-
-	return s;
+	return (s);
 }
+
 int	expand_exit(char *token, int *i, char **str)
 {
 	if (token[*i] == '$' && token[(*i) + 1] == '?')
@@ -51,6 +51,7 @@ int	expand_exit(char *token, int *i, char **str)
 	}
 	return (0);
 }
+
 int	expand_exit_null(char *token, int *i, char **str)
 {
 	if (token[*i] == '$' && token[(*i) + 1] == '\0')
@@ -77,9 +78,9 @@ int	expand_do_nor(char *token, int **i, char **str)
 
 int	expand_do(char *token, int *i, char **str, t_envp *env)
 {
-	int k;
-	char *key;
-	char *val;
+	int		k;
+	char	*key;
+	char	*val;
 
 	if (token[*i] == '$')
 	{
@@ -102,7 +103,7 @@ int	expand_do(char *token, int *i, char **str, t_envp *env)
 	return (1);
 }
 
-char	*get_name_quot(char *token ,t_envp *env) // get value
+char	*get_name_quot(char *token, t_envp *env)
 {
 	int	i;
 
@@ -123,7 +124,6 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 	}
 	return (str);
 }
-
 
 int	expand_singl(char *token, int *i, char **str)
 {
