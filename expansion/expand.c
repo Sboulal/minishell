@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 20:50:36 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:29:41 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,9 @@ char	*trim_quotes(char *token, int quotes_len)
 		}
 		i++;
 	}
-	 //free(token);
 	return (trimed_token);
 }
 
-// this function removes the outer quotes of the passed string , 
-// by marking the quotes that needs to be removed by -1
-// and passing the token string to the trim quotes function
 char	*quotes_removal(char *token)
 {
 	int		i;
@@ -66,45 +62,46 @@ char	*quotes_removal(char *token)
 	return (trim_quotes(token, quotes_len));
 }
 
-// we will loop the linked list and remove empty strings that resulted from 
-// an unkown variable expansion .
+void remove_empty_tokens_first(t_lexer **tokens,t_lexer **prev, t_lexer **head)
+{
+	if (!(*tokens)->next || (*tokens)->type == LIMITER)
+	{	
+		*head = (*tokens)->next;
+		free_token_word((*tokens), (*tokens)->token);
+		*tokens = *head;
+	}
+	else
+	{
+		(*tokens)->token = NULL;
+		*prev = (*tokens);
+		(*tokens) = (*prev)->next;
+	}
+}
+void	remove_empty_tokens_norm(t_lexer **tokens,t_lexer **prev, t_lexer **head)
+{
+	if (*prev == NULL)
+		remove_empty_tokens_first(tokens, prev, head);
+	else if (!(*tokens)->next)
+	{
+		(*prev)->next = (*tokens)->next;
+		free_token_word((*tokens), (*tokens)->token);
+		(*tokens) = (*prev)->next;
+	}
+	else
+	{
+		(*tokens)->token = NULL;
+		
+		*prev = *tokens;
+		*tokens = (*prev)->next;
+	}
+}
 t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 {
 	
 	while (tokens)
 	{
 		if (*(tokens->token) == 0)
-		{
-			if (prev == NULL)
-			{
-				if (!tokens->next || tokens->type == LIMITER)
-				{	
-				head = tokens->next;
-				free_token_word(tokens, tokens->token);
-				tokens = head;
-				}
-				else
-				{
-				tokens->token = NULL;
-				
-				prev = tokens;
-				tokens = prev->next;
-				}
-			}
-			else if (!tokens->next)
-			{
-				prev->next = tokens->next;
-				free_token_word(tokens, tokens->token);
-				tokens = prev->next;
-			}
-			else
-			{
-				tokens->token = NULL;
-				
-				prev = tokens;
-				tokens = prev->next;
-			}
-		}
+			remove_empty_tokens_norm(&tokens, &prev, &head);
 		else
 		{
 			prev = tokens;
@@ -114,14 +111,54 @@ t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 	}
 	return (head);
 }
+void	remove_quote_d(char **str, int *i, char **src)
+{
+	int		j;
+	char	*sr;
+
+	j = *i;
+	while (*str[j] && *str[j] == '"')
+		j++;
+	*i = j;
+	while (*str[j] && *str[j] != '"')
+		j++;
+	sr = ft_substr(*str, *i, j - (*i));
+	*src = ft_strjoin(*src, sr);
+	*i = j;
+}
+void	remove_quote_s(char **str, int *i, char **src)
+{
+	int		j;
+	char	*sr;
+
+	j = *i;
+	while (*str[j] && *str[j] == '\'')
+		j++;
+	*i = j;
+	while (*str[j] && *str[j] != '\'')
+		j++;
+	sr = ft_substr(*str, *i, j - (*i));
+	*src = ft_strjoin(*src, sr);
+			
+	*i = j;
+}
+void	remove_quote_else(char **str, int *i, char **src)
+{
+	int		j;
+	char	*sr;
+
+	j = *i;
+	while (*str[j] && (*str[j] != '\'' && *str[j] != '"'))
+		j++;
+	sr = ft_substr(*str, *i, j);
+	*src = ft_strjoin(*src, sr);
+	*i = (*i) + (j - (*i));
+}
 
 char *remove_quote(char *str)
 {
 	int i;
 	char *src;
-	char *sr;
-	int j;
-	
 
 	i = 0;
 	if (!str)
@@ -130,41 +167,11 @@ char *remove_quote(char *str)
 	while(str[i])
 	{
 		if(str[i] == '"')
-		{
-			// i++;
-			j = i;
-			while (str[j] && str[j] == '"')
-				j++;
-			i = j;
-			while (str[j] && str[j] != '"')
-				j++;
-			sr = ft_substr(str, i, j - i);
-			src = ft_strjoin(src, sr);
-					
-			i = j;
-		}
+			remove_quote_d(&str, &i, &src);
 		else if(str[i] == '\'')
-		{
-			j = i;
-			while (str[j] && str[j] == '\'')
-				j++;
-			i = j;
-			while (str[j] && str[j] != '\'')
-				j++;
-			sr = ft_substr(str, i, j - i);
-			src = ft_strjoin(src, sr);
-					
-			i = j;
-		}
+			remove_quote_s(&str, &i, &src);
 		else
-		{
-			j = i;
-			while (str[j] && (str[j] != '\'' && str[j] != '"'))
-				j++;
-			sr = ft_substr(str, i, j);
-			src = ft_strjoin(src, sr);
-			i = i + (j - i);
-		}
+			remove_quote_else(&str, &i, &src);
 		if (!str[i])
 			break;
 		i++;
@@ -188,8 +195,6 @@ t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
 		token = token->next;
 	}
 	token = tokens;
-	// head = tokens;
-	
 	tokens = remove_empty_tokens(token, token, NULL);
 	head = tokens;
 	return (head);

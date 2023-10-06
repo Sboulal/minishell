@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 20:53:59 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:30:13 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ int	get_name_len(char *token, int i)
 	}
 	return (name_len);
 }
-
-// this function returns the first occurence of a variable name 
-// if we have an occurence of a $ alone we just mark it with -1 
-// to not interump with further calls to this function
-// we will change the -1 latter
 
 char *to_string(char c)
 {
