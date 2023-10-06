@@ -31,8 +31,7 @@ void	change_olde_pwd_exp(t_export **list, char *old)
 	head = head->next;
 	if (head)
 	{
-		// if (head->value)
-			ft_free(&head->value);
+		ft_free(&head->value);
 		free((head)->exp);
 		head->value = ft_strdup(old);
 		head->exp = ft_strjoin("OLDPWD=", "=");
@@ -60,8 +59,7 @@ void	change_pwd_exp(t_export **list)
 	head = head->next;
 	if (head)
 	{
-		// if (head->value)
-			ft_free(&head->value);
+		ft_free(&head->value);
 		free((head)->exp);
 		head->value = ft_strdup(str);
 		head->exp = ft_strjoin("PWD", "=");
@@ -76,6 +74,16 @@ void	change_pwd_dir(void)
 	ft_putstr_fd("cd: error retrieving current directory: getcwd: cannot access parent",2);
 	ft_putstr_fd(":directories: No such file or directory\n",2);
 	g_var.status = 126;
+}
+void	change_pwd_free(t_envp	*head, char	*str)
+{
+	if (head->value && *str)
+	{
+		ft_free(&head->value);
+		(head)->value = ft_strdup(str);
+	}
+	free((head)->env);
+	(head)->env = ft_strjoin("PWD=", str);
 }
 void	change_pwd(t_envp **list, t_exec **exp)
 {
@@ -93,24 +101,12 @@ void	change_pwd(t_envp **list, t_exec **exp)
 	change_olde_pwd(list, (head)->next->value);
 	src = getcwd(str, PATH_MAX);
 	if (!src && errno == ENOENT)
-	{
-		
 		change_pwd_dir();
-	}
 	if (!(head->next))
 		return ;
 	head = head->next;
 	if (head)
-	{
-		if (head->value && *str)
-		{
-			ft_free(&head->value);
-			(head)->value = ft_strdup(str);
-		}
-		free((head)->env);
-		(head)->env = ft_strjoin("PWD=", str);
-		return ;
-	}
+		change_pwd_free(head, str);
 }
 
 void	change_olde_pwd(t_envp **list, char *old)
@@ -128,8 +124,7 @@ void	change_olde_pwd(t_envp **list, char *old)
 	head = head->next;
 	if (head)
 	{
-		// if (head->value)
-			ft_free(&head->value);
+		ft_free(&head->value);
 		free((head)->env);
 		(head)->value = ft_strdup(str);
 		(head)->env = ft_strjoin("OLDPWD=", old);
@@ -161,8 +156,6 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 			g_var.status = 1;
 		}
 		change_pwd(&head, exp);
-		// if (c)
-		// 	free(c);
 		return ;
 	}
 	else if (chdir(args[0]) == -1 && ft_strcmp(args[0], "-"))
