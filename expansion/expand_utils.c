@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 06:54:33 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:53:59 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	expand_exit_null(char *token, int *i, char **str)
 	}
 	return (0);
 }
+
 int	expand_do_nor(char *token, int **i, char **str)
 {
 	if (!(ft_isalpha(token[**i]) || token[**i] == '_' ))
@@ -78,6 +79,7 @@ int	expand_do_nor(char *token, int **i, char **str)
 	}
 	return (1);
 }
+
 int	expand_do(char *token, int *i, char **str, t_envp *env)
 {
 	int k;
@@ -104,6 +106,7 @@ int	expand_do(char *token, int *i, char **str, t_envp *env)
 	}
 	return (1);
 }
+
 char	*get_name_quot(char *token ,t_envp *env) // get value
 {
 	int	i;
@@ -125,6 +128,8 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 	}
 	return (str);
 }
+
+
 int	expand_singl(char *token, int *i, char **str)
 {
 	int	k;
@@ -145,6 +150,7 @@ int	expand_singl(char *token, int *i, char **str)
 	}
 	return (0);
 }
+
 int	expand_doubl(char *token, int *i, char **str, t_envp *env)
 {
 	int	k;
@@ -192,8 +198,7 @@ char	*get_name(char *token ,t_envp *env) // get value
 	return (str);
 }
 
-// we need to check if the variable is not inside double quotes to 
-// not expand it , but check if we don't have double quotes before 
+
 int	replace_before_name(char *new_token, char *token)
 {
 	int	i;
@@ -215,38 +220,6 @@ int	replace_before_name(char *new_token, char *token)
 	return (i);
 }
 
-// this function remplace the string value in the string
-// name and returns an allocated string
-// we add one the len of name bc it doesn't contain the '$' char
-// (token[i] != '$' || j == 1) , it means while we are before an unquoted $
-// char	*replace_name_value(char *token, char *name, char *value)
-// {
-// 	char	*new_token;
-// 	int		i;
-// 	int		j;
-// 	int		k;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (!token || !name || !value)
-// 		return (NULL);
-// 	new_token = ft_calloc(ft_strlen(token)
-// 			+ (ft_strlen(value) - ft_strlen(name)) + 1);
-// 	i = replace_before_name(new_token, token);
-// 	k = i;
-// 	j = 0;
-// 	while (value[j])
-// 	{
-// 		if (value[j] == '$')
-// 			value[j] = -1;
-// 		new_token[i++] = value[j++];
-// 	}
-// 	k += ft_strlen(name);
-// 	while (token[k])
-// 		new_token[i++] = token[k++];
-// 	free(token);
-// 	return (new_token);
-// }
 char	*get_env_value(char *name,t_envp *env)
 {
 	t_envp	*tmp;

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 00:53:56 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 19:49:28 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,8 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 			g_var.status = 1;
 		}
 		change_pwd(&head, exp);
-		if (c)
-			free(c);
+		// if (c)
+		// 	free(c);
 		return ;
 	}
 	else if (chdir(args[0]) == -1 && ft_strcmp(args[0], "-"))

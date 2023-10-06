@@ -1,0 +1,16 @@
+Makefile
+ZZZZ
+a
+b
+bin
+c
+executing
+expansion
+includes
+lexer
+libft
+main.c
+main.o
+minishell
+minishell_tester
+parser

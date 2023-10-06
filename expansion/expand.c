@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 05:34:53 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:50:36 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*trim_quotes(char *token, int quotes_len)
 		}
 		i++;
 	}
-	// free(token);
+	 //free(token);
 	return (trimed_token);
 }
 
@@ -172,12 +172,6 @@ char *remove_quote(char *str)
 	return (src);
 }
 
-//in the expansion part we only have to handle paramter expansion ($) and quotes
-//removal and we will implement these expansions in the same order of the 
-//bash cad variable expansion , word spliting => after word spliting we shall 
-// remove
-// unquoted  empty strings that did result from a variable expension ,
-// then quotes removal
 t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
 {
 	t_lexer	*token;
@@ -200,3 +194,4 @@ t_lexer	*expand_lexer(t_lexer *tokens,t_envp *env)
 	head = tokens;
 	return (head);
 }
+

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 05:38:09 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:25:34 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,10 @@ void	check_heredoc(void)
 void	ft_dup2(int oldfd, int newfd)
 {
 	if (dup2(oldfd, newfd) == -1)
-		ft_putstr_fd("error",2);
+		ft_putstr_fd("error", 2);
 }
- void	sigint_heredoc(void)
+
+void	sigint_heredoc(void)
 {
 	struct sigaction	sa_sigint;
 
@@ -64,20 +65,20 @@ void	ft_dup2(int oldfd, int newfd)
 	sigaction(SIGINT, &sa_sigint, NULL);
 }
 
-int close_her(void)
+int	close_her(void)
 {
-	int fd;
+	int	fd;
 
 	fd = open("/dev/stdin", O_RDONLY);
-	if(fd == -1)
+	if (fd == -1)
 	{
-		dup2(1,0);
+		dup2(1, 0);
 		return (0);
 	}
 	return (close(fd), 1);
 }
 
-int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env) // void
+int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 {
 	int		expand_mode;
 	char	*line;
@@ -91,35 +92,32 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env) // void
 	{
 		sigint_heredoc();
 		line = readline("> ");
-		if(!close_her())
-			break;
+		if (!close_her())
+			break ;
 		if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
 		{
 			if (line)
 				free(line);
-			free(limiter);
 			cmd->fd[0] = fd[0];
 			close(fd[1]);
-			return(1);
+			return (1);
 		}
 		expand_mode = is_expand(&limiter);
-		if (expand_mode &&line)
-		    line = heredoc_expansion(line, env);
+		if (expand_mode && line)
+			line = heredoc_expansion(line, env);
 		joined_line = ft_strjoin2(line, "\n");
 		if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
-			return ( -1);
+			return (-1);
 		free(joined_line);
 		line = NULL;
 	}
-			close(fd[0]);
-			close(fd[1]);
-	
-	return (1); // remove
+	close(fd[0]);
+	close(fd[1]);
+	return (1);
 }
 
 void	ft_close(int fd)
 {
-
 	if (close(fd) == -1)
 		perror("minishell$ ");
 }

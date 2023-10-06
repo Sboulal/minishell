@@ -9,3 +9,5 @@ minishell$ << "a"
 > a
 > a
 < a cat > b << "a" > c
+minishell$ /bin/ls
+minishell : /bin/ls: command not found

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 17:47:07 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/03 13:40:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:13:12 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_lexer	*add_cmd(t_mini **cmds, t_lexer *tokens, t_envp *env)
 	handle_pipes(new, tokens);
 	if (tokens->type == PIPE_LINE)
 		tokens = tokens->next;
-	status = (handle_heredocs(new, tokens, env) && handle_redirection(new, tokens, env));
+	status = handle_heredocs(new, tokens, env);  
+	status = handle_redirection(new, tokens, env);
 	if (status == -1)
 	{
 		close_fds(new);

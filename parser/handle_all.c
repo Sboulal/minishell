@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 04:12:49 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:10:19 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/lexer.h"
+#include "../includes/lexer.h"
 
 void	ft_lstclear(t_list **lst)
 {
@@ -31,7 +31,6 @@ void	ft_lstclear(t_list **lst)
 
 void	handle_pipes(t_mini *cmd, t_lexer *tokens)
 {
-
 	if (tokens->type == PIPE_LINE)
 		cmd->fd[0] = tokens->pipe[READ_END];
 	tokens = next_pipe(tokens);
@@ -57,14 +56,12 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 		}
 		else
 			tokens = tokens->next;
-		
 	}
 	return (1);
 }
 
 t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 {
-	// int		wc;
 	int		i;
 	int		j;
 	t_list	*list;
@@ -72,8 +69,8 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		in;
 	int		out;
 	t_lexer	*head;
+	t_list	*list_head;
 
-	// wc = 0;
 	j = 0;
 	head = tokens;
 	list = NULL;
@@ -94,7 +91,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	head = tokens;
 	i = 0;
-	// head = tokens;
 	while ((head) && head->type != PIPE_LINE)
 	{
 		if (head && head->type == WORD && head->type != LIMITER)
@@ -104,10 +100,6 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		head = head->next;
 	}
 	tmp = list;
-	// list = list->next;
-	// if (!list)
-	// 	list = tmp;
-	t_list *list_head;
 	
 	if (list)
 	{

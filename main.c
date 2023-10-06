@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 07:30:25 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 20:52:31 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,13 +237,7 @@ int main(int ac, char *av[],char *env[])
 			continue;
 		if(g_var.heredoc_flag)
 		{
-			// herdoc_norm(exec, bas);
-			if (exec->cmd)
-				free_cmd(exec->cmd);
-			  free(bas);
-			  close(g_var.heredoc_flag);
-			  g_var.heredoc_flag = 0;
-			  g_var.status = 1;
+			 herdoc_norm(exec, bas);
 			continue;
 		}
 		exec_part(exec,env);
@@ -253,5 +247,6 @@ int main(int ac, char *av[],char *env[])
 	clear_end(exec);
 	return (0);  
 }
+
 
 

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 04:12:10 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:17:38 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_lexer	*skip_op(char **string)
 	}
 	return (tokens);
 }
+
 t_lexer	*parse_norm(char *str)
 {
 	char	**string;
@@ -78,12 +79,13 @@ t_lexer	*parse_norm(char *str)
 	tabfree(string);
 	return (lexer);
 }
+
 t_mini	*parse(char *str, t_envp *env)
 {
 	t_mini	*mini;
 	t_lexer	*lexer;
-	int i;
 	t_lexer	*head;
+	int		i;
 
 	lexer = parse_norm(str);
 	if (!check_parse(lexer))
