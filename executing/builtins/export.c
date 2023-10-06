@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:27 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 00:33:16 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 07:50:37 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ void	edit_in_g_variable(t_exec **exec, char **str, t_export *head, int num)
 	// tabfree(str);
 	if (env)
 	{
-			free(env->variable);
-			free(env->value);
-			free(env->env); // (export (free)=x)
+		free(env->variable);
+		free(env->value);
+		free(env->env); // (export (free)=x)
 		env->variable = ft_strdup(head->variable);
 		env->value = ft_strdup(head->value);
-		env->env = ft_strdup(head->exp);
+		env->env = ft_strjoin(env->variable, "=");
+		env->env = ft_strjoin2(env->env, env->value);
 		edit_in_string(exec, env);
 	}
+	// printf("str = %p\n", str);
 }
 
 int	check_argument_export(char *str)
@@ -117,8 +119,14 @@ void	add_back_envstring(t_envp *env, t_exec **exp)
 }
 void edit_add_more(t_exec **exec, int i)
 {
-	add_back_exp(&(*exec)->exp, list_exp((*exec)->cmd->arg[i]));
-	add_back_env(&(*exec)->env, list_env((*exec)->cmd->arg[i]));
+	t_export *exp;
+	t_envp *env;
+	
+	exp = list_exp((*exec)->cmd->arg[i]);
+	env = list_env((*exec)->cmd->arg[i]);
+
+	add_back_exp(&(*exec)->exp, exp);
+	add_back_env(&(*exec)->env, env);
 	add_back_envstring((*exec)->env, exec);
 }
 void	edit_add(t_exec **exec, int i, int num)

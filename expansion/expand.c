@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 05:05:32 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 05:34:53 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*trim_quotes(char *token, int quotes_len)
 		}
 		i++;
 	}
-	free(token);
+	// free(token);
 	return (trimed_token);
 }
 
@@ -75,11 +75,21 @@ t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 	{
 		if (*(tokens->token) == 0)
 		{
-			if (prev == NULL && !tokens->next)
+			if (prev == NULL)
 			{
+				if (!tokens->next || tokens->type == LIMITER)
+				{	
 				head = tokens->next;
 				free_token_word(tokens, tokens->token);
 				tokens = head;
+				}
+				else
+				{
+				tokens->token = NULL;
+				
+				prev = tokens;
+				tokens = prev->next;
+				}
 			}
 			else if (!tokens->next)
 			{

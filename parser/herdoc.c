@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/05 18:46:04 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 05:38:09 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env) // void
 		{
 			if (line)
 				free(line);
+			free(limiter);
 			cmd->fd[0] = fd[0];
 			close(fd[1]);
 			return(1);

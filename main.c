@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 04:56:57 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 07:30:25 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int check_env(t_exec *exec,char **env, int *k)
 }
 int exec_part(t_exec *exec,char **env)
 {
-	if (exec && exec->cmd && exec->cmd->cmd)
+	if (exec && exec->cmd)
     	exec_cmd(&exec, env);
 	return (0);
 }

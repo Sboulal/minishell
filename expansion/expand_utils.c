@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/03 17:22:28 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 06:54:33 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 			{
 				str = ft_strjoin2(str, "$");
 				if (token[i] == '\0')
+				{
+
 					break;
+				}
 				str = ft_strjoin3(str, to_string(token[i++]));
 				continue;
 			}
@@ -87,7 +90,8 @@ char	*get_name_quot(char *token ,t_envp *env) // get value
 			val = get_env_value(key, env);
 			free(key);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin3(str, val);
+				str = ft_strjoin2(str, val);
+			free(val);
 			continue;
 		}
 		str = ft_strjoin3(str, to_string(token[i]));
@@ -166,7 +170,8 @@ char	*get_name(char *token ,t_envp *env) // get value
 			val = get_env_value(key, env);
 			free(key);
 			if (ft_strlen(val) != 0)
-				str = ft_strjoin3(str, val);
+				str = ft_strjoin2(str, val);
+			free(val);
 			continue;
 		}
 		str = ft_strjoin3(str, to_string(token[i]));

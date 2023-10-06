@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:12:37 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 03:18:50 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 05:18:48 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,11 +163,11 @@ void	exec_cmd(t_exec **exp, char **env)
 		return ;
 	if (!((*exp)))
 		return ;
-	if (((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "cd") == 0)
+	if (((*exp)->nbr_cmd == 1 && ft_strcmp1((*exp)->cmd->cmd, "cd") == 0)
 		|| ((*exp)->nbr_cmd == 1 && ((*exp)->cmd->nbr_arg > 0)
-		&&  (ft_strcmp((*exp)->cmd->cmd, "export") == 0))
-		|| ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "exit") == 0)
-		|| ((*exp)->nbr_cmd == 1 && ft_strcmp((*exp)->cmd->cmd, "unset") == 0))
+		&&  (ft_strcmp1((*exp)->cmd->cmd, "export") == 0))
+		|| ((*exp)->nbr_cmd == 1 && ft_strcmp1((*exp)->cmd->cmd, "exit") == 0)
+		|| ((*exp)->nbr_cmd == 1 && ft_strcmp1((*exp)->cmd->cmd, "unset") == 0))
 		builtins(exp, (*exp)->cmd);
 	else
 		use_pipe(exp, (*exp)->cmd);

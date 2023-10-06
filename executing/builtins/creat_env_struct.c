@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 00:04:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 07:48:19 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_envp	*ft_lst(t_envp *lst)
 
 void	add_back_env(t_envp **lst, t_envp *new)
 {
-	if (!lst || !new)
+	if (!lst || !new) // zid F AKHRA
 		return ;
 	if (*lst == 0)
 	{

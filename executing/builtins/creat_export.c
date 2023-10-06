@@ -6,20 +6,21 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:43:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 00:07:09 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 07:47:27 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/exec.h"
 
-t_export	*put_int_export(t_export *new, char *env, int num)
+
+void put_int_export(t_export *new, char *env, int num)
 {
 	// char	*tmp;
+	// sleep(1);
 	char	**str;
 
 	str = list_clean(env, num);
 	new->variable = ft_strdup(str[0]);
-	
 	if (str[1])
 		new->value = ft_strdup(str[1]);
 	// else
@@ -37,7 +38,8 @@ t_export	*put_int_export(t_export *new, char *env, int num)
 	else
 		new->exp = ft_strdup(str[0]);
 	new->next = NULL;
-	return (tabfree(str), new);
+	tabfree(str);
+	return ;
 }
 
 t_export	*list_exp(char *env)
@@ -53,7 +55,7 @@ t_export	*list_exp(char *env)
 	num = check_export(env);
 	if (num)
 	{
-		new = put_int_export(new, env, num);
+		put_int_export(new, env, num); // need free 3la hssab
 		return (new);
 	}
 	return (new);
