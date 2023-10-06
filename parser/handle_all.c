@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 21:10:19 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 21:43:03 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,29 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 	}
 	return (1);
 }
+// int handle_norm(t_mini *mini,)
+// {
+// 	int		in;
+// 	int		out;
+// 	int		k;
+
+// 	k = check_redirections(tokens);
+// 	if (k == 0)
+// 	{
+// 		in = -4;
+// 		out = -4;
+// 		if (mini->fd[0] > 2)
+// 			in = mini->fd[0];
+// 		if (mini->fd[1] > 2)
+// 			out = mini->fd[1];
+// 	}
+// 	else
+// 	{
+// 		in = -4;
+// 		out = - 4;
+// 	}
+// 	return (0);
+// }
 
 t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 {
@@ -70,11 +93,12 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	int		out;
 	t_lexer	*head;
 	t_list	*list_head;
+	int	k;
 
 	j = 0;
 	head = tokens;
 	list = NULL;
-	int k = check_redirections(tokens);
+	k = check_redirections(tokens);
 	if (k == 0)
 	{
 		in = -4;
@@ -89,6 +113,7 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		in = -4;
 		out = - 4;
 	}
+
 	head = tokens;
 	i = 0;
 	while ((head) && head->type != PIPE_LINE)
