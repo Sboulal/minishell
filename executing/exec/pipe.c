@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 01:31:04 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ int	error_fork(pid_t pid, int **pipfd, int nbr_cmd)
 
 void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 {
+	if (head->x)
+	{
+		close_file(pipfd, (*exp)->nbr_cmd - 1);
+		exit(g_var.status);
+	}
 	if (head->fd[READ_END] > 2)
 		dup2(head->fd[READ_END], READ_END);
 	else if (j > 0)
