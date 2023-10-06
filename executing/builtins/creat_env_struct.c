@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 07:48:19 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/06 08:09:54 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ t_envp	*list_env(char *env)
 	if (!new)
 		return (NULL);
 	if (!(ft_strchr(env, '=')))
+	{
+		free(new);
 		return (NULL);
+	}
 	num = check_export(env);
 	if (num)
 	{
