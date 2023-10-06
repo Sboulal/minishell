@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 13:57:08 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 01:09:19 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 00:21:22 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,16 +97,6 @@ void	token_herdoc(t_lexer *lexer)
 	}
 }
 
-// void	ft_exit(int status, char *msg)
-// {
-// 	if (msg)
-// 	{
-// 		ft_putstr_fd(msg, 2);
-// 		ft_putstr_fd("\n", 2);
-// 	}
-// 	exit(status);
-// }
-
 int	ft_pipe(int fd[2])
 {
 	if (pipe(fd) == -1)
@@ -141,43 +131,56 @@ int test_file(char *file)
 	}
 	return (0);
 }
-
-int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
+int	redirect_right(char *file, t_mini **cmd, char *type)
 {
 	int	fd;
-	(void)env;
 
-	cmd->x = 0;
 	if (!ft_strcmp(type, ">>"))
 	{
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (fd == -1)
 		{
-			cmd->x = 1;
-			cmd->fd[1] = -4;
+			(*cmd)->x = 1;
+			(*cmd)->fd[1] = -4;
 			ft_putstr_fd(file,2);
 			perror(" ");
 			g_var.status = 1;
 			return(0);
 		}
-		check_and_redirect(&cmd->fd[1], fd);
+		check_and_redirect(&(*cmd)->fd[1], fd);
 	}
+	return (1);
+}
+int	redirect_in(char *file, t_mini **cmd, char *type)
+{
+	int	fd;
 
 	if (!ft_strcmp(type, ">"))
 	{
 		fd = ft_open(file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		if (fd == -1)
 		{
-			cmd->x = 1;
-			cmd->fd[1] = -4;
+			(*cmd)->x = 1;
+			(*cmd)->fd[1] = -4;
 			 ft_putstr_fd(file,2);
 			perror(" ");
 			g_var.status = 1;
 			return(0);
 		}
-		check_and_redirect(&cmd->fd[1], fd);
+		check_and_redirect(&(*cmd)->fd[1], fd);
 	}
+	return (1);
+}
+int	redirect(t_mini *cmd, char *type, char *file, t_envp *env)
+{
+	int	fd;
+	(void)env;
 
+	cmd->x = 0;
+	if (!redirect_right(file, &cmd, type))
+		return (0);
+	if (!redirect_in(file, &cmd, type))
+		return (0);
 	if (!ft_strcmp(type, "<"))
 	{
 		fd = ft_open(file,  O_RDONLY , 0644);

@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:57:02 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/04 20:06:39 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 00:27:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 t_lexer *create_node(char *s)
 {
-		t_lexer *p;
-
-		// p = NULL;
-		// if(p == NULL)
-		// 	return(NULL);
-		p = ft_calloc(sizeof(t_lexer));
-		p->token = ft_strdup(s);
-		p->type = check_token(s);
-		return(p);
+	t_lexer *p;
+	
+	p = ft_calloc(sizeof(t_lexer));
+	p->token = ft_strdup(s);
+	p->type = check_token(s);
+	return(p);
 }
 
 void add_back(t_lexer **head, char *s)

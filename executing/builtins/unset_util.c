@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 23:19:50 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 23:21:24 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 00:05:32 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,14 @@ void	unset_export(t_exec **exp, char **arg)
 		}
 		i++;
 	}
+}
+
+void	exit_program_norm(t_mini *cmd)
+{
+	printf("exit\n");
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(cmd->arg[0], 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
+	g_var.status = 255;
+	exit(g_var.status);
 }
