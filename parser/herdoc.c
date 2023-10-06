@@ -104,7 +104,6 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 {
 	int		expand_mode;
 	char	*line;
-	// char	*joined_line;
 	int		fd[2];
 
 	free(file);

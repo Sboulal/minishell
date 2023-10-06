@@ -82,40 +82,15 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 // 	}
 // 	return (0);
 // }
-
-t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
+t_list *cmd_list(t_lexer *tokens)
 {
-	int		i;
-	int		j;
+	t_lexer *head;
 	t_list	*list;
-	t_list	*tmp;
-	int		in;
-	int		out;
-	t_lexer	*head;
-	t_list	*list_head;
-	int	k;
 
-	j = 0;
-	head = tokens;
+	if (!tokens)
+		return (NULL);
 	list = NULL;
-	k = check_redirections(tokens);
-	if (k == 0)
-	{
-		in = -4;
-		out = -4;
-		if (cmd->fd[0] > 2)
-			in = cmd->fd[0];
-		if (cmd->fd[1] > 2)
-			out = cmd->fd[1];
-	}
-	else
-	{
-		in = -4;
-		out = - 4;
-	}
-
 	head = tokens;
-	i = 0;
 	while ((head) && head->type != PIPE_LINE)
 	{
 		if (head && head->type == WORD && head->type != LIMITER)
@@ -124,18 +99,28 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		}
 		head = head->next;
 	}
+	return (list);
+}
+void	cmd_repl_nor(t_mini **cmd, t_list	**list)
+{
+	(*cmd)->cmd = ft_strdup((*list)->content);
+	(*cmd)->next = NULL;
+	(*list) = (*list)->next;
+}
+t_list	*cmd_repl(t_lexer *tokens, t_mini **cmd, int *i)
+{
+	t_list	*list;
+	t_list	*tmp;
+	t_list	*list_head;
+
+	list = cmd_list(tokens);
 	tmp = list;
-	
 	if (list)
-	{
-		cmd->cmd = ft_strdup(list->content);
-		cmd->next = NULL;
-		list = list->next;
-	}
+		cmd_repl_nor(cmd, &list);
 	else
 	{
-		cmd->cmd = NULL;
-		cmd->next = NULL;
+		(*cmd)->cmd = NULL;
+		(*cmd)->next = NULL;
 	}
 	if (list)
 	{
@@ -143,31 +128,67 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 		while (list_head)
 		{
 			list_head = list_head->next;
-			i++;
+			(*i)++;
 		}
 	}
-	cmd->nbr_arg = i;
+	list = tmp;
+	return (list);
+}
+t_mini	*arg_repl(t_list *list, int i,t_mini **cmd)
+{
+	t_list *list_head;
+	int		j;
+
+	j = 0;
 	if (list)
 	{
-		cmd->arg = (char **)malloc(sizeof(char *) * (i + 1));
-		if (!cmd->arg)
-			return (cmd);
-		list_head = list;
+		(*cmd)->arg = (char **)malloc(sizeof(char *) * (i + 1));
+		if (!(*cmd)->arg)
+			return ((*cmd));
+		list_head = list->next;
 		while (list_head)
 		{
-			cmd->arg[j] = ft_strdup(list_head->content);
+			(*cmd)->arg[j] = ft_strdup((char *)list_head->content);
 			list_head = list_head->next;
 			j++;
 		}
-		cmd->arg[j] = NULL;
+		(*cmd)->arg[j] = NULL;
 	}
 	else
-		cmd->arg = NULL;
+		(*cmd)->arg = NULL;
+	return (NULL);
+}
+void	open_fil(int *fd, t_mini **cmd, int k)
+{
+	fd[0] = -4;
+	fd[1] = -4;
+	if (k == 0)
+	{
+		if ((*cmd)->fd[0] > 2)
+			fd[0] = (*cmd)->fd[0];
+		if ((*cmd)->fd[1] > 2)
+			fd[1] = (*cmd)->fd[1];
+	}
+}
+t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
+{
+	int		i;
+	t_list	*list;
+	int		fd[2];
+	int	k;
+
+	k = check_redirections(tokens);
+	open_fil(fd, &cmd, k);
+	i = 0;
+	list = cmd_repl(tokens, &cmd, &i);
+	cmd->nbr_arg = i;
+	if (arg_repl(list, i, &cmd))
+		return (cmd);
 	if (!k)
 	{
-		cmd->fd[0] = in;
-		cmd->fd[1] = out;
+		cmd->fd[0] = fd[0];
+		cmd->fd[1] = fd[1];
 	}
-	ft_lstclear(&tmp);
+	ft_lstclear(&list);
 	return (cmd);
 }
