@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/28 19:17:33 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 23:25:34 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	check_permision(t_mini *cmd)
 		ft_putstr_fd("minishell : ", 2);
 		ft_putstr_fd(cmd->cmd, 2);
 		ft_putstr_fd(": is a directory\n", 2);
-		g_var.status = 126;
-		exit(g_var.status);
+		g_var.sig_status = 126;
+		exit(g_var.sig_status);
 	}
 }
 
@@ -78,8 +78,8 @@ char	**find_cmd(char *path, t_exec **exp, t_mini *cmd)
 		ft_putstr_fd("minishell : ", 2);
 		ft_putstr_fd(cmd->cmd, 2);
 		ft_putstr_fd(": command not found\n", 2);
-		g_var.status = 127;
-		exit(g_var.status);
+		g_var.sig_status = 127;
+		exit(g_var.sig_status);
 	}
 	str = ft_split(path, ':');
 	while (str[i])
@@ -114,10 +114,10 @@ void	exec_pipe(t_exec **exp, t_mini *cmd)
 	pt = find_cmd(path, exp, cmd);
 	if (!pt && cmd->cmd)
 		return ;
-	g_var.status = execve(*pt, pt, (*exp)->env_string);
+	g_var.sig_status = execve(*pt, pt, (*exp)->env_string);
 	ft_putstr_fd("minishell : ", 2);
 	ft_putstr_fd(cmd->cmd, 2);
 	ft_putstr_fd(": command not found\n", 2);
-	g_var.status = 127;
-	exit(g_var.status);
+	g_var.sig_status = 127;
+	exit(g_var.sig_status);
 }

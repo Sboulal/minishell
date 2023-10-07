@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_export.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:43:07 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 22:23:30 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	creat_exp(t_export **exp, t_envp *env)
 {
 	if (!env)
 	{
-		g_var.status = 127;
+		g_var.sig_status = 127;
 		return ;
 	}
 	while (env)

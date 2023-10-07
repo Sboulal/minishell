@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:51:30 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 23:29:36 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	wait_pid(pid_t *pid, t_exec *exp)
 	while (i < exp->nbr_cmd)
 		waitpid(pid[i++], &s, 0);
 	if (WIFEXITED(s))
-		g_var.status = WEXITSTATUS(s);
+		g_var.sig_status = WEXITSTATUS(s);
 	else if (WIFSIGNALED(s))
-		g_var.status = 128 + WTERMSIG(s);
+		g_var.sig_status = 128 + WTERMSIG(s);
 }
 
 int	**incial_pipe(int nb_pip, t_exec *exp)

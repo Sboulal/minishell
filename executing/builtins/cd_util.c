@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_util.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:09:51 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 23:29:59 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 		if (!c)
 		{
 			ft_putstr_fd(": cd: HOME not set\n", 2);
-			g_var.status = 1;
+			g_var.sig_status = 1;
 		}
 		change_pwd(&head, exp);
 		return ;
@@ -95,9 +95,9 @@ void	cd_derc(char **args, t_envp **list_env, t_exec **exp, t_mini *cmd)
 		return ;
 	}
 	change_pwd(&head, exp);
-	g_var.status = 0;
+	g_var.sig_status = 0;
 	if ((*exp)->nbr_cmd > 1)
-		exit(g_var.status);
+		exit(g_var.sig_status);
 }
 
 void	print_env(t_exec *exp)
@@ -107,7 +107,7 @@ void	print_env(t_exec *exp)
 	i = 0;
 	if (!exp->env)
 	{
-		g_var.status = 127;
+		g_var.sig_status = 127;
 		return ;
 	}
 	while (exp->env)
@@ -116,5 +116,5 @@ void	print_env(t_exec *exp)
 		i++;
 		exp->env = exp->env->next;
 	}
-	g_var.status = 0;
+	g_var.sig_status = 0;
 }

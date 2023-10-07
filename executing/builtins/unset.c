@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 23:21:14 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_delete(t_envp **list)
 	free(head->value);
 	free(head->variable);
 	free(head);
-	g_var.status = 0;
+	g_var.sig_status = 0;
 }
 
 void	ft_delete_export(t_export **list)
@@ -41,7 +41,7 @@ void	ft_delete_export(t_export **list)
 	free(head->value);
 	free(head->variable);
 	free(head);
-	g_var.status = 0;
+	g_var.sig_status = 0;
 }
 
 int	is_identifier(char c)
@@ -70,5 +70,5 @@ void	delete_export_norm(t_export *head, char *arg)
 		&& ft_strcmp(arg, head->next->variable) == 0)
 		ft_delete_export(&head);
 	else
-		g_var.status = 127;
+		g_var.sig_status = 127;
 }

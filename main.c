@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:48:38 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	herdoc_norm(t_exec *exec, char *bas)
 	if (exec->cmd)
 		free_cmd(exec->cmd);
 	free(bas);
-	close(g_var.heredoc_flag);
-	g_var.heredoc_flag = 0;
-	g_var.status = 1;
+	close(g_var.sig_heredoc);
+	g_var.sig_heredoc = 0;
+	g_var.sig_status = 1;
 }
 
 int	main(int ac, char	*av[], char	*env[])
@@ -63,7 +63,7 @@ int	main(int ac, char	*av[], char	*env[])
 		bas = readline("minishell$ ");
 		if (control_line(bas, &exec, env, &k))
 			continue ;
-		if (g_var.heredoc_flag)
+		if (g_var.sig_heredoc)
 		{
 			herdoc_norm(exec, bas);
 			continue ;

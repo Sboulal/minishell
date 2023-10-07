@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:42 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 23:00:00 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_error_nor(char *str)
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	g_var.status = 127;
+	g_var.sig_status = 127;
 }
 
 void	print_error_norr(char *str, int i)
@@ -26,7 +26,7 @@ void	print_error_norr(char *str, int i)
 	ft_putstr_fd("minishell: export: `", 2);
 	ft_putstr_fd(str, 2);
 	ft_putstr_fd("': not a valid identifier\n", 2);
-	g_var.status = 127;
+	g_var.sig_status = 127;
 }
 
 void	get_pwd(t_exec **exp)
@@ -36,7 +36,7 @@ void	get_pwd(t_exec **exp)
 	getcwd(s, PATH_MAX);
 	if (*s)
 		printf("%s\n", s);
-	g_var.status = 0;
+	g_var.sig_status = 0;
 	if ((*exp)->nbr_cmd > 1)
-		exit(g_var.status);
+		exit(g_var.sig_status);
 }

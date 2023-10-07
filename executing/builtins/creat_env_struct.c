@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   creat_env_struct.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 11:38:56 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 22:21:49 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	creat_env(t_exec **lst)
 	i = 0;
 	if (!(*lst)->env_string[i])
 	{
-		g_var.status = 127;
+		g_var.sig_status = 127;
 		return ;
 	}
 	while ((*lst)->env_string[i])

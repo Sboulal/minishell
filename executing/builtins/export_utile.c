@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 17:10:32 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 22:50:55 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	export(t_exec **exec)
 
 	if (!(*exec))
 	{
-		g_var.status = 1;
+		g_var.sig_status = 1;
 		return ;
 	}
 	head = (*exec)->exp;
@@ -46,12 +46,12 @@ void	export(t_exec **exec)
 			printf("declare -x %s\n", head->exp);
 			head = head->next;
 		}
-		g_var.status = 0;
+		g_var.sig_status = 0;
 	}
 	else
 		add_to_export(exec);
 	if ((*exec)->nbr_cmd > 1)
-		exit(g_var.status);
+		exit(g_var.sig_status);
 }
 
 int	check_error_export_norr(char *cmd, int i)
@@ -60,7 +60,7 @@ int	check_error_export_norr(char *cmd, int i)
 	{
 		ft_putstr_fd("export: usage: export [-nf] [na", 2);
 		ft_putstr_fd("me[=value] ...] or export -p \n", 2);
-		g_var.status = 1;
+		g_var.sig_status = 1;
 		return (0);
 	}
 	else if (cmd[i] == ')' || cmd[i] == '(')
@@ -69,7 +69,7 @@ int	check_error_export_norr(char *cmd, int i)
 		ft_putstr_fd("unexpected token `", 2);
 		ft_putchar_fd(cmd[i], 2);
 		ft_putstr_fd("'\n", 2);
-		g_var.status = 1;
+		g_var.sig_status = 1;
 		return (0);
 	}
 	else
@@ -77,7 +77,7 @@ int	check_error_export_norr(char *cmd, int i)
 		ft_putstr_fd("minishell: export: `", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd("': not a valid identifier\n", 2);
-		g_var.status = 1;
+		g_var.sig_status = 1;
 		return (0);
 	}
 }

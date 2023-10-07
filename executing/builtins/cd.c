@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:46:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 22:14:33 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	change_pwd_dir(void)
 	ft_putstr_fd("cd: error retrieving current directory", 2);
 	ft_putstr_fd(": getcwd: cannot access parent", 2);
 	ft_putstr_fd(":directories: No such file or directory\n", 2);
-	g_var.status = 126;
+	g_var.sig_status = 126;
 }
 
 void	change_pwd_free(t_envp	*head, char	*str)
@@ -83,5 +83,5 @@ void	cd_derc_err(char **args)
 	ft_putstr_fd("minishell: cd: ", 2);
 	ft_putstr_fd(args[0], 2);
 	ft_putstr_fd(": No such file or directory\n", 2);
-	g_var.status = 1;
+	g_var.sig_status = 1;
 }

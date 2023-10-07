@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 15:43:46 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/06 23:29:04 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 	if (head->x)
 	{
 		close_file(pipfd, (*exp)->nbr_cmd - 1);
-		exit(g_var.status);
+		exit(g_var.sig_status);
 	}
 	if (head->fd[READ_END] > 2)
 		dup2(head->fd[READ_END], READ_END);
@@ -67,7 +67,7 @@ void	norm_pipe(t_mini *head, int **pipfd, t_exec **exp, int j)
 		close(head->fd[WRITE_END]);
 	close_file(pipfd, (*exp)->nbr_cmd - 1);
 	buil_exec_pipe(exp, head);
-	exit(g_var.status);
+	exit(g_var.sig_status);
 }
 
 void	close_pipe(int **pip, int j)

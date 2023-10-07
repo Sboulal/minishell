@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:47:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 00:06:24 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ long long	ft_atoi_exit(const char *str)
 void	exit_caract(t_mini *cmd)
 {
 	printf("exit\n");
-	g_var.status = 255;
+	g_var.sig_status = 255;
 	ft_putstr_fd("minishell: exit: ", 2);
 	ft_putstr_fd(cmd->arg[0], 2);
 	ft_putstr_fd(": numeric argument required\n", 2);
-	exit(g_var.status);
+	exit(g_var.sig_status);
 }
 
 void	exit_norm(t_mini *cmd)
@@ -87,8 +87,8 @@ void	exit_norm(t_mini *cmd)
 	{
 		printf("exit\n");
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-		g_var.status = 1;
-		exit(g_var.status);
+		g_var.sig_status = 1;
+		exit(g_var.sig_status);
 	}
 }
 
@@ -99,18 +99,18 @@ void	exit_program(t_mini *cmd, t_exec *exp)
 	if (cmd->nbr_arg == 0 && exp->nbr_cmd == 1)
 	{
 		printf("exit\n");
-		exit(g_var.status);
+		exit(g_var.sig_status);
 	}
 	exit_norm(cmd);
 	catch = ft_atoi_exit(cmd->arg[0]);
 	if (catch == -1 && ft_strcmp(ft_itoa(catch), cmd->arg[0]))
 		exit_program_norm(cmd);
-	g_var.status = (int)catch;
+	g_var.sig_status = (int)catch;
 	if (protect_exit(cmd, exp))
 		return ;
 	if (exp->nbr_cmd == 1)
 	{
 		printf("exit\n");
-		exit(g_var.status);
+		exit(g_var.sig_status);
 	}
 }

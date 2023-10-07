@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:15:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 02:15:52 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_expand(char **limiter)
 void	change_flag(int s)
 {
 	(void)s;
-	g_var.heredoc_flag = dup(0);
+	g_var.sig_heredoc = dup(0);
 	close(0);
 }
 
@@ -43,11 +43,11 @@ int	handle_heredoc_suite(t_mini *cmd, char *limiter, char *file, int fd)
 
 void	check_heredoc(void)
 {
-	if (g_var.heredoc_flag)
+	if (g_var.sig_heredoc)
 	{
-		ft_dup2(g_var.heredoc_flag, 0);
-		ft_close(g_var.heredoc_flag);
-		g_var.status = 1;
+		ft_dup2(g_var.sig_heredoc, 0);
+		ft_close(g_var.sig_heredoc);
+		g_var.sig_status = 1;
 	}
 }
 

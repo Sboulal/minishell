@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:07:04 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:50:27 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	expand_exit(char *token, int *i, char **str)
 {
 	if (token[*i] == '$' && token[(*i) + 1] == '?')
 	{
-		*str = ft_strjoin3(*str, (ft_itoa(g_var.status)));
+		*str = ft_strjoin3(*str, (ft_itoa(g_var.sig_status)));
 		(*i) += 2;
 		return (1);
 	}

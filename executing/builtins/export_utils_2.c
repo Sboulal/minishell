@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 22:45:34 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 22:54:51 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ int	check_unset_env(char *cmd)
 	i = 1;
 	if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 	{
-		g_var.status = 1;
+		g_var.sig_status = 1;
 		return (0);
 	}
 	while (cmd[i])
 	{
 		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 		{
-			g_var.status = 1;
+			g_var.sig_status = 1;
 			return (0);
 		}
 		i++;
@@ -122,14 +122,14 @@ int	check_unset(char *cmd)
 	i = 1;
 	if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 	{
-		g_var.status = 1;
+		g_var.sig_status = 1;
 		return (0);
 	}
 	while (cmd[i])
 	{
 		if (!(ft_isalpha(cmd[0]) || cmd[0] == '_'))
 		{
-			g_var.status = 1;
+			g_var.sig_status = 1;
 			return (0);
 		}
 		i++;

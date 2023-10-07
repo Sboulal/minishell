@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 03:23:23 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_lexer	*parse_norm(char *str)
 	string = skip_vid(str);
 	if (string == NULL)
 	{
-		g_var.status = 258;
+		g_var.sig_status = 258;
 		ft_putstr_fd("minishell:", 2);
 		ft_putstr_fd(" syntax error near unexpected token", 2);
 		ft_putstr_fd("\n", 2);
@@ -84,7 +84,7 @@ t_lexer	*parse_norm(char *str)
 
 void	error_print(void)
 {
-	g_var.status = 258;
+	g_var.sig_status = 258;
 	ft_putstr_fd("minishell:", 2);
 	ft_putstr_fd(" syntax error near unexpected token", 2);
 	ft_putstr_fd("\n", 2);

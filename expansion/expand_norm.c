@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:52:20 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 04:30:47 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ char	*get_env_value(char *name, t_envp *env)
 
 	tmp = env;
 	if (*name == '?')
-		return (ft_itoa(g_var.status));
+		return (ft_itoa(g_var.sig_status));
 	if (!tmp)
 		return (NULL);
 	while (tmp)

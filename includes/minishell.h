@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 03:54:56 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:50:57 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,17 @@ typedef struct s_envp
 }	t_envp;
 typedef struct s_glob
 {
-	int	heredoc_flag;
-	int	status;
+	int	sig_heredoc;
+	int	sig_status;
 }t_glob;
 
 t_glob	g_var;
+
 typedef struct s_lexer
 {
 	char			*token;
 	int				type;
-	int 			y;
+	int				y;
 	int				pipe[2];
 	struct s_lexer	*next;
 }t_lexer;

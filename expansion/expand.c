@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 05:28:50 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:52:49 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,20 @@ char	*quotes_removal(char *token)
 	return (trim_quotes(token, quotes_len));
 }
 
-void free_node(t_lexer *tokens)
+void	free_node(t_lexer *tokens)
 {
 	if (tokens->token)
 		free(tokens->token);
 	tokens->token = NULL;
 	free(tokens);
-	tokens = NULL;	
-		
+	tokens = NULL;
 }
 
 void	remove_empty_first(t_lexer **tokens, t_lexer **prev, t_lexer **head)
 {
+	t_lexer	*tmp;
 
 	(void)prev;
-	t_lexer	*tmp;
 	if (!(*tokens)->next || (*tokens)->type == LIMITER)
 	{
 		if ((*tokens)->y == 1)
@@ -149,7 +148,6 @@ void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head)
 			(*prev)->next = (*tokens)->next;
 			free_node((*tokens));
 			(*tokens) = (*prev)->next;
-					
 		}
 	}
 }
