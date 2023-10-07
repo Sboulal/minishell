@@ -6,23 +6,21 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:02:48 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:23:53 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/minishell.h"
 #include "includes/exec.h"
 
-t_global	g_var;
-static int is_isspace(char c)
+static int	is_isspace(char c)
 {
-    return (c == ' ' || (c >= '\t' && c <= '\r'));
+	return (c == ' ' || (c >= '\t' && c <= '\r'));
 }
 
 void	ft_lstclear_cmd(t_mini **lst)
 {
 	t_mini	*tmp;
-	// int i = 0;
 
 	if (!lst)
 		return ;
@@ -47,11 +45,12 @@ void	ft_lstclear_cmd(t_mini **lst)
 		}
 	}
 }
+
 void	ft_lstclear_exp(t_export **lst)
 {
 	t_export	*tmp;
 
-	if (!lst )
+	if (!lst)
 		return ;
 	while (*lst)
 	{
@@ -60,11 +59,12 @@ void	ft_lstclear_exp(t_export **lst)
 		free(tmp);
 	}
 }
+
 void	ft_lstclear_env(t_envp **lst)
 {
 	t_envp	*tmp;
 
-	if (!lst )
+	if (!lst)
 		return ;
 	while (*lst)
 	{
@@ -73,22 +73,20 @@ void	ft_lstclear_env(t_envp **lst)
 		free(tmp);
 	}
 }
-static void ft_add_history(char *bas)
-{
-  char *ptr;
 
-  ptr = bas;
-  if(!bas) 
-    return ;
-  while(*bas && is_isspace(*bas))
-    bas++;
-  if(*bas != 0)
-    add_history(ptr);
+static void	ft_add_history(char *bas)
+{
+	char	*ptr;
+
+	ptr = bas;
+	if (!bas) 
+		return ;
+	while (*bas && is_isspace(*bas))
+		bas++;
+	if (*bas != 0)
+	add_history(ptr);
 }
-// void ft_leaks()
-// {
-//     system("leaks minishell");
-// }
+
 int	cmt_string(char **env)
 {
 	int	i;
@@ -116,18 +114,20 @@ char	**creat_string_env(char **env)
 	env_string[i] = NULL;
 	return (env_string);
 }
-int check_line(int ac,char **av)
+
+int	check_line(int ac, char **av)
 {
-	if(ac != 1)
-    {
-      ft_putstr_fd("minishell: ", 2);
-	    ft_putstr_fd(av[1], 2);
-      ft_putstr_fd(": No such file or directory\n", 2);
-        return (0);
-    }	
-    return (1);  
+	if (ac != 1)
+	{
+		ft_putstr_fd("minishell: ", 2);
+		ft_putstr_fd(av[1], 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+		return (0);
+	}
+	return (1);
 }
-int check_env(t_exec *exec,char **env, int *k)
+
+int	check_env(t_exec	*exec, char	**env, int	*k)
 {
 	if (*k == 0)
     {
@@ -165,7 +165,7 @@ void check_fd( t_mini *head, t_exec *exec, char *bas)
     	free(bas);
 }
 
-int ft_read(char *line)
+int	ft_read(char *line)
 {
 	int w;
 	
@@ -180,13 +180,14 @@ int ft_read(char *line)
 		w++;
 	return (0);
 }
-void	clear_end(t_exec *exec)
+void	clear_end(t_exec	*exec)
 {
 	tabfree(exec->env_string);
 	ft_lstclear_env(&exec->env);
 	ft_lstclear_exp(&exec->exp);
 	free(exec);
 }
+
 int	control_line(char *bas, t_exec **exec, char **env, int *k)
 {
 	int	w;
@@ -210,6 +211,7 @@ int	control_line(char *bas, t_exec **exec, char **env, int *k)
 	(*exec)->cmd = parse(bas, (*exec)->env);
 	return (0);
 }
+
 void	herdoc_norm(t_exec *exec, char *bas)
 {
 	if (exec->cmd)
@@ -219,33 +221,34 @@ void	herdoc_norm(t_exec *exec, char *bas)
 	g_var.heredoc_flag = 0;
 	g_var.status = 1;
 }
-int main(int ac, char *av[],char *env[])
+
+int	main(int	ac, char	*av[], char	*env[])
 {
-  char *bas;
-  t_mini *head;
-  t_exec *exec;
-  int k;
+	int			k;
+	char		*bas;
+	t_mini		*head;
+	t_exec		*exec;
 
   k = 0;
-  exec = (t_exec *)ft_calloc(sizeof(t_exec));
-	check_line(ac,av);	  
-	while(1)
+  exec = (t_exec *) ft_calloc(sizeof(t_exec));
+	check_line(ac, av);
+	while (1)
 	{
 		sig();
-    	bas = readline("minishell$ ");
+		bas = readline("minishell$ ");
 		if (control_line(bas, &exec, env, &k))
 			continue;
-		if(g_var.heredoc_flag)
+		if (g_var.heredoc_flag)
 		{
-			 herdoc_norm(exec, bas);
-			continue;
+			herdoc_norm(exec, bas);
+			continue ;
 		}
 		exec_part(exec,env);
 		head = exec->cmd;
 		check_fd(head, exec, bas);
 	}
 	clear_end(exec);
-	return (0);  
+	return (0);
 }
 
 
