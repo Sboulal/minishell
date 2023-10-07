@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 02:29:22 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:31:17 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@
 # define WRITE_END 1
 # define FILE 5
 
-// typedef struct s_glob	t_global;
-// t_global			g_var;
 typedef struct s_envp
 {
 	char			*env;
@@ -44,11 +42,11 @@ typedef struct s_envp
 }	t_envp;
 typedef struct s_glob
 {
-    int	heredoc_flag;
+	int	heredoc_flag;
 	int	status;
 }t_glob;
 
-t_glob g_var;
+t_glob	g_var;
 typedef struct s_lexer
 {
 	char			*token;
