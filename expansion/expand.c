@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 06:25:05 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:26:53 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ void	free_node(t_lexer *tokens)
 	free(tokens);
 	tokens = NULL;
 }
-
-void	
 
 void	remove_empty_first(t_lexer **tokens, t_lexer **head)
 {
