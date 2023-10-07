@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 05:50:57 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:06:18 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@
 # define READ_END 0
 # define WRITE_END 1
 # define FILE 5
+
+
+typedef struct s_gn
+{
+	int		i;
+	char	*str;
+}	t_gn;
 
 typedef struct s_envp
 {
@@ -173,4 +180,5 @@ void	ft_lstclear_cmd(t_mini **lst);
 void	ft_lstclear_exp(t_export **lst);
 void	ft_lstclear_env(t_envp **lst);
 void	ft_add_history(char *bas);
+void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head);
 #endif

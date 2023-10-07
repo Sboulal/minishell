@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:52:20 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:11:50 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,43 +53,49 @@ int	expand_doubl(char *token, int *i, char **str, t_envp *env)
 	return (0);
 }
 
+int get_name_u(char *token, t_envp *env, t_lexer *tokens, t_gn *gn)
+{
+	if (expand_exit(token, &gn->i, &gn->str))
+		return (1);
+	if (expand_exit_null(token, &gn->i, &gn->str))
+		return (1);
+	if (expand_singl(token, &gn->i, &gn->str))
+	{
+		tokens->y = 1;
+		return (1);
+	}
+	if (expand_doubl(token, &gn->i, &gn->str, env))
+	{
+		tokens->y = 1;
+		return (1);
+	}
+	return (0);
+}
+
 char	*get_name(char *token, t_envp *env, t_lexer *tokens)
 {
-	int		i;
-	char	*str;
+	t_gn	gn;
 
-	i = 0;
-	str = ft_strdup("");
-	while (token[i])
+	gn.i = 0;
+	gn.str = ft_strdup("");
+	while (token[gn.i])
 	{
-		if (expand_exit(token, &i, &str))
+		if (get_name_u(token, env, tokens, &gn))
 			continue ;
-		if (expand_exit_null(token, &i, &str))
-			continue ;
-		if (expand_singl(token, &i, &str))
-		{
-			tokens->y = 1;
-			continue ;
-		}
-		if (expand_doubl(token, &i, &str, env))
-		{
-			tokens->y = 1;
-			continue ;
-		}
-		if (!expand_do(token, &i, &str, env))
+		if (!expand_do(token, &gn.i, &gn.str, env))
 		{
 			tokens->y = 2;
 			continue ;
 		}
-		else if (expand_do(token, &i, &str, env) == 2)
+		else if (expand_do(token, &gn.i, &gn.str, env) == 2)
 		{
 			tokens->y = 2;
 			break ;
 		}
-		str = ft_strjoin3(str, to_string(token[i]));
-		i++;
+		gn.str = ft_strjoin3(gn.str, to_string(token[gn.i]));
+		gn.i++;
 	}
-	return (free(token), str);
+	return (free(token), gn.str);
 }
 
 int	replace_before_name(char *new_token, char *token)

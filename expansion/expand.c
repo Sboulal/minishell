@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 05:52:49 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:53:58 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,21 +150,4 @@ void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head)
 			(*tokens) = (*prev)->next;
 		}
 	}
-}
-
-t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
-{
-	while (tokens)
-	{
-		if (*(tokens->token) == 0)
-		{
-			remove_empty_norm(&tokens, &prev, &head);
-		}
-		else
-		{
-			prev = tokens;
-			tokens = tokens->next;
-		}
-	}
-	return (head);
 }

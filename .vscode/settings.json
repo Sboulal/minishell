@@ -24,6 +24,7 @@
         "iterator": "c",
         "limits": "c",
         "ratio": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "sstream": "c"
     }
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_norm_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:53:23 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:07:26 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:54:30 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,21 @@ char	*get_name_quot(char *token, t_envp *env)
 		i++;
 	}
 	return (str);
+}
+
+t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
+{
+	while (tokens)
+	{
+		if (*(tokens->token) == 0)
+		{
+			remove_empty_norm(&tokens, &prev, &head);
+		}
+		else
+		{
+			prev = tokens;
+			tokens = tokens->next;
+		}
+	}
+	return (head);
 }

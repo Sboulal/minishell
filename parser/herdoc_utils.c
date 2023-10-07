@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:15:22 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:16:01 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	is_expand(char **limiter)
 		*limiter = quotes_removal(*limiter);
 		return (0);
 	}
+	*limiter = ft_strdup(*limiter);
 	return (1);
 }
 
