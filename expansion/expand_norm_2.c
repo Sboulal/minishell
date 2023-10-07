@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:53:23 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 06:25:11 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 08:15:55 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ int	expand_do(char *token, int *i, char **str, t_envp *env)
 	if (token[*i] == '$')
 	{
 		(*i)++;
+		if (expand_singl(token, i, str) == 1)
+			return (0);
+		if (expand_doubl(token, i, str, env) == 1)
+		{
+			val = get_env_value(*str, env);
+			if (ft_strlen(val) != 0)
+				*str = ft_strdup(val);
+			return (0);
+		}
 		if (expand_do_nor(token, &i, str) == 0)
 			return (0);
 		if (expand_do_nor(token, &i, str) == 2)

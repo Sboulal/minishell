@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:43:09 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 05:50:27 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 07:53:30 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	expand_exit_null(char *token, int *i, char **str)
 
 int	expand_do_nor(char *token, int **i, char **str)
 {
-	if (!(ft_isalpha(token[**i]) || token[**i] == '_' ))
+	if (!(ft_isalpha(token[**i]) || token[**i] == '_'))
 	{
 		*str = ft_strjoin2(*str, "$");
 		if (token[**i] == '\0')
