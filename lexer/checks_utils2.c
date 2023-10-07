@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:13:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 02:03:24 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 09:47:48 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_open(char *path, int flags, int mode)
 	if (fd == -1)
 	{
 		ft_putstr_fd("minishell: ", 2);
-		perror(path);
+		// perror(path);
 	}
 	return (fd);
 }
