@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 08:00:14 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 09:10:20 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head);
 void	remove_empty_first(t_lexer **tokens, t_lexer **head);
 void	free_node(t_lexer *tokens);
 void	remove_empty_last(t_lexer **tokens, t_lexer **prev);
-int	expand_singl(char *token, int *i, char **str);
-int	expand_doubl(char *token, int *i, char **str, t_envp *env);
+int		expand_singl(char *token, int *i, char **str);
+int		expand_doubl(char *token, int *i, char **str, t_envp *env);
+int		expand_dolar(char *token, int *i, char **str, t_envp *env);
 #endif

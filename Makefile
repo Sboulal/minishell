@@ -23,6 +23,7 @@ SRC = 	main.c\
 		expansion/expand_utils.c\
 		expansion/expand_norm.c\
 		expansion/expand_norm_2.c\
+		expansion/utils.c\
 		parser/parsing.c\
 		parser/herdoc_utils_2.c\
 		parser/herdoc_utils.c\
