@@ -21,6 +21,8 @@ SRC = 	main.c\
 		expansion/expand_norm.c\
 		expansion/expand_norm_2.c\
 		parser/parsing.c\
+		parser/herdoc_utils_2.c\
+		parser/herdoc_utils.c\
 		parser/chekcs_words.c\
 		parser/enviroment.c\
 		parser/fill_cmd_to_execute.c\

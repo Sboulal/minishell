@@ -3,129 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   herdoc.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 18:51:21 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:08:24 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:17:12 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	is_expand(char **limiter)
-{
-	if (contains(*limiter, '"') || contains(*limiter, '\''))
-	{
-		*limiter = quotes_removal(*limiter);
-		return (0);
-	}
-	return (1);
-}
-
-void	change_flag(int s)
-{
-	(void)s;
-	g_var.heredoc_flag = dup(0);
-	close(0);
-}
-
-int	handle_heredoc_suite(t_mini *cmd, char *limiter, char *file, int fd)
-{
-	close(fd);
-	(void)limiter;
-	fd = open(file, O_RDONLY, 0);
-	if (fd == -1)
-		return (0);
-	cmd->fd[0] = fd;
-	free(file);
-	return (1);
-}
-
-void	check_heredoc(void)
-{
-	if (g_var.heredoc_flag)
-	{
-		ft_dup2(g_var.heredoc_flag, 0);
-		ft_close(g_var.heredoc_flag);
-		g_var.status = 1;
-	}
-}
-
-void	ft_dup2(int oldfd, int newfd)
-{
-	if (dup2(oldfd, newfd) == -1)
-		ft_putstr_fd("error", 2);
-}
-
-void	sigint_heredoc(void)
-{
-	struct sigaction	sa_sigint;
-
-	sa_sigint.sa_handler = &change_flag;
-	sigaction(SIGINT, &sa_sigint, NULL);
-}
-
-int	close_her(void)
-{
-	int	fd;
-
-	fd = open("/dev/stdin", O_RDONLY);
-	if (fd == -1)
-	{
-		dup2(1, 0);
-		return (0);
-	}
-	return (close(fd), 1);
-}
-int	handle_heredoc_nor(char *line, char *limiter, t_mini *cmd, int *fd)
-{
-	if (!line || !ft_memcmp(line, limiter, ft_strlen(line) + 1))
-	{
-		if (line)
-			free(line);
-		cmd->fd[0] = fd[0];
-		close(fd[1]);
-		return (1);
-	}
-	return (0);
-}
-int	handle_nor(char **line, int *fd)
-{
-	char	*joined_line;
-
-	joined_line = ft_strjoin2(*line, "\n");
-	if (write(fd[1], joined_line, ft_strlen(joined_line)) < 0)
-		return (-1);
-	free(joined_line);
-	*line = NULL;
-	return (0);
-}
-int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
-{
-	int		expand_mode;
-	char	*line;
-	int		fd[2];
-
-	free(file);
-	if (ft_pipe(fd))
-		return (-1);
-	while (1)
-	{
-		sigint_heredoc();
-		line = readline("> ");
-		if (!close_her())
-			break ;
-		if (handle_heredoc_nor(line, limiter, cmd, fd))
-			return (1);
-		expand_mode = is_expand(&limiter);
-		if (expand_mode && line)
-			line = heredoc_expansion(line, env);
-		if (handle_nor(&line, fd) == -1)
-			return (-1);
-	}
-	close(fd[0]);
-	return (close(fd[1]), 1);
-}
 
 void	ft_close(int fd)
 {

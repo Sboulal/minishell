@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 01:43:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:19:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,4 +155,9 @@ int		expand_exit_null(char *token, int *i, char **str);
 int		expand_do(char *token, int *i, char **str, t_envp *env);
 int		expand_doubl(char *token, int *i, char **str, t_envp *env);
 int		expand_do_nor(char *token, int **i, char **str);
+t_list	*cmd_list(t_lexer *tokens);
+void	cmd_repl_nor(t_mini **cmd, t_list	**list);
+t_list	*cmd_repl(t_lexer *tokens, t_mini **cmd, int *i);
+t_mini	*arg_repl(t_list *list, int i, t_mini **cmd);
+void	ft_lstclear(t_list **lst);
 #endif
