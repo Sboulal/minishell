@@ -3,38 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:57:02 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 00:27:50 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:18:26 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lexer.h"
 
-t_lexer *create_node(char *s)
+t_lexer	*create_node(char *s)
 {
-	t_lexer *p;
-	
+	t_lexer	*p;
+
 	p = ft_calloc(sizeof(t_lexer));
 	p->token = ft_strdup(s);
 	p->type = check_token(s);
-	return(p);
+	return (p);
 }
 
-void add_back(t_lexer **head, char *s)
+void	add_back(t_lexer **head, char *s)
 {
-	t_lexer *p;
-	t_lexer *i;
+	t_lexer	*p;
+	t_lexer	*i;
 
 	i = *head;
 	p = create_node(s);
-	if(i == NULL)
+	if (i == NULL)
 	{
 		*head = p;
 		return ;
 	}
-	while(i->next)
+	while (i->next)
 		i = i->next;
 	i->next = p;
 }

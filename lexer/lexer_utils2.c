@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:50:51 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:19:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../includes/lexer.h"
+#include "../includes/lexer.h"
 
 int	check_token(char *s)
 {
-		size_t	i;
+	size_t	i;
 
 	i = 0;
 	if (!s)

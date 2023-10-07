@@ -10,6 +10,8 @@ SRC = 	main.c\
 		lexer/lexer_util.c\
 		lexer/lexer.c\
 		lexer/checks.c\
+		lexer/checks_utils2.c\
+		lexer/checks_utils.c\
 		lexer/linked_list.c\
 		lexer/linked_list2.c\
 		lexer/lexer_utils2.c\

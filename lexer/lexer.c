@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 13:09:34 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/05 21:24:10 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:17:59 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_operator(char c)
 {
-	if (c == '&'  || c == '(')
+	if (c == '&' || c == '(')
 		return (1);
 	if (c == ')' || c == '>' || c == '<')
 		return (1);
@@ -40,11 +40,11 @@ int	position_of_operator(char *s)
 }
 
 void	free_tokens(t_lexer *tokens)
-{	
+{
 	t_lexer	*prev;
 	t_lexer	*head;
 
-   	if (!tokens)
+	if (!tokens)
 		return ;
 	while (tokens)
 	{
@@ -63,6 +63,7 @@ void	free_tokens(t_lexer *tokens)
 		tokens = head;
 	}
 }
+
 void	free_all(t_lexer *tokens)
 {
 	t_lexer	*prev;
