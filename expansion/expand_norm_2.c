@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:53:23 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 09:09:09 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:25:48 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,15 @@ t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 	{
 		if (*(tokens->token) == 0)
 		{
-			remove_empty_norm(&tokens, &prev, &head);
+			if (tokens->am == 1)
+			{
+				if (tokens->token)
+					free(tokens->token);
+				tokens->token = ft_strdup("");
+				tokens = tokens->next;
+			}
+			else
+				remove_empty_norm(&tokens, &prev, &head);
 		}
 		else
 		{

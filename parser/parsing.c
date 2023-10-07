@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 05:49:33 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:28:02 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ t_lexer	*parse_norm(char *str)
 	}
 	lexer = skip_op(string);
 	tabfree(string);
+	add_ambg(&lexer);
 	return (lexer);
 }
 

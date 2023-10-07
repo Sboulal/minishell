@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:57:02 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 03:45:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:28:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_lexer	*create_node(char *s)
 	p->token = ft_strdup(s);
 	p->type = check_token(s);
 	p->y = 0;
+	p->am = 0;
+	p->next = NULL;
 	return (p);
 }
 
@@ -48,4 +50,23 @@ void	add_middle(t_lexer *token, char *word)
 	p->type = WORD;
 	p->next = token->next;
 	token->next = p;
+}
+
+void	add_ambg(t_lexer **lexer)
+{
+	t_lexer	*tmp;
+	t_lexer	*prv;
+
+	prv = NULL;
+	tmp = *lexer;
+	while (tmp)
+	{
+		if (prv)
+		{
+			if (prv->type == REDIRECTION && tmp->type == WORD)
+				tmp->am = 1;
+		}
+		prv = tmp;
+		tmp = tmp->next;
+	}
 }

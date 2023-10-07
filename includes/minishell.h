@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 09:10:20 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:29:38 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ typedef struct s_lexer
 	char			*token;
 	int				type;
 	int				y;
+	char			*str;
+	int				am;
 	int				pipe[2];
 	struct s_lexer	*next;
 }t_lexer;
@@ -186,4 +188,5 @@ void	remove_empty_last(t_lexer **tokens, t_lexer **prev);
 int		expand_singl(char *token, int *i, char **str);
 int		expand_doubl(char *token, int *i, char **str, t_envp *env);
 int		expand_dolar(char *token, int *i, char **str, t_envp *env);
+void	add_ambg(t_lexer **lexer);
 #endif

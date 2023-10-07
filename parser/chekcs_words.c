@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:24:58 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:20:51 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:27:17 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ int	handle_redirection(t_mini *cmd, t_lexer *tokens, t_envp *env)
 		{
 			if (!tokens->next)
 				return (0);
-			status = redirect(cmd, tokens->token, (tokens->next)->token, env);
+			else
+				status = redirect(cmd, tokens->token, \
+					(tokens->next)->token, env);
 			if (!status || status == -1)
 				return (status);
 			tokens = tokens->next;
