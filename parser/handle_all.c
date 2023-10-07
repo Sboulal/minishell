@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:21:31 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:21:24 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:53:26 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,12 @@ t_mini	*handle_cmd(t_mini *cmd, t_lexer *tokens)
 	}
 	ft_lstclear(&list);
 	return (cmd);
+}
+
+void	sigint_heredoc(void)
+{
+	struct sigaction	sa_sigint;
+
+	sa_sigint.sa_handler = &change_flag;
+	sigaction(SIGINT, &sa_sigint, NULL);
 }

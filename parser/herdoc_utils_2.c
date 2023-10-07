@@ -6,19 +6,11 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:16:36 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 05:42:11 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 11:54:01 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	sigint_heredoc(void)
-{
-	struct sigaction	sa_sigint;
-
-	sa_sigint.sa_handler = &change_flag;
-	sigaction(SIGINT, &sa_sigint, NULL);
-}
 
 int	close_her(void)
 {
@@ -58,6 +50,25 @@ int	handle_nor(char **line, int *fd)
 	return (0);
 }
 
+char	*expand_herd(char *token, t_envp *env)
+{
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = ft_strdup("");
+	while (token[i])
+	{
+		if (!expand_do(token, &i, &str, env))
+			continue ;
+		else if (expand_do(token, &i, &str, env) == 2)
+			break ;
+		str = ft_strjoin3(str, to_string(token[i]));
+		i++;
+	}
+	return (free(token), str);
+}
+
 int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 {
 	int		expand_mode;
@@ -77,7 +88,7 @@ int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env)
 		if (handle_heredoc_nor(line, limiter, cmd, fd))
 			return (free(limiter), 1);
 		if (expand_mode && line)
-			line = heredoc_expansion(line, env);
+			line = expand_herd(line, env);
 		if (handle_nor(&line, fd) == -1)
 			return (free(limiter), -1);
 	}
