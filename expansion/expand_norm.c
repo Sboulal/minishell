@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:52:20 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:07:15 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 04:03:54 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,42 @@ int	expand_doubl(char *token, int *i, char **str, t_envp *env)
 	return (0);
 }
 
-char	*get_name(char *token, t_envp *env)
+char	*get_name(char *token, t_envp *env, t_lexer *tokens)
 {
 	int		i;
 	char	*str;
 
-	i = 0;
+	i = -1;
 	str = ft_strdup("");
-	while (token[i])
+	while (token[++i])
 	{
 		if (expand_exit(token, &i, &str))
 			continue ;
 		if (expand_exit_null(token, &i, &str))
 			continue ;
 		if (expand_singl(token, &i, &str))
+		{
+			tokens->y = 1;
 			continue ;
+		}
 		if (expand_doubl(token, &i, &str, env))
+		{
+			tokens->y = 1;
 			continue ;
+		}
 		if (!expand_do(token, &i, &str, env))
+		{
+			tokens->y = 2;
 			continue ;
+		}
 		else if (expand_do(token, &i, &str, env) == 2)
+		{
+			tokens->y = 2;
 			break ;
+		}
 		str = ft_strjoin3(str, to_string(token[i]));
-		i++;
 	}
-	free(token);
-	return (str);
+	return (free(token), str);
 }
 
 int	replace_before_name(char *new_token, char *token)

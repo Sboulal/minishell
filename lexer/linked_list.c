@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:57:02 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:05:25 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 03:45:31 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_lexer	*create_node(char *s)
 	p = ft_calloc(sizeof(t_lexer)); 
 	p->token = ft_strdup(s);
 	p->type = check_token(s);
+	p->y = 0;
 	return (p);
 }
 

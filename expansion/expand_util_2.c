@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:38:11 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:06:55 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 03:50:13 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_lexer	*expand_lexer(t_lexer *tokens, t_envp *env)
 		if (token->type == WORD)
 		{
 			token = word_spliting(token);
-			token->token = get_name(token->token, env);
+			token->token = get_name(token->token, env, token);
 		}
 		token = token->next;
 	}

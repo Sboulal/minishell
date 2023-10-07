@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 02:44:38 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 03:54:56 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_lexer
 {
 	char			*token;
 	int				type;
+	int 			y;
 	int				pipe[2];
 	struct s_lexer	*next;
 }t_lexer;
@@ -120,7 +121,7 @@ int		ft_open(char *path, int flags, int mode);
 t_lexer	*expand_lexer(t_lexer *our_lexer, t_envp *env);
 char	*quotes_removal(char *token);
 char	*trim_quotes(char *token, int quotes_len);
-char	*get_name(char *tok, t_envp *env);
+char	*get_name(char *tok, t_envp *env, t_lexer *tokens);
 int		get_name_len(char *token, int i);
 char	*get_env_value(char *name, t_envp *env);
 char	*get_name_here(char *token);
