@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   checks_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:11:43 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 01:13:40 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:03:36 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 int	check_invalid_operator(t_lexer *lexer)
 {

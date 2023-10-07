@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 13:45:16 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 01:17:12 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:57:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 int	next_quote(int i, char quote, char *str)
 {

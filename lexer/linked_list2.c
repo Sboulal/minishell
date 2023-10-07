@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 20:03:16 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/28 20:58:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:05:42 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 void	init_values(int *flag, int *i, int *count, int *q)
 {

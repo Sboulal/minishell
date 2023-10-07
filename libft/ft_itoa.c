@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 17:01:06 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/12 22:40:15 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:10:59 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 static char	*check_n(int nb)
 {

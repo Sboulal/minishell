@@ -6,19 +6,17 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 20:56:44 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/28 21:30:01 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:15:08 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 char	*ft_strdup(const char	*str)
 {
-	// int		i;
 	int		len;
 	char	*s;
 
-	// i = 0;
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str);

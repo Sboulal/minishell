@@ -6,11 +6,12 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 16:47:16 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 03:56:13 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:13:56 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
 void	ft_putstr_fd(char *s, int fd)
 {
 	if (s == 0)

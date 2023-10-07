@@ -6,36 +6,13 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 17:18:11 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 01:35:28 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:06:50 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-static int	ft_isspace(char s)
+static	int	ft_isspace(char s)
 {
 	if (s == '\t' || s == '\v'
 		|| s == '\r' || s == '\f'
@@ -44,7 +21,7 @@ static int	ft_isspace(char s)
 	return (0);
 }
 
-static int	ft_handel(long temp, long res, long sign)
+static	int	ft_handel(long temp, long res, long sign)
 {
 	if (res / 10 != temp)
 	{

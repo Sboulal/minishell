@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:53:23 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 00:53:56 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:07:26 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 int	expand_do(char *token, int *i, char **str, t_envp *env)
 {

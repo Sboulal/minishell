@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:38:11 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 00:39:42 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:06:55 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 void	remove_quote_else(char **str, int *i, char **src)
 {

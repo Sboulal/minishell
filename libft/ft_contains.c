@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 15:01:26 by saboulal          #+#    #+#             */
-/*   Updated: 2023/09/13 15:01:46 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:10:47 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "libft.h"
 
 int	contains(char *s, char c)
 {

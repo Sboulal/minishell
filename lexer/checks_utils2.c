@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   checks_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:13:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 01:19:33 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:03:24 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 int	ft_pipe(int *fd)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 11:48:35 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 01:24:29 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:51:36 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define READ_END 0
 # define WRITE_END 1
 # include <stdio.h>
-# include "lexer.h"
+# include "minishell.h"
 # include "../libft/libft.h"
 # include <unistd.h>
 # include "readline/readline.h"

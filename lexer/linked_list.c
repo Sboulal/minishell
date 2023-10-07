@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   linked_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:57:02 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 01:18:26 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:05:25 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lexer.h"
+#include "../includes/minishell.h"
 
 t_lexer	*create_node(char *s)
 {
 	t_lexer	*p;
 
-	p = ft_calloc(sizeof(t_lexer));
+	p = ft_calloc(sizeof(t_lexer)); 
 	p->token = ft_strdup(s);
 	p->type = check_token(s);
 	return (p);

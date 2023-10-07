@@ -6,11 +6,11 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/30 11:12:22 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 20:52:31 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:02:48 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/lexer.h"
+#include "includes/minishell.h"
 #include "includes/exec.h"
 
 t_global	g_var;

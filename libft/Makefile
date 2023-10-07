@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+         #
+#    By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/10 17:01:31 by saboulal          #+#    #+#              #
-#    Updated: 2023/09/19 21:22:14 by nkhoudro         ###   ########.fr        #
+#    Updated: 2023/10/07 01:38:24 by saboulal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS = ft_atoi.c \
     ft_strdup.c \
     ft_striteri.c \
     ft_strjoin.c \
+    ft_strjoin_free.c \
     ft_strjoin_sep.c \
     ft_strlcat.c \
     ft_strlcpy.c \

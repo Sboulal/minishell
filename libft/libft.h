@@ -6,16 +6,16 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/12 21:31:05 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/06 20:07:22 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 01:49:35 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-# include<unistd.h>
-# include<stddef.h>
-# include<stdio.h>
-# include<stdlib.h>
+# include <unistd.h>
+# include <stddef.h>
+# include <stdio.h>
+# include <stdlib.h>
 
 size_t	ft_strlen(const char *str);
 int		ft_toupper(int a);
@@ -48,7 +48,7 @@ void	ft_putnbr_fd(int nb, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 char	*ft_strmapi(char const *s, char (*f) (unsigned int, char));
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char	*s1, char	*s2);
 char	*ft_strjoin2(char	*s1, char	*s2);
 char	*ft_strjoin3(char	*s1, char	*s2);
 char	*ft_strjoin_sep(char *s1, char *s2, char sep);
@@ -56,6 +56,8 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 int		ft_atoi(const char *str);
 void	ft_bzero( void *s, size_t n);
+int		norm_s(char *s1, char *s2);
+int		norm_3(char *s, char *s1);
 
 typedef struct s_list
 {
