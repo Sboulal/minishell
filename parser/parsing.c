@@ -6,7 +6,7 @@
 /*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 16:49:39 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 02:07:42 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 03:23:23 by saboulal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,23 @@ t_lexer	*parse_norm(char *str)
 	if (string == NULL)
 	{
 		g_var.status = 258;
-		ft_putstr_fd("minishell : syntax error\n", 2);
+		ft_putstr_fd("minishell:", 2);
+		ft_putstr_fd(" syntax error near unexpected token", 2);
+		ft_putstr_fd("\n", 2);
 		tabfree(string);
 		return (NULL);
 	}
 	lexer = skip_op(string);
 	tabfree(string);
 	return (lexer);
+}
+
+void	error_print(void)
+{
+	g_var.status = 258;
+	ft_putstr_fd("minishell:", 2);
+	ft_putstr_fd(" syntax error near unexpected token", 2);
+	ft_putstr_fd("\n", 2);
 }
 
 t_mini	*parse(char *str, t_envp *env)
@@ -90,9 +100,8 @@ t_mini	*parse(char *str, t_envp *env)
 	lexer = parse_norm(str);
 	if (!check_parse(lexer))
 	{
-		g_var.status = 258;
+		error_print();
 		free_tokens(lexer);
-		ft_putstr_fd("minishell : syntax error\n", 2);
 		return (NULL);
 	}
 	token_herdoc(lexer);
