@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 02:31:17 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 02:44:38 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,4 +158,17 @@ void	cmd_repl_nor(t_mini **cmd, t_list	**list);
 t_list	*cmd_repl(t_lexer *tokens, t_mini **cmd, int *i);
 t_mini	*arg_repl(t_list *list, int i, t_mini **cmd);
 void	ft_lstclear(t_list **lst);
+int		cmt_string(char **env);
+char	**creat_string_env(char **env);
+int		check_line(int ac, char **av);
+int		check_env(t_exec *exec, char **env, int	*k);
+int		exec_part(t_exec *exec, char **env);
+void	check_fd(t_mini *head, t_exec *exec, char *bas);
+int		ft_read(char *line);
+void	clear_end(t_exec	*exec);
+int		is_isspace(char c);
+void	ft_lstclear_cmd(t_mini **lst);
+void	ft_lstclear_exp(t_export **lst);
+void	ft_lstclear_env(t_envp **lst);
+void	ft_add_history(char *bas);
 #endif

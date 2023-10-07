@@ -7,6 +7,9 @@ RLFLAGES = -lreadline -lhistory -L/Users/$(USER)/.brew/opt/readline/lib
 #L = -L/Users/saboulal/.brew/opt/readline/lib
 #I = -I/Users/saboulal/.brew/opt/readline/include
 SRC = 	main.c\
+	 	utils.c\
+	 	utils_2.c\
+	 	utils_3.c\
 		lexer/lexer_util.c\
 		lexer/lexer.c\
 		lexer/checks.c\
