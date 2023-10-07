@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:53:23 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 05:54:30 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:25:11 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,50 @@ t_lexer	*remove_empty_tokens(t_lexer *tokens, t_lexer *head, t_lexer *prev)
 		}
 	}
 	return (head);
+}
+
+char	*get_env_value(char *name, t_envp *env)
+{
+	t_envp	*tmp;
+
+	tmp = env;
+	if (*name == '?')
+		return (ft_itoa(g_var.sig_status));
+	if (!tmp)
+		return (NULL);
+	while (tmp)
+	{
+		if (!ft_strcmp(tmp->variable, name))
+		{
+			if (tmp->value)
+				return (ft_strdup(tmp->value));
+			return (ft_strdup(""));
+		}
+		tmp = tmp->next;
+	}
+	return (ft_strdup(""));
+}
+
+void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head)
+{
+	if (*prev == NULL)
+		remove_empty_first(tokens, head);
+	else if (!(*tokens)->next)
+		remove_empty_last(tokens, prev);
+	else
+	{
+		if ((*tokens)->y == 1)
+		{
+			if ((*tokens)->token)
+				free((*tokens)->token);
+			(*tokens)->token = ft_strdup("");
+			(*tokens) = (*tokens)->next;
+		}
+		else
+		{
+			(*prev)->next = (*tokens)->next;
+			free_node((*tokens));
+			(*tokens) = (*prev)->next;
+		}
+	}
 }

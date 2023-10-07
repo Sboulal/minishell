@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:41:47 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 06:06:18 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:18:19 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@
 # define READ_END 0
 # define WRITE_END 1
 # define FILE 5
-
 
 typedef struct s_gn
 {

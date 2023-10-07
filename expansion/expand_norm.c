@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:52:20 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 06:11:50 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:18:46 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	expand_doubl(char *token, int *i, char **str, t_envp *env)
 	return (0);
 }
 
-int get_name_u(char *token, t_envp *env, t_lexer *tokens, t_gn *gn)
+int	get_name_u(char *token, t_envp *env, t_lexer *tokens, t_gn *gn)
 {
 	if (expand_exit(token, &gn->i, &gn->str))
 		return (1);
@@ -117,26 +117,4 @@ int	replace_before_name(char *new_token, char *token)
 		i++;
 	}
 	return (i);
-}
-
-char	*get_env_value(char *name, t_envp *env)
-{
-	t_envp	*tmp;
-
-	tmp = env;
-	if (*name == '?')
-		return (ft_itoa(g_var.sig_status));
-	if (!tmp)
-		return (NULL);
-	while (tmp)
-	{
-		if (!ft_strcmp(tmp->variable, name))
-		{
-			if (tmp->value)
-				return (ft_strdup(tmp->value));
-			return (ft_strdup(""));
-		}
-		tmp = tmp->next;
-	}
-	return (ft_strdup(""));
 }

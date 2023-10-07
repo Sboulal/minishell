@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 05:53:58 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 06:25:05 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,83 +71,41 @@ void	free_node(t_lexer *tokens)
 	tokens = NULL;
 }
 
-void	remove_empty_first(t_lexer **tokens, t_lexer **prev, t_lexer **head)
+void	
+
+void	remove_empty_first(t_lexer **tokens, t_lexer **head)
 {
 	t_lexer	*tmp;
 
-	(void)prev;
-	if (!(*tokens)->next || (*tokens)->type == LIMITER)
+	if ((*tokens)->y == 1)
 	{
-		if ((*tokens)->y == 1)
-		{
-			if ((*tokens)->token)
-				free((*tokens)->token);
-			(*tokens)->token = ft_strdup("");
-			(*tokens) = (*tokens)->next;
-		}
-		else 
-		{
-			tmp = (*tokens)->next;
-			free_node((*tokens));
-			(*tokens) = tmp;
-			(*head) = (*tokens);
-		}
+		if ((*tokens)->token)
+			free((*tokens)->token);
+		(*tokens)->token = ft_strdup("");
+		(*tokens) = (*tokens)->next;
 	}
-	else
+	else 
 	{
-		if ((*tokens)->y == 1)
-		{
-			if ((*tokens)->token)
-				free((*tokens)->token);
-			(*tokens)->token = ft_strdup("");
-			(*tokens) = (*tokens)->next;
-		}
-		else 
-		{
-			tmp = (*tokens)->next;
-			free_node((*tokens));
-			(*tokens) = tmp;
-			(*head) = (*tokens);
-		}
+		tmp = (*tokens)->next;
+		free_node((*tokens));
+		(*tokens) = tmp;
+		(*head) = (*tokens);
 	}
 }
 
-void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head)
+void	remove_empty_last(t_lexer **tokens, t_lexer **prev)
 {
-	if (*prev == NULL)
+	if ((*tokens)->y == 1)
 	{
-		remove_empty_first(tokens, prev, head);
-	}
-	else if (!(*tokens)->next)
-	{
-		if ((*tokens)->y == 1)
-		{
-			if ((*tokens)->token)
-				free((*tokens)->token);
-			(*tokens)->token = ft_strdup("");
-			(*tokens) = (*tokens)->next;
-		}
-		else
-		{
-			free_node((*tokens));
-			(*prev)->next = NULL;
-			(*tokens) = (*prev)->next;
-		}
+		if ((*tokens)->token)
+			free((*tokens)->token);
+		(*tokens)->token = ft_strdup("");
+		(*tokens) = (*tokens)->next;
 	}
 	else
 	{
-		if ((*tokens)->y == 1)
-		{
-			if ((*tokens)->token)
-				free((*tokens)->token);
-			(*tokens)->token = ft_strdup("");
-			(*tokens) = (*tokens)->next;
-		}
-		else
-		{
-			(*prev)->next = (*tokens)->next;
-			free_node((*tokens));
-			(*tokens) = (*prev)->next;
-		}
+		free_node((*tokens));
+		(*prev)->next = NULL;
+		(*tokens) = (*prev)->next;
 	}
 }
