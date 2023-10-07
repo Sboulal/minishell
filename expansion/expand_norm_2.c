@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:53:23 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 08:15:55 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 08:47:01 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,27 @@ int	expand_do(char *token, int *i, char **str, t_envp *env)
 		(*i)++;
 		if (expand_singl(token, i, str) == 1)
 			return (0);
+		k = *i;
 		if (expand_doubl(token, i, str, env) == 1)
 		{
-			val = get_env_value(*str, env);
-			if (ft_strlen(val) != 0)
+			key = ft_substr(token, k + 1, (*i) - k - 2);
+			val = get_env_value(key, env);
+			if (ft_strcmp(*str, key) == 0)
+			{
+				if (*str)
+					free(*str);
+				free(key);
 				*str = ft_strdup(val);
+				free(val);
+			}
+			else
+			{
+				free(key);
+				key = ft_substr(*str, 0, ft_strlen(*str) - ft_strlen(key));
+				if (*str)
+					free(*str);
+				*str = ft_strjoin3(key, val);
+			}
 			return (0);
 		}
 		if (expand_do_nor(token, &i, str) == 0)
