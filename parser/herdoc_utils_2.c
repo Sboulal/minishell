@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 02:16:36 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 11:54:01 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 12:09:12 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ char	*expand_herd(char *token, t_envp *env)
 	str = ft_strdup("");
 	while (token[i])
 	{
+		if (token[i] == '$' && (token[i + 1] == '\'' || token[i + 1] == '\"'))
+		{
+			str = ft_strjoin3(str, to_string(token[i]));
+			i++;
+		}
 		if (!expand_do(token, &i, &str, env))
 			continue ;
 		else if (expand_do(token, &i, &str, env) == 2)
