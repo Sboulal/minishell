@@ -16,6 +16,8 @@ SRC = 	main.c\
 		expansion/expand.c\
 		expansion/expand_util_2.c\
 		expansion/expand_utils.c\
+		expansion/expand_norm.c\
+		expansion/expand_norm_2.c\
 		parser/parsing.c\
 		parser/chekcs_words.c\
 		parser/enviroment.c\

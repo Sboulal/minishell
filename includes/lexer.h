@@ -166,4 +166,13 @@ void	check_heredoc(void);
 int	handle_heredoc(t_mini *cmd, char *limiter, char *file, t_envp *env);
 int	word_split_count(char *line);
 t_lexer	*word_spliting(t_lexer *token);
+void	remove_quote_d(char **str, int *i, char **src);
+void	remove_quote_s(char **str, int *i, char **src);
+char	*to_string(char c);
+char	*get_name_quot(char *token, t_envp *env);
+int	expand_exit(char *token, int *i, char **str);
+int	expand_exit_null(char *token, int *i, char **str);
+int	expand_do(char *token, int *i, char **str, t_envp *env);
+int	expand_doubl(char *token, int *i, char **str, t_envp *env);
+int	expand_do_nor(char *token, int **i, char **str);
 #endif
