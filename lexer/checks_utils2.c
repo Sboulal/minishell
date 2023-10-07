@@ -6,7 +6,7 @@
 /*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 01:13:28 by nkhoudro          #+#    #+#             */
-/*   Updated: 2023/10/07 09:47:48 by nkhoudro         ###   ########.fr       */
+/*   Updated: 2023/10/07 10:15:41 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,7 @@ int	ft_open(char *path, int flags, int mode)
 
 	fd = open(path, flags, mode);
 	if (fd == -1)
-	{
 		ft_putstr_fd("minishell: ", 2);
-		// perror(path);
-	}
 	return (fd);
 }
 
