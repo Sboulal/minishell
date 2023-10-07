@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_norm.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 00:52:20 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 04:03:54 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 04:30:47 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ char	*get_name(char *token, t_envp *env, t_lexer *tokens)
 	int		i;
 	char	*str;
 
-	i = -1;
+	i = 0;
 	str = ft_strdup("");
-	while (token[++i])
+	while (token[i])
 	{
 		if (expand_exit(token, &i, &str))
 			continue ;
@@ -87,6 +87,7 @@ char	*get_name(char *token, t_envp *env, t_lexer *tokens)
 			break ;
 		}
 		str = ft_strjoin3(str, to_string(token[i]));
+		i++;
 	}
 	return (free(token), str);
 }

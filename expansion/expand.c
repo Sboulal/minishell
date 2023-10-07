@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: saboulal  <saboulal@student.1337.ma>       +#+  +:+       +#+        */
+/*   By: nkhoudro <nkhoudro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 14:32:32 by saboulal          #+#    #+#             */
-/*   Updated: 2023/10/07 04:19:53 by saboulal         ###   ########.fr       */
+/*   Updated: 2023/10/07 05:28:50 by nkhoudro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,42 +62,59 @@ char	*quotes_removal(char *token)
 	return (trim_quotes(token, quotes_len));
 }
 
+void free_node(t_lexer *tokens)
+{
+	if (tokens->token)
+		free(tokens->token);
+	tokens->token = NULL;
+	free(tokens);
+	tokens = NULL;	
+		
+}
+
 void	remove_empty_first(t_lexer **tokens, t_lexer **prev, t_lexer **head)
 {
+
+	(void)prev;
+	t_lexer	*tmp;
 	if (!(*tokens)->next || (*tokens)->type == LIMITER)
 	{
 		if ((*tokens)->y == 1)
 		{
+			if ((*tokens)->token)
+				free((*tokens)->token);
 			(*tokens)->token = ft_strdup("");
 			(*tokens) = (*tokens)->next;
 		}
 		else 
 		{
-			*head = (*tokens)->next;
-			free_token_word((*tokens), (*tokens)->token);
-			*tokens = *head; // ??
-			
+			tmp = (*tokens)->next;
+			free_node((*tokens));
+			(*tokens) = tmp;
+			(*head) = (*tokens);
 		}
 	}
 	else
 	{
 		if ((*tokens)->y == 1)
 		{
+			if ((*tokens)->token)
+				free((*tokens)->token);
 			(*tokens)->token = ft_strdup("");
 			(*tokens) = (*tokens)->next;
 		}
 		else 
 		{
-			(*tokens)->token = NULL;
-			*prev = (*tokens);
-			(*tokens) = (*prev)->next;
+			tmp = (*tokens)->next;
+			free_node((*tokens));
+			(*tokens) = tmp;
+			(*head) = (*tokens);
 		}
 	}
 }
 
 void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head)
 {
-	
 	if (*prev == NULL)
 	{
 		remove_empty_first(tokens, prev, head);
@@ -106,13 +123,15 @@ void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head)
 	{
 		if ((*tokens)->y == 1)
 		{
+			if ((*tokens)->token)
+				free((*tokens)->token);
 			(*tokens)->token = ft_strdup("");
 			(*tokens) = (*tokens)->next;
 		}
 		else
 		{
-			(*prev)->next = (*tokens)->next;
-			free_token_word((*tokens), (*tokens)->token);
+			free_node((*tokens));
+			(*prev)->next = NULL;
 			(*tokens) = (*prev)->next;
 		}
 	}
@@ -120,14 +139,17 @@ void	remove_empty_norm(t_lexer **tokens, t_lexer **prev, t_lexer **head)
 	{
 		if ((*tokens)->y == 1)
 		{
+			if ((*tokens)->token)
+				free((*tokens)->token);
 			(*tokens)->token = ft_strdup("");
 			(*tokens) = (*tokens)->next;
 		}
 		else
 		{
-			(*tokens)->token = NULL;
-			*prev = *tokens;
-			*tokens = (*prev)->next;
+			(*prev)->next = (*tokens)->next;
+			free_node((*tokens));
+			(*tokens) = (*prev)->next;
+					
 		}
 	}
 }
