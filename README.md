@@ -1,3 +1,5 @@
+# minishell 🖥️
+
 📋 Overview
 minishell is a custom shell implementation that replicates core functionalities of bash. This project demonstrates advanced C programming concepts including process creation, signal handling, and command parsing. The shell provides an interactive command-line interface with built-in commands and external program execution capabilities.
 ✨ Features
